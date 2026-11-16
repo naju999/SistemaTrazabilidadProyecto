@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaTrazabilidad.Application\SistemaTrazabilidad.Application.csproj" />
+    <ProjectReference Include="..\SistemaTrazabilidad.Shared\SistemaTrazabilidad.Shared.csproj" />
+    <ProjectReference Include="..\SistemaTrazabilidad.Persistence\SistemaTrazabilidad.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <Content Include="..\..\appsettings.json" Link="appsettings.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
+  </ItemGroup> 
+
+  <ItemGroup>
+    <Page Remove="Views\AlertListView.xaml" />
+    <Page Remove="Views\PurchaseDetailWindow.xaml" />
+    <Page Remove="Views\PurchaseListView.xaml" />
+    <Page Remove="Views\SupplierDetailWindow.xaml" />
+    <Page Remove="Views\SupplierListView.xaml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\bin\Debug\net8.0\SistemaTrazabilidad.Shared.deps.json
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\bin\Debug\net8.0\SistemaTrazabilidad.Shared.dll
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\bin\Debug\net8.0\SistemaTrazabilidad.Shared.pdb
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.AssemblyInfoInputs.cache
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.AssemblyInfo.cs
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.csproj.CoreCompileInputs.cache
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.dll
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\refint\SistemaTrazabilidad.Shared.dll
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.pdb
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\ref\SistemaTrazabilidad.Shared.dll
+C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Shared.deps.json
+C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Shared.dll
+C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Shared.pdb

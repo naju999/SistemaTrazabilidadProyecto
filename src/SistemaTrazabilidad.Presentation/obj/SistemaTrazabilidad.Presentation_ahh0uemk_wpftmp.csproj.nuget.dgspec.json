@@ -1,0 +1,530 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Presentation\\SistemaTrazabilidad.Presentation.csproj": {}
+  },
+  "projects": {
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Application\\SistemaTrazabilidad.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Application\\SistemaTrazabilidad.Application.csproj",
+        "projectName": "SistemaTrazabilidad.Application",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Application\\SistemaTrazabilidad.Application.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj",
+        "projectName": "SistemaTrazabilidad.Domain",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj",
+        "projectName": "SistemaTrazabilidad.Infrastructure",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj",
+        "projectName": "SistemaTrazabilidad.Persistence",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Domain\\SistemaTrazabilidad.Domain.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Infrastructure\\SistemaTrazabilidad.Infrastructure.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Presentation\\SistemaTrazabilidad.Presentation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Presentation\\SistemaTrazabilidad.Presentation.csproj",
+        "projectName": "SistemaTrazabilidad.Presentation",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Presentation\\SistemaTrazabilidad.Presentation.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Presentation\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Application\\SistemaTrazabilidad.Application.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Application\\SistemaTrazabilidad.Application.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Persistence\\SistemaTrazabilidad.Persistence.csproj"
+              },
+              "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj": {
+                "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.2, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Serilog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj",
+        "projectName": "SistemaTrazabilidad.Shared",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\SistemaTrazabilidad.Shared.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj",
+        "projectName": "SistemaTrazabilidad.Utilities",
+        "projectPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\SistemaTrazabilidad.Utilities.csproj",
+        "packagesPath": "C:\\Users\\juanp\\.nuget\\packages\\",
+        "outputPath": "D:\\Universidad\\Software\\SistemaTrazabilidadProyecto\\src\\SistemaTrazabilidad.Utilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\juanp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

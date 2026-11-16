@@ -1,0 +1,79 @@
+<UserControl x:Class="SistemaTrazabilidad.Presentation.Views.SanitaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="#F4F7FA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Background="White" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="24,22">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="🧪 CONTROL SANITARIO" Style="{StaticResource ModuleHeaderTitleStyle}"/>
+                    <TextBlock Text="Registro de inocuidad para materias primas, proceso y condiciones de elaboración." Style="{StaticResource ModuleSubtitleStyle}"/>
+                </StackPanel>
+                <Button Content="➕ Nuevo registro" Style="{StaticResource SuccessButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Click="NuevoRegistroSanitario_Click"/>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1" Margin="24,20,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource CardBorderStyle}" BorderBrush="#CDEEDB" Padding="16" Margin="0,0,8,0">
+                <StackPanel><TextBlock Text="Registros aprobados" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding ApprovedCount}" Style="{StaticResource KpiValueStyle}" Foreground="#169B62"/></StackPanel>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource CardBorderStyle}" BorderBrush="#F7D1CC" Padding="16" Margin="8,0">
+                <StackPanel><TextBlock Text="Requieren revisión" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding ReviewCount}" Style="{StaticResource KpiValueStyle}" Foreground="#E45B48"/></StackPanel>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource CardBorderStyle}" BorderBrush="#B6D7FF" Padding="16" Margin="8,0,0,0">
+                <StackPanel><TextBlock Text="Controles últimos 7 días" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding RecentCount}" Style="{StaticResource KpiValueStyle}" Foreground="#086BC1"/></StackPanel>
+            </Border>
+        </Grid>
+        <Border Grid.Row="2" Style="{StaticResource CardBorderStyle}" Margin="24,16,24,24">
+            <DockPanel>
+                <Border DockPanel.Dock="Top" Background="#FAFBF6" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="16">
+                    <WrapPanel>
+                        <StackPanel Width="250" Margin="0,0,12,0">
+                            <TextBlock Text="Buscar" Style="{StaticResource KpiLabelStyle}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="BusquedaSanitaria" Style="{StaticResource InputTextBoxStyle}" ToolTip="Insumo u observaciones"/>
+                        </StackPanel>
+                        <StackPanel Width="170" Margin="0,0,12,0">
+                            <TextBlock Text="Resultado" Style="{StaticResource KpiLabelStyle}" Margin="0,0,0,5"/>
+                            <ComboBox x:Name="ResultadoSanitarioCombo" Style="{StaticResource FilterComboBoxStyle}" SelectedIndex="0">
+                                <ComboBoxItem Content="Todos"/>
+                                <ComboBoxItem Content="Aprobado"/>
+                                <ComboBoxItem Content="Revisión"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Width="160" Margin="0,0,12,0">
+                            <TextBlock Text="Fecha" Style="{StaticResource KpiLabelStyle}" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="FechaSanitariaPicker" Height="36"/>
+                        </StackPanel>
+                        <Button Content="🔍 Aplicar" Style="{StaticResource PrimaryButtonStyle}" VerticalAlignment="Bottom" Click="FiltrarSanitario_Click"/>
+                    </WrapPanel>
+                </Border>
+                <Grid>
+                    <DataGrid Style="{StaticResource ModuleDataGridStyle}" ItemsSource="{Binding SanitaryRecords}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="140"/>
+                            <DataGridTextColumn Header="Insumo / lote" Binding="{Binding InsumoLote}" Width="*"/>
+                            <DataGridTextColumn Header="Temperatura" Binding="{Binding Temperatura}" Width="120"/>
+                            <DataGridTextColumn Header="Cloro" Binding="{Binding Cloro}" Width="100"/>
+                            <DataGridTextColumn Header="pH" Binding="{Binding Ph}" Width="90"/>
+                            <DataGridTextColumn Header="Madurez" Binding="{Binding Madurez}" Width="100"/>
+                            <DataGridTemplateColumn Header="Resultado" Width="120"><DataGridTemplateColumn.CellTemplate><DataTemplate><Border Background="#E8F7EF" CornerRadius="10" Padding="8,3"><TextBlock Text="{Binding Resultado}" Foreground="#169B62" Style="{StaticResource BadgeTextStyle}"/></Border></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Acciones" Width="150"><DataGridTemplateColumn.CellTemplate><DataTemplate><Button Content="Detalle" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="VerDetalleSanitario_Click"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                        <TextBlock Text="Sin controles sanitarios registrados" FontWeight="SemiBold" Foreground="#64748B" HorizontalAlignment="Center"/>
+                        <TextBlock Text="La vista queda preparada para capturar temperatura, pH, cloro, madurez y observaciones." FontSize="12" Foreground="#94A3B8" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,114 @@
+<Window x:Class="SistemaTrazabilidad.Presentation.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sistema de Trazabilidad - La Española"
+        Width="1280"
+        Height="760"
+        MinWidth="1040"
+        MinHeight="640"
+        Background="#F4F7FA"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <!-- Barra superior -->
+        <Border DockPanel.Dock="Top" Background="#086BC1" Height="60" Padding="20,0">
+            <Grid>
+                <TextBlock Text="Sistema de Trazabilidad - La Española" 
+                           FontSize="17" 
+                           FontWeight="Bold" 
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="UsuarioTextBlock"
+                               Foreground="White" 
+                               FontSize="13" 
+                               VerticalAlignment="Center"
+                               Margin="0,0,20,0"/>
+                    
+                    <Button Content="Cerrar Sesión" 
+                            Background="White" 
+                            Foreground="#086BC1"
+                            BorderThickness="0"
+                            FontWeight="SemiBold"
+                            Padding="14,7"
+                            Click="CerrarSesion_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Menú lateral -->
+        <Border DockPanel.Dock="Left" Background="White" Width="235" BorderThickness="0,0,1,0" BorderBrush="#E2E8F0">
+            <StackPanel Margin="0">
+                <TextBlock Text="MENÚ" 
+                           FontSize="11" 
+                           FontWeight="Bold" 
+                           Foreground="#64748B" 
+                           Padding="18,20,18,14"/>
+                
+                <Separator Background="#DDD" Height="1"/>
+                
+                <!-- Botones de navegación -->
+                <Button Content="📊 Dashboard" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Dashboard"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,4,0,0"/>
+                
+                <Button Content="📦 Inventario" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Inventory"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+                
+                <Button Content="🤝 Proveedores" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Suppliers"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+                
+                <Button Content="🛒 Compras" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Purchases"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+                
+                <Button Content="🏭 Producción" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Production"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+                
+                <Button Content="🚨 Alertas" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Alerts"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+                
+                <Button Content="📋 Auditoría" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Audit"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+                
+                <Button Content="🧪 Sanitario" 
+                        Style="{StaticResource MenuButtonStyle}" 
+                        Click="NavMenu_Click"
+                        Tag="Sanitary"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,2,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Área de contenido principal -->
+        <Border DockPanel.Dock="Right" Background="#F4F7FA">
+            <ContentControl x:Name="MainContent" />
+        </Border>
+    </DockPanel>
+</Window>

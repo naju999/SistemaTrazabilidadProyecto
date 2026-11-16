@@ -1,0 +1,11 @@
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\bin\Release\net8.0\SistemaTrazabilidad.Domain.deps.json
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\bin\Release\net8.0\SistemaTrazabilidad.Domain.dll
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\bin\Release\net8.0\SistemaTrazabilidad.Domain.pdb
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\SistemaTrazabilidad.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\SistemaTrazabilidad.Domain.AssemblyInfoInputs.cache
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\SistemaTrazabilidad.Domain.AssemblyInfo.cs
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\SistemaTrazabilidad.Domain.csproj.CoreCompileInputs.cache
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\SistemaTrazabilidad.Domain.dll
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\refint\SistemaTrazabilidad.Domain.dll
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\SistemaTrazabilidad.Domain.pdb
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Domain\obj\Release\net8.0\ref\SistemaTrazabilidad.Domain.dll
