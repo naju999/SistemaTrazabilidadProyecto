@@ -29,7 +29,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Border Style="{StaticResource CardBorderStyle}" BorderBrush="#B6D7FF" Padding="16" Margin="0,0,6,0">
                     <StackPanel><TextBlock Text="Programadas" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding ProgrammedCount}" Style="{StaticResource KpiValueStyle}" Foreground="#086BC1"/></StackPanel>
@@ -39,9 +38,6 @@
                 </Border>
                 <Border Grid.Column="2" Style="{StaticResource CardBorderStyle}" BorderBrush="#CDEEDB" Padding="16" Margin="6,0">
                     <StackPanel><TextBlock Text="Finalizadas" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding FinishedCount}" Style="{StaticResource KpiValueStyle}" Foreground="#169B62"/></StackPanel>
-                </Border>
-                <Border Grid.Column="3" Style="{StaticResource CardBorderStyle}" BorderBrush="#F7D1CC" Padding="16" Margin="6,0,0,0">
-                    <StackPanel><TextBlock Text="Insumos críticos" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding CriticalInputsCount}" Style="{StaticResource KpiValueStyle}" Foreground="#E45B48"/></StackPanel>
                 </Border>
             </Grid>
             <Border Grid.Row="1" Style="{StaticResource CardBorderStyle}" Margin="0,16,0,0" Padding="16">
@@ -70,9 +66,9 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Orden" Binding="{Binding Orden}" Width="120"/>
                         <DataGridTextColumn Header="Fecha inicio" Binding="{Binding FechaInicio}" Width="140"/>
-                        <DataGridTextColumn Header="Producto" Binding="{Binding Producto}" Width="*"/>
-                        <DataGridTextColumn Header="Lote PEPS" Binding="{Binding LotePeps}" Width="160"/>
-                        <DataGridTextColumn Header="Programado" Binding="{Binding Programado}" Width="120"/>
+                        <DataGridTextColumn Header="Insumos / cantidades" Binding="{Binding Producto}" Width="*"/>
+                        <DataGridTextColumn Header="Lotes" Binding="{Binding LotePeps}" Width="160"/>
+                        <DataGridTextColumn Header="Total programado" Binding="{Binding Programado}" Width="130"/>
                         <DataGridTextColumn Header="Consumido" Binding="{Binding Consumido}" Width="120"/>
                         <DataGridTemplateColumn Header="Estado" Width="120"><DataGridTemplateColumn.CellTemplate><DataTemplate><Border Background="#E8F4FD" CornerRadius="10" Padding="8,3"><TextBlock Text="{Binding Estado}" Foreground="#086BC1" Style="{StaticResource BadgeTextStyle}"/></Border></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Acciones" Width="250"><DataGridTemplateColumn.CellTemplate><DataTemplate><StackPanel Orientation="Horizontal"><Button Content="Iniciar" IsEnabled="{Binding CanStart}" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3,6,3" Click="IniciarProduccion_Click"/><Button Content="Finalizar" IsEnabled="{Binding CanFinish}" Style="{StaticResource SuccessButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3,6,3" Click="FinalizarProduccion_Click"/><Button Content="Cancelar" IsEnabled="{Binding CanCancel}" Style="{StaticResource DangerButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="CancelarProduccion_Click"/></StackPanel></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>

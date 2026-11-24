@@ -116,3 +116,5 @@ D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Pres
 D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Presentation\obj\Debug\net8.0-windows\Views\LotManagementWindow.g.cs
 D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Presentation\obj\Debug\net8.0-windows\Views\RegisterLotWindow.baml
 D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Presentation\obj\Debug\net8.0-windows\Views\RegisterLotWindow.g.cs
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Presentation\obj\Debug\net8.0-windows\Views\ProductionOrderDialog.g.cs
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Presentation\obj\Debug\net8.0-windows\Views\ProductionOrderDialog.baml

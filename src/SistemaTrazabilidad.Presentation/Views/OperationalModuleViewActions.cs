@@ -169,38 +169,18 @@ public partial class ProductionView
     private async void NuevaOrdenProduccion_Click(object sender, RoutedEventArgs e)
     {
         var vm = (ProductionModuleViewModel)DataContext;
-        var eligibleLots = vm.Lots
-            .Where(l => vm.Inputs.Any(i => i.Id == l.InsumoId))
-            .ToList();
-        var fields = new[]
-        {
-            new ModuleInputField(
-                "lote",
-                "Lote e insumo",
-                ModuleInputKind.Selection,
-                Choices: ModuleViewActions.ToChoices(
-                    eligibleLots,
-                    l => $"{l.CodigoInterno} — {vm.Inputs.First(i => i.Id == l.InsumoId).Nombre} ({l.CantidadDisponible} disponibles)",
-                    l => l)),
-            new ModuleInputField("orden", "Número de orden", ModuleInputKind.Text),
-            new ModuleInputField("fecha", "Fecha de inicio", ModuleInputKind.Date, DateTime.Today),
-            new ModuleInputField("cantidad", "Cantidad programada", ModuleInputKind.Decimal)
-        };
-
-        if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Nueva orden de producción", fields, out var values))
+        if (!ProductionOrderDialog.TryShow(
+                ModuleViewActions.GetOwner(this),
+                vm.Inputs,
+                vm.Lots,
+                out var startDate,
+                out var lines))
         {
             return;
         }
 
-        var lot = ModuleViewActions.GetChoice<Lote>(values, "lote");
-        var input = vm.Inputs.First(i => i.Id == lot.InsumoId);
         await ModuleViewActions.RunAsync(this, () =>
-            vm.CreateAsync(
-                input,
-                lot,
-                ModuleViewActions.GetText(values, "orden"),
-                ModuleViewActions.GetDate(values, "fecha"),
-                ModuleViewActions.GetDecimal(values, "cantidad")));
+            vm.CreateAsync(startDate, lines));
     }
 
     private async void IniciarProduccion_Click(object sender, RoutedEventArgs e)
@@ -219,18 +199,29 @@ public partial class ProductionView
             return;
         }
 
-        var fields = new[]
+        var vm = (ProductionModuleViewModel)DataContext;
+        var fields = row.Lines.Select(line =>
         {
-            new ModuleInputField("cantidad", "Cantidad consumida", ModuleInputKind.Decimal, row.Entity.CantidadProgramada)
-        };
+            var inputName = vm.AllInputs.FirstOrDefault(input => input.Id == line.InsumoId)?.Nombre
+                ?? $"Insumo {line.InsumoId}";
+            var lotCode = vm.AllLots.FirstOrDefault(lot => lot.Id == line.LoteId)?.CodigoInterno
+                ?? $"Lote {line.LoteId}";
+            return new ModuleInputField(
+                $"cantidad-{line.Id}",
+                $"{inputName} / {lotCode} (programado: {line.CantidadProgramada})",
+                ModuleInputKind.Decimal,
+                line.CantidadProgramada);
+        }).ToList();
         if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Finalizar producción", fields, out var values))
         {
             return;
         }
 
+        var consumedQuantities = row.Lines.ToDictionary(
+            line => line.Id,
+            line => ModuleViewActions.GetDecimal(values, $"cantidad-{line.Id}"));
         await ModuleViewActions.RunAsync(this, () =>
-            ((ProductionModuleViewModel)DataContext).FinishAsync(
-                row.Entity, ModuleViewActions.GetDecimal(values, "cantidad")));
+            vm.FinishAsync(row.Entity, consumedQuantities));
     }
 
     private async void VerPeps_Click(object sender, RoutedEventArgs e)

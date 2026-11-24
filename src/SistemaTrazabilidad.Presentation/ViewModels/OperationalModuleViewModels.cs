@@ -95,12 +95,16 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
     private readonly ISessionService _sessionService;
 
     public ObservableCollection<ProductionRow> ProductionOrders { get; } = [];
+    public IReadOnlyList<Insumo> AllInputs { get; private set; } = [];
     public IReadOnlyList<Insumo> Inputs { get; private set; } = [];
+    public IReadOnlyList<Lote> AllLots { get; private set; } = [];
     public IReadOnlyList<Lote> Lots { get; private set; } = [];
-    public int ProgrammedCount => ProductionOrders.Count(p => p.Entity.Estado == ProductionStatus.Programada);
-    public int InProcessCount => ProductionOrders.Count(p => p.Entity.Estado == ProductionStatus.EnProceso);
-    public int FinishedCount => ProductionOrders.Count(p => p.Entity.Estado == ProductionStatus.Finalizada);
-    public int CriticalInputsCount => Inputs.Count(i => i.StockDisponible <= i.StockMinimo);
+    public int ProgrammedCount => ProductionOrders.Count(p => p.Lines.All(
+        line => line.Estado == ProductionStatus.Programada));
+    public int InProcessCount => ProductionOrders.Count(p => p.Lines.All(
+        line => line.Estado == ProductionStatus.EnProceso));
+    public int FinishedCount => ProductionOrders.Count(p => p.Lines.All(
+        line => line.Estado == ProductionStatus.Finalizada));
 
     public ProductionModuleViewModel(
         ProductionService productionService,
@@ -120,36 +124,54 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
 
     public async Task LoadAsync(string? search = null, ProductionStatus? status = null)
     {
-        Inputs = (await _inventoryService.GetStockActualAsync())
-            .Where(i => i.Activo).ToList();
-        var allLots = await _unitOfWork.Repository<Lote>().GetAllAsync();
-        Lots = allLots
+        AllInputs = (await _inventoryService.GetStockActualAsync()).ToList();
+        Inputs = AllInputs.Where(i => i.Activo).ToList();
+        AllLots = (await _unitOfWork.Repository<Lote>().GetAllAsync()).ToList();
+        Lots = AllLots
             .Where(l => !l.Bloqueado && !l.EstaVencido && l.CantidadDisponible > 0)
             .OrderBy(l => l.FechaIngreso).ToList();
 
-        var inputNames = Inputs.ToDictionary(i => i.Id, i => i.Nombre);
-        var lotCodes = allLots.ToDictionary(l => l.Id, l => l.CodigoInterno);
+        var inputNames = AllInputs.ToDictionary(i => i.Id, i => i.Nombre);
+        var lotCodes = AllLots.ToDictionary(l => l.Id, l => l.CodigoInterno);
         var productions = await _unitOfWork.Repository<Produccion>().GetAllAsync();
 
         IEnumerable<ProductionRow> rows = productions
-            .OrderByDescending(p => p.FechaInicio)
-            .Select(p => new ProductionRow(
-                p.Id,
-                p.OrdenProduccion,
-                p.FechaInicio.ToString("d"),
-                p.InsumoId is int productionInsumoId && inputNames.TryGetValue(productionInsumoId, out var productionInputName)
-                    ? productionInputName
-                    : "Insumo eliminado",
-                p.LoteId is int productionLotId && lotCodes.TryGetValue(productionLotId, out var productionLotCode)
-                    ? productionLotCode
-                    : "Lote eliminado",
-                p.CantidadProgramada,
-                p.CantidadConsumida,
-                p.Estado.ToString(),
-                p));
+            .GroupBy(production => production.OrdenProduccion)
+            .Select(group =>
+            {
+                var lines = group.OrderBy(production => production.Id).ToList();
+                var representative = lines[0];
+                var states = lines.Select(line => line.Estado).Distinct().ToList();
+                var state = states.Count == 1 ? states[0].ToString() : "Inconsistente";
+                var inputDescriptions = lines.Select(line =>
+                {
+                    var inputName = line.InsumoId is int inputId &&
+                                    inputNames.TryGetValue(inputId, out var name)
+                        ? name
+                        : "Insumo eliminado";
+                    return $"{inputName} ({line.CantidadProgramada})";
+                });
+                var lotDescriptions = lines.Select(line =>
+                    line.LoteId is int lotId && lotCodes.TryGetValue(lotId, out var code)
+                        ? code
+                        : "Lote eliminado");
+
+                return new ProductionRow(
+                    representative.Id,
+                    representative.OrdenProduccion,
+                    representative.FechaInicio.ToString("d"),
+                    string.Join(", ", inputDescriptions),
+                    string.Join(", ", lotDescriptions),
+                    lines.Sum(line => line.CantidadProgramada),
+                    lines.Sum(line => line.CantidadConsumida),
+                    state,
+                    lines);
+            })
+            .OrderByDescending(row => row.Lines[0].FechaInicio)
+            .ThenByDescending(row => row.Id);
         if (status.HasValue)
         {
-            rows = rows.Where(p => p.Entity.Estado == status.Value);
+            rows = rows.Where(row => row.Lines.All(line => line.Estado == status.Value));
         }
         if (!string.IsNullOrWhiteSpace(search))
         {
@@ -160,21 +182,17 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
         }
 
         Replace(ProductionOrders, rows);
-        OnPropertyChanged(nameof(CriticalInputsCount));
     }
 
     public async Task CreateAsync(
-        Insumo input,
-        Lote lot,
-        string orderNumber,
         DateTime startDate,
-        decimal plannedQuantity)
+        IReadOnlyList<ProductionOrderLine> lines)
     {
         var userId = _sessionService.UsuarioActual?.Id
             ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
 
         await _productionService.CreateOrdenProduccionAsync(
-            input.Id, lot.Id, orderNumber, startDate, plannedQuantity, userId);
+            startDate, lines, userId);
         await LoadAsync();
     }
 
@@ -187,13 +205,15 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
         await LoadAsync();
     }
 
-    public async Task FinishAsync(Produccion production, decimal consumedQuantity)
+    public async Task FinishAsync(
+        Produccion production,
+        IReadOnlyDictionary<int, decimal> consumedQuantities)
     {
         var userId = _sessionService.UsuarioActual?.Id
             ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
 
         await _productionService.FinalizarProduccionAsync(
-            production.Id, consumedQuantity, userId);
+            production.Id, consumedQuantities, userId);
         await LoadAsync();
     }
 
@@ -389,16 +409,24 @@ public sealed record ProductionRow(
     decimal Programado,
     decimal Consumido,
     string Estado,
-    Produccion Entity)
+    IReadOnlyList<Produccion> Lines)
 {
-    public bool CanStart => Entity.Estado == ProductionStatus.Programada
-        && Entity.InsumoId.HasValue && Entity.LoteId.HasValue;
+    public Produccion Entity => Lines[0];
 
-    public bool CanFinish => Entity.Estado == ProductionStatus.EnProceso
-        && Entity.InsumoId.HasValue && Entity.LoteId.HasValue;
+    public bool CanStart => Lines.All(line =>
+        line.Estado == ProductionStatus.Programada &&
+        line.InsumoId.HasValue &&
+        line.LoteId.HasValue);
 
-    public bool CanCancel => (Entity.Estado is ProductionStatus.Programada or ProductionStatus.EnProceso)
-        && Entity.InsumoId.HasValue && Entity.LoteId.HasValue;
+    public bool CanFinish => Lines.All(line =>
+        line.Estado == ProductionStatus.EnProceso &&
+        line.InsumoId.HasValue &&
+        line.LoteId.HasValue);
+
+    public bool CanCancel => Lines.All(line =>
+        (line.Estado is ProductionStatus.Programada or ProductionStatus.EnProceso) &&
+        line.InsumoId.HasValue &&
+        line.LoteId.HasValue);
 }
 
 public sealed record AlertRow(

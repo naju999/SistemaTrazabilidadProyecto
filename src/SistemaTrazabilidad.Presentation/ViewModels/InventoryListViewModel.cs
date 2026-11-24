@@ -166,12 +166,14 @@ public class InventoryListViewModel : INotifyPropertyChanged
                 .ToList();
             var ordenesActivas = producciones
                 .Where(produccion => produccion.Estado is ProductionStatus.Programada or ProductionStatus.EnProceso)
+                .GroupBy(produccion => new { produccion.OrdenProduccion, produccion.Estado })
+                .Select(group => group.Key)
                 .ToList();
 
             if (ordenesActivas.Count > 0)
             {
-                var ordenes = string.Join(", ", ordenesActivas.Select(produccion =>
-                    $"{produccion.OrdenProduccion} ({produccion.Estado})"));
+                var ordenes = string.Join(", ", ordenesActivas.Select(orden =>
+                    $"{orden.OrdenProduccion} ({orden.Estado})"));
                 var mensaje = $"No se puede eliminar el insumo porque tiene órdenes programadas o en proceso: {ordenes}.";
                 MensajeEstado = mensaje;
                 System.Windows.MessageBox.Show(

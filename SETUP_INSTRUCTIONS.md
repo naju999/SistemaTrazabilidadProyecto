@@ -133,12 +133,11 @@ Los logs se generan diarios con nombres: `app-YYYY-MM-DD.txt`
 - Estado (Pendiente, Recibida, Cancelada)
 
 ### Produccion
-- OrdenProduccion (unique)
-- InsumoId (FK)
-- LoteId (FK)
+- OrdenProduccion (código generado automáticamente con formato PROD001; puede agrupar varias líneas)
+- Cada línea asocia un insumo y su lote con la cantidad programada
 - FechaInicio
 - CantidadProgramada (> 0)
-- Estado (Iniciada, EnProceso, Completada, Cancelada)
+- Estado compartido por todas las líneas de la orden (Programada, EnProceso, Finalizada, Cancelada)
 
 ### MovimientoInventario
 - InsumoId (FK)

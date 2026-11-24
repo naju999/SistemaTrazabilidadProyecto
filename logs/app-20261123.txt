@@ -2481,3 +2481,637 @@ FROM "Lotes" AS "l"
 2026-11-23 20:57:35.744 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
 FROM "Producciones" AS "p"
+2026-11-23 20:59:44.345 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-23 20:59:44.677 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 20:59:44.677 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 20:59:44.677 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 20:59:44.677 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 20:59:44.993 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-23 20:59:51.127 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 20:59:51.128 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 20:59:51.128 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 20:59:51.128 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:00:19.451 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:00:29.261 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:00:29.261 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:00:33.825 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Accion", "a"."CreatedAt", "a"."Detalle", "a"."Entidad", "a"."EntidadId", "a"."FechaHora", "a"."IsActive", "a"."UpdatedAt", "a"."UsuarioId"
+FROM "Auditorias" AS "a"
+2026-11-23 21:00:34.132 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-23 21:00:34.413 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:00:34.413 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:00:34.414 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:00:34.414 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:04:41.858 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:04:44.389 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:04:44.389 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:04:44.389 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:04:44.389 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:05:22.811 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:05:24.033 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:05:24.033 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:05:24.033 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:05:24.033 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:27:21.051 -05:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-23 21:27:21.245 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:27:35.396 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-23 21:27:35.454 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:27:35.459 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:27:35.472 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-23 21:27:35.485 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-23 21:27:35.491 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:27:37.285 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:27:37.286 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:27:37.286 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:27:37.292 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:32:01.047 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:01.358 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:01.358 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:02.505 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @___insumo_Id_0
+2026-11-23 21:32:02.507 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:02.518 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."InsumoId" = @___insumo_Id_0 AND "p"."Estado" IN (1, 2)
+2026-11-23 21:32:02.526 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:32:12.101 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:12.102 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:13.490 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @___insumo_Id_0
+2026-11-23 21:32:13.490 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:13.491 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."InsumoId" = @___insumo_Id_0 AND "p"."Estado" IN (1, 2)
+2026-11-23 21:32:13.492 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:32:17.056 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:17.057 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:17.751 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @___insumo_Id_0
+2026-11-23 21:32:17.752 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:17.752 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."InsumoId" = @___insumo_Id_0 AND "p"."Estado" IN (1, 2)
+2026-11-23 21:32:17.753 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:32:18.727 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:18.727 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:19.705 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @___insumo_Id_0
+2026-11-23 21:32:19.706 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:19.706 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."InsumoId" = @___insumo_Id_0 AND "p"."Estado" IN (1, 2)
+2026-11-23 21:32:19.707 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:32:22.049 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:22.050 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:23.347 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @___insumo_Id_0
+2026-11-23 21:32:23.348 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:23.348 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."InsumoId" = @___insumo_Id_0 AND "p"."Estado" IN (1, 2)
+2026-11-23 21:32:23.349 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:32:24.197 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:24.197 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:25.368 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:25.369 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:25.369 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:25.369 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:32:37.687 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:37.687 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:43.263 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:43.264 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:43.865 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:44.364 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:44.365 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:44.365 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:44.365 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:32:50.660 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:50.660 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:52.406 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @___insumo_Id_0
+2026-11-23 21:32:52.407 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:32:52.407 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@___insumo_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."InsumoId" = @___insumo_Id_0 AND "p"."Estado" IN (1, 2)
+2026-11-23 21:32:52.408 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:32:57.618 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:57.619 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:58.809 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:32:58.809 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:58.809 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:32:58.809 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:49:20.417 -05:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-23 21:49:20.646 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:49:31.497 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-23 21:49:31.550 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:49:31.555 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:49:31.562 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-23 21:49:31.574 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-23 21:49:31.580 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:49:32.450 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:49:32.451 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:49:32.451 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:49:32.455 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:49:56.856 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+WHERE "i"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:49:56.881 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:49:56.913 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:49:56.916 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:49:56.921 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__orderNumber_0='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."OrdenProduccion" = @__orderNumber_0
+2026-11-23 21:49:57.060 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 7), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-23 21:49:57.070 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p13='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 29), @p4='?' (Size = 3), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Boolean), @p10='?' (DbType = Boolean), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Lotes" SET "Bloqueado" = @p0, "CantidadDisponible" = @p1, "CantidadInicial" = @p2, "CodigoInterno" = @p3, "CodigoLote" = @p4, "CreatedAt" = @p5, "FechaIngreso" = @p6, "FechaVencimiento" = @p7, "InsumoId" = @p8, "IsActive" = @p9, "PEPS" = @p10, "ProveedorId" = @p11, "UpdatedAt" = @p12
+WHERE "Id" = @p13
+RETURNING 1;
+2026-11-23 21:49:57.072 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (DbType = Decimal), @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = Int32), @p7='?' (DbType = Boolean), @p8='?' (DbType = Int32), @p9='?' (Size = 7), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Producciones" ("CantidadConsumida", "CantidadProgramada", "CreatedAt", "Estado", "FechaFin", "FechaInicio", "InsumoId", "IsActive", "LoteId", "OrdenProduccion", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-23 21:49:57.083 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p11='?' (DbType = Decimal), @p12='?' (Size = 42), @p13='?' (DbType = DateTime), @p14='?' (DbType = DateTime), @p15='?' (DbType = Int32), @p16='?' (DbType = Boolean), @p17='?' (DbType = Int32), @p18='?' (DbType = Int32), @p19='?' (Size = 7), @p20='?' (DbType = Decimal), @p21='?' (DbType = Decimal), @p22='?' (DbType = Int32), @p23='?' (DbType = DateTime), @p24='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24)
+RETURNING "Id";
+2026-11-23 21:49:57.118 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 25), @p1='?' (DbType = DateTime), @p2='?' (Size = 48), @p3='?' (Size = 10), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-23 21:49:57.123 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:49:57.124 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:49:57.124 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:49:57.124 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:53:54.020 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:53:54.021 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:53:57.206 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:53:57.207 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:53:57.207 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:53:57.207 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:53:58.556 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:53:58.559 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__orderNumber_0='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."OrdenProduccion" = @__orderNumber_0
+2026-11-23 21:53:58.567 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__production_Id_0='?' (DbType = Int32), @__production_OrdenProduccion_1='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."Cantidad", "m"."Comentario", "m"."CreatedAt", "m"."FechaMovimiento", "m"."InsumoId", "m"."IsActive", "m"."LoteId", "m"."ProduccionId", "m"."Referencia", "m"."StockAnterior", "m"."StockPosterior", "m"."Tipo", "m"."UpdatedAt", "m"."UsuarioId"
+FROM "MovimientosInventario" AS "m"
+WHERE "m"."Tipo" IN (7, 8) AND ("m"."ProduccionId" = @__production_Id_0 OR "m"."Referencia" = @__production_OrdenProduccion_1)
+2026-11-23 21:53:58.570 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+WHERE "i"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:53:58.572 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."Id" = @__p_0
+LIMIT 1
+2026-11-23 21:53:58.573 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:53:58.574 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__production_Id_0='?' (DbType = Int32), @__production_OrdenProduccion_1='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."Cantidad", "m"."Comentario", "m"."CreatedAt", "m"."FechaMovimiento", "m"."InsumoId", "m"."IsActive", "m"."LoteId", "m"."ProduccionId", "m"."Referencia", "m"."StockAnterior", "m"."StockPosterior", "m"."Tipo", "m"."UpdatedAt", "m"."UsuarioId"
+FROM "MovimientosInventario" AS "m"
+WHERE "m"."Tipo" IN (7, 8) AND ("m"."ProduccionId" = @__production_Id_0 OR "m"."Referencia" = @__production_OrdenProduccion_1)
+2026-11-23 21:53:58.575 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 7), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-23 21:53:58.576 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p13='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 29), @p4='?' (Size = 3), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32), @p9='?' (DbType = Boolean), @p10='?' (DbType = Boolean), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Lotes" SET "Bloqueado" = @p0, "CantidadDisponible" = @p1, "CantidadInicial" = @p2, "CodigoInterno" = @p3, "CodigoLote" = @p4, "CreatedAt" = @p5, "FechaIngreso" = @p6, "FechaVencimiento" = @p7, "InsumoId" = @p8, "IsActive" = @p9, "PEPS" = @p10, "ProveedorId" = @p11, "UpdatedAt" = @p12
+WHERE "Id" = @p13
+RETURNING 1;
+2026-11-23 21:53:58.576 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (Size = 53), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (DbType = Int32), @p5='?' (DbType = Boolean), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 7), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime), @p13='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+2026-11-23 21:53:58.576 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p11='?' (DbType = Int32), @p0='?' (DbType = Decimal), @p1='?' (DbType = Decimal), @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = Int32), @p7='?' (DbType = Boolean), @p8='?' (DbType = Int32), @p9='?' (Size = 7), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Producciones" SET "CantidadConsumida" = @p0, "CantidadProgramada" = @p1, "CreatedAt" = @p2, "Estado" = @p3, "FechaFin" = @p4, "FechaInicio" = @p5, "InsumoId" = @p6, "IsActive" = @p7, "LoteId" = @p8, "OrdenProduccion" = @p9, "UpdatedAt" = @p10
+WHERE "Id" = @p11
+RETURNING 1;
+2026-11-23 21:53:58.588 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 19), @p1='?' (DbType = DateTime), @p2='?' (Size = 46), @p3='?' (Size = 10), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-23 21:53:58.591 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:53:58.591 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:53:58.592 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:53:58.592 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:54:00.782 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:00.782 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:02.825 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:02.825 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:02.825 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:02.826 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:54:07.468 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:07.468 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:07.893 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:07.893 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:07.893 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-23 21:54:07.894 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-23 21:54:07.894 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:54:25.414 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:25.414 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:25.851 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:25.852 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:25.852 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:25.852 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:54:31.105 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:31.105 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:31.105 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-23 21:54:31.106 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-23 21:54:31.106 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:54:31.534 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:31.534 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:32.114 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:32.114 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:32.114 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-23 21:54:32.114 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-23 21:54:32.115 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-23 21:54:32.798 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:32.798 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:33.032 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-23 21:54:33.514 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:33.514 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:33.514 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:33.514 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-23 21:54:34.019 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-23 21:54:34.478 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-23 21:54:34.478 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:34.478 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoInterno", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."ProveedorId", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-23 21:54:34.478 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
