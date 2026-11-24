@@ -85,6 +85,41 @@ public class SupplierService
         return proveedor;
     }
 
+    public async Task DeleteProveedorAsync(int proveedorId)
+    {
+        var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
+            ?? throw new BusinessRuleException("Proveedor no encontrado.");
+        var hasPurchases = (await _unitOfWork.Repository<Compra>()
+            .FindAsync(compra => compra.ProveedorId == proveedorId)).Any();
+        var hasLots = (await _unitOfWork.Repository<Lote>()
+            .FindAsync(lote => lote.ProveedorId == proveedorId)).Any();
+
+        if (hasPurchases || hasLots)
+        {
+            var relatedRecords = new List<string>();
+            if (hasPurchases)
+            {
+                relatedRecords.Add("compras");
+            }
+            if (hasLots)
+            {
+                relatedRecords.Add("lotes");
+            }
+
+            throw new BusinessRuleException(
+                $"No se puede eliminar el proveedor porque tiene {string.Join(" y ", relatedRecords)} asociados. " +
+                "Para conservar el historial, edítalo y márcalo como inactivo.");
+        }
+
+        _unitOfWork.Repository<Proveedor>().Remove(proveedor);
+        await _unitOfWork.CommitAsync();
+        await _auditService.LogAsync(
+            nameof(Proveedor),
+            proveedor.Id,
+            "Eliminar proveedor",
+            $"Proveedor {proveedor.Codigo} - {proveedor.Nombre} eliminado.");
+    }
+
     private static void ValidatePhoneNumber(string telefono)
     {
         if (telefono.Any(character => character is < '0' or > '9'))

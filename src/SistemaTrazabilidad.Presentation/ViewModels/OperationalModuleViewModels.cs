@@ -76,6 +76,12 @@ public sealed class SupplierModuleViewModel : OperationalModuleViewModel
         await LoadAsync();
     }
 
+    public async Task DeleteAsync(Proveedor supplier)
+    {
+        await _supplierService.DeleteProveedorAsync(supplier.Id);
+        await LoadAsync();
+    }
+
     private static void Replace<T>(ObservableCollection<T> target, IEnumerable<T> items)
     {
         target.Clear();

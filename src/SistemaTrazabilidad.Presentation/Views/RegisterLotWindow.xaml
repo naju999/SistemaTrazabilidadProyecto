@@ -8,6 +8,7 @@
         MinWidth="480"
         MinHeight="460"
         WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         Background="#F4F7FA">

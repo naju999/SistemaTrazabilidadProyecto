@@ -8,7 +8,8 @@
         MinWidth="780"
         MinHeight="460"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="CanResize"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         Background="#F4F7FA">
     <Grid Margin="22">
         <Grid.RowDefinitions>

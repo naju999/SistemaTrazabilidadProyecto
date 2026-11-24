@@ -140,6 +140,29 @@ public partial class SuppliersView
                 ModuleViewActions.GetText(values, "email"),
                 ModuleViewActions.GetChoice<bool>(values, "activo")));
     }
+
+    private async void EliminarProveedor_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as Button)?.DataContext is not SupplierRow row)
+        {
+            return;
+        }
+
+        var confirmation = MessageBox.Show(
+            ModuleViewActions.GetOwner(this),
+            $"¿Deseas eliminar al proveedor {row.Proveedor} ({row.Codigo})? " +
+            "Solo se podrá eliminar si no tiene compras ni lotes asociados.",
+            "Confirmar eliminación",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning);
+        if (confirmation != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        await ModuleViewActions.RunAsync(this, () =>
+            ((SupplierModuleViewModel)DataContext).DeleteAsync(row.Entity));
+    }
 }
 
 public partial class ProductionView

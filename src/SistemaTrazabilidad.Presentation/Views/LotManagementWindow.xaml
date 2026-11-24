@@ -8,7 +8,8 @@
         MinHeight="520"
         WindowStartupLocation="CenterOwner"
         Background="#F4F7FA"
-        ResizeMode="CanResize"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         ShowInTaskbar="False"
         Loaded="Window_Loaded">
     <DockPanel>
@@ -52,7 +53,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,0,0,18">
@@ -121,21 +121,8 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <TextBlock Text="Este insumo aún no tiene lotes registrados."
-                               Foreground="#64748B"
-                               FontSize="14"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               IsHitTestVisible="False"
-                               Visibility="{Binding TieneLotes, Converter={StaticResource InvertBoolConverter}}"/>
                 </Grid>
             </Border>
-
-            <TextBlock Grid.Row="2"
-                       Text="Saldo: cantidad que queda sin asignar. Disponible: saldo de lotes no bloqueados ni vencidos."
-                       FontSize="11"
-                       Foreground="#64748B"
-                       Margin="2,10,0,0"/>
         </Grid>
     </DockPanel>
 </Window>

@@ -46,11 +46,28 @@ public static class ModuleInputDialog
             MinHeight = 220,
             MaxHeight = 680,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            ResizeMode = ResizeMode.CanResize,
+            WindowStyle = WindowStyle.None,
+            ResizeMode = ResizeMode.NoResize,
             Background = Brushes.White
         };
 
-        var root = new DockPanel { Margin = new Thickness(22) };
+        var root = new DockPanel();
+        var header = new Border
+        {
+            Background = new SolidColorBrush(Color.FromRgb(8, 107, 193)),
+            Padding = new Thickness(22, 16, 22, 16),
+            Child = new TextBlock
+            {
+                Text = title,
+                FontSize = 18,
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.White
+            }
+        };
+        DockPanel.SetDock(header, Dock.Top);
+        root.Children.Add(header);
+
+        var contentPanel = new DockPanel { Margin = new Thickness(22) };
         var buttonPanel = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -75,12 +92,13 @@ public static class ModuleInputDialog
             content.Children.Add(input);
         }
 
-        root.Children.Add(buttonPanel);
-        root.Children.Add(new ScrollViewer
+        contentPanel.Children.Add(buttonPanel);
+        contentPanel.Children.Add(new ScrollViewer
         {
             Content = content,
             VerticalScrollBarVisibility = ScrollBarVisibility.Auto
         });
+        root.Children.Add(contentPanel);
         window.Content = root;
 
         var cancelButton = new Button

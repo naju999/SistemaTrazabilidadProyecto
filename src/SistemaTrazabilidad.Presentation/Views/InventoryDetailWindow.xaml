@@ -6,6 +6,7 @@
         Width="540"
         Height="580"
         WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
         Background="White"
         ResizeMode="NoResize"
         ShowInTaskbar="False">

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaTrazabilidad.Utilities")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+184191443e211a04d9259e2095bea84375fd447a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b0e73e9398690c1087b366c3403f0c3cc4aa630")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaTrazabilidad.Utilities")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaTrazabilidad.Utilities")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

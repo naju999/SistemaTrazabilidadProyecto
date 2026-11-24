@@ -8,7 +8,8 @@
         MinHeight="420"
         WindowStartupLocation="CenterOwner"
         Background="#F4F7FA"
-        ResizeMode="CanResize"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         ShowInTaskbar="False">
     <Grid>
         <Grid.RowDefinitions>
