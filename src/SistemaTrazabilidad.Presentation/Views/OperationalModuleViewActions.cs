@@ -85,9 +85,19 @@ public partial class SuppliersView
     {
         var fields = new[]
         {
-            new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text),
-            new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Digits, Required: false),
-            new ModuleInputField("email", "Correo", ModuleInputKind.Text, Required: false)
+            new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text, MaxLength: 200),
+            new ModuleInputField(
+                "telefono",
+                "Teléfono",
+                ModuleInputKind.Digits,
+                Required: false,
+                MaxLength: 15),
+            new ModuleInputField(
+                "email",
+                "Correo",
+                ModuleInputKind.Text,
+                Required: false,
+                MaxLength: 254)
         };
 
         if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Nuevo proveedor", fields, out var values))
@@ -113,9 +123,26 @@ public partial class SuppliersView
 
         var fields = new[]
         {
-            new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text, row.Entity.Nombre),
-            new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Digits, row.Entity.Telefono, Required: false),
-            new ModuleInputField("email", "Correo", ModuleInputKind.Text, row.Entity.Email, Required: false),
+            new ModuleInputField(
+                "nombre",
+                "Nombre",
+                ModuleInputKind.Text,
+                row.Entity.Nombre,
+                MaxLength: 200),
+            new ModuleInputField(
+                "telefono",
+                "Teléfono",
+                ModuleInputKind.Digits,
+                row.Entity.Telefono,
+                Required: false,
+                MaxLength: 15),
+            new ModuleInputField(
+                "email",
+                "Correo",
+                ModuleInputKind.Text,
+                row.Entity.Email,
+                Required: false,
+                MaxLength: 254),
             new ModuleInputField(
                 "activo",
                 "Estado",

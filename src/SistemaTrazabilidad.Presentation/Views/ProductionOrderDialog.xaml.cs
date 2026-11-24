@@ -79,6 +79,11 @@ public partial class ProductionOrderDialog : Window
             ShowValidationError("Selecciona la fecha de inicio.");
             return;
         }
+        if (startDate.Date < DateTime.Today)
+        {
+            ShowValidationError("La fecha de inicio debe ser hoy o una fecha futura.");
+            return;
+        }
 
         var result = new List<ProductionOrderLine>(Lineas.Count);
         for (var index = 0; index < Lineas.Count; index++)

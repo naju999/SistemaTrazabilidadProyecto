@@ -46,6 +46,10 @@ public class LotService
 
         var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
             ?? throw new BusinessRuleException("Proveedor no encontrado.");
+        if (!proveedor.Activo)
+        {
+            throw new BusinessRuleException("No se puede generar un lote con un proveedor inactivo.");
+        }
 
         var codigoLote = LotCodeGenerator.Generate(fechaIngreso);
         var lote = new Lote

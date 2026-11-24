@@ -46,6 +46,7 @@
                     <StackPanel Margin="0,0,0,14">
                         <TextBlock Text="Nombre *" FontSize="12" Foreground="#333" FontWeight="Bold" Margin="0,0,0,5"/>
                         <TextBox Text="{Binding Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="200"
                                  Style="{StaticResource InputTextBoxStyle}"/>
                     </StackPanel>
 
@@ -64,7 +65,7 @@
 
                     <StackPanel Margin="0,0,0,14">
                         <TextBlock Text="Stock mínimo *" FontSize="12" Foreground="#333" FontWeight="Bold" Margin="0,0,0,5"/>
-                        <TextBox Text="{Binding StockMinimo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Text="{Binding StockMinimoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource InputTextBoxStyle}"
                                  views:NumericTextBoxBehavior.UseThousandsSeparator="True"/>
                     </StackPanel>

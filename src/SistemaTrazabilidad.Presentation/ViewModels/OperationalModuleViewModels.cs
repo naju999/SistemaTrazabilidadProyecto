@@ -356,6 +356,12 @@ public sealed class AuditModuleViewModel : OperationalModuleViewModel
         DateTime? to = null,
         string? action = null)
     {
+        if (from.HasValue && to.HasValue && from.Value.Date > to.Value.Date)
+        {
+            throw new ArgumentException(
+                "La fecha «Desde» no puede ser posterior a la fecha «Hasta».");
+        }
+
         var records = await _unitOfWork.Repository<Auditoria>().GetAllAsync();
         IEnumerable<Auditoria> filtered = records;
         if (!string.IsNullOrWhiteSpace(search))

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,6 +12,9 @@ namespace SistemaTrazabilidad.Presentation.ViewModels;
 
 public class InventoryDetailViewModel : INotifyPropertyChanged
 {
+    private static readonly string[] AllowedUnitsOfMeasure =
+        ["kg", "gramos", "litros", "ml", "unidad"];
+
     private readonly IUnitOfWork _unitOfWork;
     private readonly AuditService _auditService;
     private readonly ISessionService _sessionService;
@@ -19,7 +23,7 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
     private string _codigo = "Se asigna automáticamente al guardar";
     private string _nombre = "";
     private string _unidadMedida = "kg";
-    private decimal? _stockMinimo;
+    private string _stockMinimoTexto = string.Empty;
     private bool _activo = true;
     private string _mensajeError = "";
     private bool _cargando = false;
@@ -43,10 +47,17 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
         set { if (_unidadMedida != value) { _unidadMedida = value; OnPropertyChanged(); } }
     }
 
-    public decimal? StockMinimo
+    public string StockMinimoTexto
     {
-        get => _stockMinimo;
-        set { if (_stockMinimo != value) { _stockMinimo = value; OnPropertyChanged(); } }
+        get => _stockMinimoTexto;
+        set
+        {
+            if (_stockMinimoTexto != value)
+            {
+                _stockMinimoTexto = value;
+                OnPropertyChanged();
+            }
+        }
     }
 
     public bool Activo
@@ -114,7 +125,7 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
         Codigo = insumo.Codigo;
         Nombre = insumo.Nombre;
         UnidadMedida = NormalizarUnidadMedida(insumo.UnidadMedida);
-        StockMinimo = insumo.StockMinimo;
+        StockMinimoTexto = insumo.StockMinimo.ToString("0.##", CultureInfo.CurrentCulture);
         Activo = insumo.Activo;
 
         OnPropertyChanged(nameof(TituloVentana));
@@ -124,22 +135,35 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
     {
         MensajeError = "";
         stockMinimo = 0;
+        Nombre = Nombre.Trim();
+        UnidadMedida = UnidadMedida.Trim();
 
         if (string.IsNullOrWhiteSpace(Nombre))
         {
             MensajeError = "El nombre es obligatorio";
             return false;
         }
-
-        if (string.IsNullOrWhiteSpace(UnidadMedida))
+        if (Nombre.Length > 200)
         {
-            MensajeError = "La unidad de medida es obligatoria";
+            MensajeError = "El nombre no puede superar 200 caracteres";
             return false;
         }
 
-        if (StockMinimo is not decimal valorStockMinimo)
+        if (!AllowedUnitsOfMeasure.Contains(UnidadMedida, StringComparer.OrdinalIgnoreCase))
         {
-            MensajeError = "El stock mínimo es obligatorio";
+            MensajeError = "Selecciona una unidad de medida válida";
+            return false;
+        }
+
+        if (!decimal.TryParse(
+                StockMinimoTexto,
+                NumberStyles.Number,
+                CultureInfo.CurrentCulture,
+                out var valorStockMinimo))
+        {
+            MensajeError = string.IsNullOrWhiteSpace(StockMinimoTexto)
+                ? "El stock mínimo es obligatorio"
+                : "El stock mínimo debe ser un número válido";
             return false;
         }
 

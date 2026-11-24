@@ -29,6 +29,12 @@ public class ProductionService
         IReadOnlyList<ProductionOrderLine> lines,
         int usuarioId)
     {
+        if (fechaInicio.Date < DateTime.Today)
+        {
+            throw new BusinessRuleException(
+                "La fecha de inicio de producción debe ser hoy o una fecha futura.");
+        }
+
         if (lines.Count == 0)
         {
             throw new BusinessRuleException("La orden debe incluir al menos un insumo.");

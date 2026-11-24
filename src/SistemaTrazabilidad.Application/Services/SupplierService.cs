@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using SistemaTrazabilidad.Application.Exceptions;
 using SistemaTrazabilidad.Domain.Entities;
@@ -22,26 +23,26 @@ public class SupplierService
 
     public async Task<Proveedor> CreateProveedorAsync(string nombre, string telefono, string email)
     {
-        if (string.IsNullOrWhiteSpace(nombre))
-        {
-            throw new BusinessRuleException("El nombre del proveedor es obligatorio.");
-        }
-
-        ValidatePhoneNumber(telefono);
+        var (normalizedName, normalizedPhone, normalizedEmail) =
+            ValidateSupplierData(nombre, telefono, email);
         var codigo = await GenerateNextSupplierCodeAsync();
 
         var proveedor = new Proveedor
         {
             Codigo = codigo,
-            Nombre = nombre,
-            Telefono = telefono,
-            Email = email,
+            Nombre = normalizedName,
+            Telefono = normalizedPhone,
+            Email = normalizedEmail,
             Activo = true
         };
 
         await _unitOfWork.Repository<Proveedor>().AddAsync(proveedor);
         await _unitOfWork.CommitAsync();
-        await _auditService.LogAsync(nameof(Proveedor), proveedor.Id, "Crear proveedor", $"Proveedor {nombre} creado.");
+        await _auditService.LogAsync(
+            nameof(Proveedor),
+            proveedor.Id,
+            "Crear proveedor",
+            $"Proveedor {proveedor.Nombre} creado.");
 
         return proveedor;
     }
@@ -69,13 +70,14 @@ public class SupplierService
 
     public async Task<Proveedor> UpdateProveedorAsync(int proveedorId, string nombre, string telefono, string email, bool activo)
     {
-        ValidatePhoneNumber(telefono);
+        var (normalizedName, normalizedPhone, normalizedEmail) =
+            ValidateSupplierData(nombre, telefono, email);
         var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
             ?? throw new BusinessRuleException("Proveedor no encontrado.");
 
-        proveedor.Nombre = string.IsNullOrWhiteSpace(nombre) ? proveedor.Nombre : nombre;
-        proveedor.Telefono = telefono;
-        proveedor.Email = email;
+        proveedor.Nombre = normalizedName;
+        proveedor.Telefono = normalizedPhone;
+        proveedor.Email = normalizedEmail;
         proveedor.Activo = activo;
 
         _unitOfWork.Repository<Proveedor>().Update(proveedor);
@@ -120,12 +122,46 @@ public class SupplierService
             $"Proveedor {proveedor.Codigo} - {proveedor.Nombre} eliminado.");
     }
 
-    private static void ValidatePhoneNumber(string telefono)
+    private static (string Nombre, string Telefono, string Email) ValidateSupplierData(
+        string? nombre,
+        string? telefono,
+        string? email)
     {
-        if (telefono.Any(character => character is < '0' or > '9'))
+        var normalizedName = nombre?.Trim() ?? string.Empty;
+        if (normalizedName.Length == 0)
         {
-            throw new BusinessRuleException("El teléfono solo debe contener números.");
+            throw new BusinessRuleException("El nombre del proveedor es obligatorio.");
         }
+        if (normalizedName.Length > 200)
+        {
+            throw new BusinessRuleException("El nombre del proveedor no puede superar 200 caracteres.");
+        }
+
+        var normalizedPhone = telefono?.Trim() ?? string.Empty;
+        if (normalizedPhone.Length > 15 ||
+            normalizedPhone.Any(character => character is < '0' or > '9'))
+        {
+            throw new BusinessRuleException(
+                "El teléfono debe contener solo números y no superar 15 dígitos.");
+        }
+
+        var normalizedEmail = email?.Trim() ?? string.Empty;
+        if (normalizedEmail.Length > 254)
+        {
+            throw new BusinessRuleException("El correo no puede superar 254 caracteres.");
+        }
+        if (normalizedEmail.Length > 0 &&
+            (!MailAddress.TryCreate(normalizedEmail, out var mailAddress) ||
+             mailAddress is null ||
+             !string.Equals(
+                 mailAddress.Address,
+                 normalizedEmail,
+                 StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new BusinessRuleException("Ingresa un correo electrónico válido.");
+        }
+
+        return (normalizedName, normalizedPhone, normalizedEmail);
     }
 
     public async Task<Proveedor?> GetProveedorByIdAsync(int proveedorId)

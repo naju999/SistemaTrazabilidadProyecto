@@ -50,6 +50,10 @@ public class InventoryService
         var insumo = await GetActiveInputAsync(insumoId);
         var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
             ?? throw new BusinessRuleException("El proveedor seleccionado no existe.");
+        if (!proveedor.Activo)
+        {
+            throw new BusinessRuleException("El proveedor seleccionado está inactivo.");
+        }
 
         var stockAnterior = await GetAvailableQuantityAsync(insumoId);
         var codigoLote = LotCodeGenerator.Generate(fechaIngreso);

@@ -23,7 +23,8 @@ public sealed record ModuleInputField(
     ModuleInputKind Kind,
     object? InitialValue = null,
     IReadOnlyList<ModuleInputChoice>? Choices = null,
-    bool Required = true);
+    bool Required = true,
+    int? MaxLength = null);
 
 public static class ModuleInputDialog
 {
@@ -146,7 +147,9 @@ public static class ModuleInputDialog
         {
             return new DatePicker
             {
-                SelectedDate = field.InitialValue is DateTime date ? date : DateTime.Today,
+                SelectedDate = field.InitialValue is DateTime date
+                    ? date
+                    : field.Required ? DateTime.Today : null,
                 Height = 36
             };
         }
@@ -165,7 +168,7 @@ public static class ModuleInputDialog
             var initialChoice = field.Choices?.FirstOrDefault(c =>
                 Equals(c.Value, field.InitialValue));
             comboBox.SelectedValue = initialChoice?.Value
-                ?? field.Choices?.FirstOrDefault()?.Value;
+                ?? (field.Required ? field.Choices?.FirstOrDefault()?.Value : null);
             return comboBox;
         }
 
@@ -185,6 +188,7 @@ public static class ModuleInputDialog
         {
             Text = initialText,
             Height = 36,
+            MaxLength = field.MaxLength ?? 0,
             Padding = new Thickness(10, 7, 10, 7),
             Style = System.Windows.Application.Current.TryFindResource("InputTextBoxStyle") as Style
         };
@@ -237,6 +241,16 @@ public static class ModuleInputDialog
 
                 case ModuleInputKind.Integer:
                     var integerText = (control as TextBox)?.Text.Trim() ?? string.Empty;
+                    if (string.IsNullOrWhiteSpace(integerText) && !field.Required)
+                    {
+                        value = null;
+                        break;
+                    }
+                    if (string.IsNullOrWhiteSpace(integerText))
+                    {
+                        ShowValidationError(owner, field, "es obligatorio.");
+                        return false;
+                    }
                     if (!int.TryParse(
                             integerText,
                             NumberStyles.Integer | NumberStyles.AllowThousands,
@@ -251,6 +265,16 @@ public static class ModuleInputDialog
 
                 case ModuleInputKind.Decimal:
                     var decimalText = (control as TextBox)?.Text.Trim() ?? string.Empty;
+                    if (string.IsNullOrWhiteSpace(decimalText) && !field.Required)
+                    {
+                        value = null;
+                        break;
+                    }
+                    if (string.IsNullOrWhiteSpace(decimalText))
+                    {
+                        ShowValidationError(owner, field, "es obligatorio.");
+                        return false;
+                    }
                     if (!decimal.TryParse(decimalText, NumberStyles.Number, CultureInfo.CurrentCulture, out var number)
                         && !decimal.TryParse(decimalText, NumberStyles.Number, CultureInfo.InvariantCulture, out number))
                     {
