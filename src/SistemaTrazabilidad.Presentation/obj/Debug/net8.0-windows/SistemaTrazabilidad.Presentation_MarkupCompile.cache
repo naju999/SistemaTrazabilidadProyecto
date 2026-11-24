@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Presentation\App.xaml
-121799918433
+131665704309
 1909917573
-30-1959836979
-232334307587
-Views\AlertsView.xaml;Views\AuditView.xaml;Views\Dashboard.xaml;Views\InventoryDetailWindow.xaml;Views\InventoryListView.xaml;Views\LoginWindow.xaml;Views\LotManagementWindow.xaml;Views\MainWindow.xaml;Views\ProductionOrderDialog.xaml;Views\ProductionView.xaml;Views\RegisterLotWindow.xaml;Views\SuppliersView.xaml;
+321574780250
+2441633270690
+Views\AlertsView.xaml;Views\AuditDetailWindow.xaml;Views\AuditView.xaml;Views\Dashboard.xaml;Views\InventoryDetailWindow.xaml;Views\InventoryListView.xaml;Views\LoginWindow.xaml;Views\LotManagementWindow.xaml;Views\MainWindow.xaml;Views\ProductionOrderDialog.xaml;Views\ProductionView.xaml;Views\RegisterLotWindow.xaml;Views\SuppliersView.xaml;
 
 False
 

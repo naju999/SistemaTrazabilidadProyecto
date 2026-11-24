@@ -52,7 +52,29 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
     public bool Activo
     {
         get => _activo;
-        set { if (_activo != value) { _activo = value; OnPropertyChanged(); } }
+        set
+        {
+            if (_activo != value)
+            {
+                _activo = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Estado));
+            }
+        }
+    }
+
+    public string Estado
+    {
+        get => Activo ? "Activo" : "Inactivo";
+        set
+        {
+            Activo = value switch
+            {
+                "Activo" => true,
+                "Inactivo" => false,
+                _ => throw new ArgumentOutOfRangeException(nameof(value), value, "El estado no es válido.")
+            };
+        }
     }
 
     public string MensajeError
@@ -166,17 +188,20 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
             }
             else
             {
-                _insumo!.Codigo = Codigo;
-                _insumo.Nombre = Nombre;
-                _insumo.UnidadMedida = UnidadMedida;
-                _insumo.StockMinimo = stockMinimo;
-                _insumo.Activo = Activo;
+                var insumo = await _unitOfWork.Repository<Insumo>()
+                    .GetByIdAsync(_insumo!.Id)
+                    ?? throw new InvalidOperationException("El insumo ya no existe.");
 
-                _unitOfWork.Repository<Insumo>().Update(_insumo);
+                insumo.Codigo = Codigo;
+                insumo.Nombre = Nombre;
+                insumo.UnidadMedida = UnidadMedida;
+                insumo.StockMinimo = stockMinimo;
+                insumo.Activo = Activo;
                 await _unitOfWork.CommitAsync();
 
-                await _auditService.LogAsync("Insumo", _insumo.Id, "Update",
-                    $"Se actualizó el insumo {_insumo.Nombre}.", _sessionService.UsuarioActual?.Id);
+                _insumo = insumo;
+                await _auditService.LogAsync("Insumo", insumo.Id, "Update",
+                    $"Se actualizó el insumo {insumo.Nombre}.", _sessionService.UsuarioActual?.Id);
             }
 
             GuardoExitoso?.Invoke(this, EventArgs.Empty);

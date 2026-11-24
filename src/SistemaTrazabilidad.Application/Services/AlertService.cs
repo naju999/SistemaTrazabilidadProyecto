@@ -59,42 +59,62 @@ public class AlertService
     {
         var insumos = (await _inventoryService.GetStockActualAsync())
             .Where(i => i.StockDisponible <= i.StockMinimo && i.Activo);
-        var alerts = new List<Alerta>();
+        var currentAlerts = insumos
+            .Select(insumo => new AlertSnapshot(
+                $"STOCK_MINIMO_{insumo.Id}",
+                $"Stock mínimo alcanzado para el insumo {insumo.Nombre}. " +
+                $"Stock disponible: {insumo.StockDisponible}; mínimo configurado: {insumo.StockMinimo}.",
+                AlertType.StockMinimo,
+                insumo.Id,
+                null,
+                nameof(Insumo)))
+            .ToList();
 
-        foreach (var insumo in insumos)
-        {
-            var codigo = $"STOCK_MINIMO_{insumo.Id}";
-            var mensaje = $"Stock mínimo alcanzado para el insumo {insumo.Nombre}. Stock disponible: {insumo.StockDisponible}.";
-            var alerta = await CreateAlertAsync(codigo, mensaje, AlertType.StockMinimo, insumo.Id, null, nameof(Insumo));
-            alerts.Add(alerta);
-        }
-
-        return alerts;
+        return await SynchronizeAlertsAsync("STOCK_MINIMO_", currentAlerts);
     }
 
     public async Task<IEnumerable<Alerta>> GenerateExpiryAlertsAsync(int diasAntesVencimiento = 7)
     {
-        var fechaUmbral = DateTime.Today.AddDays(diasAntesVencimiento);
-        var lotes = await _unitOfWork.Repository<Lote>().FindAsync(l =>
-            l.InsumoId.HasValue && !l.Bloqueado && l.FechaVencimiento <= fechaUmbral && l.CantidadDisponible > 0);
-        var alerts = new List<Alerta>();
-
-        foreach (var lote in lotes)
+        if (diasAntesVencimiento < 0)
         {
-            var mensaje = lote.FechaVencimiento.Date < DateTime.Today
-                ? $"Lote {lote.CodigoInterno} está vencido."
-                : $"Lote {lote.CodigoInterno} vence el {lote.FechaVencimiento:yyyy-MM-dd}.";
-            var codigo = $"VENCIMIENTO_LOTE_{lote.Id}";
-            var alerta = await CreateAlertAsync(codigo, mensaje, AlertType.Vencimiento, lote.InsumoId, lote.Id, nameof(Lote));
-            alerts.Add(alerta);
+            throw new ArgumentOutOfRangeException(
+                nameof(diasAntesVencimiento),
+                "Los días previos al vencimiento no pueden ser negativos.");
         }
 
-        return alerts;
+        var fechaUmbral = DateTime.Today.AddDays(diasAntesVencimiento);
+        var lotes = await _unitOfWork.Repository<Lote>().FindAsync(l =>
+            l.InsumoId.HasValue &&
+            !l.Bloqueado &&
+            l.FechaVencimiento.Date <= fechaUmbral &&
+            l.CantidadDisponible > 0);
+        var currentAlerts = lotes
+            .Select(lote => new AlertSnapshot(
+                $"VENCIMIENTO_LOTE_{lote.Id}",
+                lote.FechaVencimiento.Date < DateTime.Today
+                    ? $"Lote {lote.CodigoInterno} está vencido. " +
+                      $"Cantidad disponible: {lote.CantidadDisponible}."
+                    : $"Lote {lote.CodigoInterno} vence el {lote.FechaVencimiento:yyyy-MM-dd}. " +
+                      $"Cantidad disponible: {lote.CantidadDisponible}.",
+                AlertType.Vencimiento,
+                lote.InsumoId,
+                lote.Id,
+                nameof(Lote)))
+            .ToList();
+
+        return await SynchronizeAlertsAsync("VENCIMIENTO_LOTE_", currentAlerts);
+    }
+
+    public async Task<IReadOnlyList<Alerta>> RefreshCurrentAlertsAsync()
+    {
+        var stockAlerts = await GenerateStockAlertsAsync();
+        var expiryAlerts = await GenerateExpiryAlertsAsync();
+        return stockAlerts.Concat(expiryAlerts).ToList();
     }
 
     public async Task<IEnumerable<Alerta>> GetActiveAlertsAsync()
     {
-        return await _unitOfWork.Repository<Alerta>().FindAsync(a => a.Activa && !a.Leida);
+        return await _unitOfWork.Repository<Alerta>().FindAsync(a => a.Activa);
     }
 
     public async Task<Alerta> ResolveAlertAsync(int alertaId)
@@ -109,4 +129,99 @@ public class AlertService
 
         return alerta;
     }
+
+    private async Task<IReadOnlyList<Alerta>> SynchronizeAlertsAsync(
+        string codigoPrefix,
+        IReadOnlyList<AlertSnapshot> currentConditions)
+    {
+        var currentByCode = currentConditions.ToDictionary(
+            alert => alert.Codigo,
+            StringComparer.Ordinal);
+        var repository = _unitOfWork.Repository<Alerta>();
+        var existingAlerts = (await repository.FindTrackedAsync(
+                alert => alert.Codigo.StartsWith(codigoPrefix)))
+            .ToList();
+        var activeAlerts = new List<Alerta>(currentConditions.Count);
+        var hasChanges = false;
+
+        foreach (var condition in currentConditions)
+        {
+            var matches = existingAlerts
+                .Where(alert => alert.Codigo == condition.Codigo)
+                .ToList();
+            var activeMatches = matches
+                .Where(alert => alert.Activa)
+                .OrderByDescending(alert => alert.FechaGeneracion)
+                .ToList();
+            var activeAlert = activeMatches.FirstOrDefault();
+
+            if (activeAlert is null)
+            {
+                activeAlert = new Alerta
+                {
+                    Codigo = condition.Codigo,
+                    Mensaje = condition.Mensaje,
+                    Tipo = condition.Tipo,
+                    InsumoId = condition.InsumoId,
+                    LoteId = condition.LoteId,
+                    FechaGeneracion = DateTime.UtcNow,
+                    Activa = true,
+                    Leida = false,
+                    EntidadRelacionada = condition.EntidadRelacionada
+                };
+                await repository.AddAsync(activeAlert);
+                hasChanges = true;
+            }
+            else if (activeAlert.Mensaje != condition.Mensaje ||
+                     activeAlert.InsumoId != condition.InsumoId ||
+                     activeAlert.LoteId != condition.LoteId ||
+                     activeAlert.Tipo != condition.Tipo ||
+                     activeAlert.EntidadRelacionada != condition.EntidadRelacionada)
+            {
+                activeAlert.Mensaje = condition.Mensaje;
+                activeAlert.InsumoId = condition.InsumoId;
+                activeAlert.LoteId = condition.LoteId;
+                activeAlert.Tipo = condition.Tipo;
+                activeAlert.EntidadRelacionada = condition.EntidadRelacionada;
+                activeAlert.FechaGeneracion = DateTime.UtcNow;
+                activeAlert.Leida = false;
+                repository.Update(activeAlert);
+                hasChanges = true;
+            }
+
+            foreach (var duplicate in activeMatches.Skip(1))
+            {
+                duplicate.Activa = false;
+                duplicate.Leida = true;
+                repository.Update(duplicate);
+                hasChanges = true;
+            }
+
+            activeAlerts.Add(activeAlert);
+        }
+
+        foreach (var staleAlert in existingAlerts.Where(alert =>
+                     alert.Activa && !currentByCode.ContainsKey(alert.Codigo)))
+        {
+            staleAlert.Activa = false;
+            staleAlert.Leida = true;
+            repository.Update(staleAlert);
+            hasChanges = true;
+        }
+
+        if (hasChanges)
+        {
+            await _unitOfWork.CommitAsync();
+        }
+
+        return activeAlerts;
+    }
+
+    private sealed record AlertSnapshot(
+        string Codigo,
+        string Mensaje,
+        AlertType Tipo,
+        int? InsumoId,
+        int? LoteId,
+        string EntidadRelacionada);
 }

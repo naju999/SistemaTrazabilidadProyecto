@@ -14,8 +14,10 @@
                     <TextBlock Text="Historial de movimientos para respaldar trazabilidad, cambios de inventario y controles." Style="{StaticResource ModuleSubtitleStyle}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="🖨️ Imprimir" Style="{StaticResource PrimaryButtonStyle}" Background="#8A6A3F" Margin="0,0,10,0" IsEnabled="False" ToolTip="La exportación no está implementada."/>
-                    <Button Content="Exportar reporte" Style="{StaticResource PrimaryButtonStyle}" IsEnabled="False" ToolTip="La exportación no está implementada."/>
+                    <Button Content="Exportar PDF"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            ToolTip="Exporta los registros visibles con sus filtros actuales a un documento PDF."
+                            Click="ExportarReporte_Click"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -56,7 +58,7 @@
                         <DataGridTextColumn Header="Entidad" Binding="{Binding Entidad}" Width="150"/>
                         <DataGridTextColumn Header="Registro" Binding="{Binding Registro}" Width="100"/>
                         <DataGridTemplateColumn Header="Acción" Width="140"><DataGridTemplateColumn.CellTemplate><DataTemplate><Border Background="#E8F4FD" CornerRadius="10" Padding="8,3"><TextBlock Text="{Binding Accion}" Foreground="#086BC1" Style="{StaticResource BadgeTextStyle}"/></Border></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Detalle" Binding="{Binding Detalle}" Width="*"/>
+                        <DataGridTextColumn Header="Resumen" Binding="{Binding DetalleResumen}" Width="*"/>
                         <DataGridTemplateColumn Header="Acciones" Width="120"><DataGridTemplateColumn.CellTemplate><DataTemplate><Button Content="Detalle" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="VerDetalleAuditoria_Click"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>

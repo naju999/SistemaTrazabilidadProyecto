@@ -364,7 +364,11 @@
             },
             "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
-              "version": "[8.0.2, )"
+              "version": "[8.0.3, )"
+            },
+            "PDFsharp-MigraDoc-WPF": {
+              "target": "Package",
+              "version": "[6.2.4, )"
             },
             "Serilog": {
               "target": "Package",

@@ -43,7 +43,7 @@ public partial class AlertsView : UserControl
         _scope = App.Services.CreateScope();
         DataContext = _scope.ServiceProvider.GetRequiredService<AlertModuleViewModel>();
         Loaded += async (_, _) => await ModuleViewActions.RunAsync(this,
-            () => ((AlertModuleViewModel)DataContext).LoadAsync());
+            () => ((AlertModuleViewModel)DataContext).RefreshCurrentAlertsAsync());
         Unloaded += (_, _) => _scope.Dispose();
     }
 }

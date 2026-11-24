@@ -200,22 +200,45 @@ public class InventoryListViewModel : INotifyPropertyChanged
                 .ToList();
 
             var lotesPorId = lotes.ToDictionary(lote => lote.Id);
-            var detalleAuditoria = new StringBuilder()
+            var detalle = new StringBuilder()
                 .AppendLine($"Insumo eliminado: {insumo.Codigo} - {insumo.Nombre}")
-                .AppendLine($"Unidad: {insumo.UnidadMedida}; activo: {insumo.Activo}; stock mínimo: {insumo.StockMinimo}; stock registrado: {insumo.StockActual}; disponible: {insumo.StockDisponible}.")
-                .AppendLine($"Lotes: {string.Join("; ", lotes.Select(lote =>
-                    $"{lote.CodigoInterno} (código previo: {lote.CodigoLote}, proveedor #{lote.ProveedorId}, inicial {lote.CantidadInicial}, disponible {lote.CantidadDisponible}, vence {lote.FechaVencimiento:yyyy-MM-dd}, bloqueado {lote.Bloqueado})"))}")
-                .AppendLine($"Compras: {string.Join("; ", compras.Select(compra =>
-                    $"OC-{compra.Id:D4} ({compra.Estado}, proveedor #{compra.ProveedorId}, cantidad {compra.Cantidad}, precio {compra.PrecioUnitario}, compra {compra.FechaCompra:yyyy-MM-dd}, entrega {compra.FechaEntregaEstimada:yyyy-MM-dd}, observaciones: {compra.Observaciones})"))}")
-                .AppendLine($"Órdenes: {string.Join("; ", producciones.Select(produccion =>
-                    $"{produccion.OrdenProduccion} ({produccion.Estado}, inicio {produccion.FechaInicio:yyyy-MM-dd}, fin {produccion.FechaFin:yyyy-MM-dd}, programado {produccion.CantidadProgramada}, consumido {produccion.CantidadConsumida}, lote {GetLotCode(produccion.LoteId, lotesPorId)})"))}")
-                .AppendLine($"Movimientos de inventario: {string.Join("; ", movimientos.Select(movimiento =>
-                    $"{movimiento.FechaMovimiento:yyyy-MM-dd} {movimiento.Tipo} cantidad {movimiento.Cantidad}, stock {movimiento.StockAnterior}->{movimiento.StockPosterior}, usuario #{movimiento.UsuarioId}, referencia {movimiento.Referencia}, comentario: {movimiento.Comentario}"))}")
-                .AppendLine($"Registros sanitarios: {string.Join("; ", registrosSanitarios.Select(registro =>
-                    $"{registro.FechaRegistro:yyyy-MM-dd} {(registro.Aprobado ? "Aprobado" : "Revisión")} (temperatura {registro.Temperatura}, cloro {registro.Cloro}, pH {registro.PH}, madurez {registro.Madurez}, observaciones: {registro.Observaciones})"))}")
-                .AppendLine($"Alertas: {string.Join("; ", alertas.Select(alerta =>
-                    $"{alerta.Codigo} ({alerta.Tipo}, {alerta.FechaGeneracion:yyyy-MM-dd}, activa {alerta.Activa}, leída {alerta.Leida}): {alerta.Mensaje}"))}")
-                .ToString();
+                .AppendLine($"Nombre: {insumo.Nombre}")
+                .AppendLine($"Unidad de medida: {insumo.UnidadMedida}")
+                .AppendLine($"Estado: {(insumo.Activo ? "Activo" : "Inactivo")}")
+                .AppendLine($"Stock mínimo: {insumo.StockMinimo:#,##0.##}")
+                .AppendLine($"Stock registrado: {insumo.StockActual:#,##0.##}")
+                .AppendLine($"Stock disponible: {insumo.StockDisponible:#,##0.##}");
+
+            void AppendSection(string title, IEnumerable<string> entries)
+            {
+                var items = entries.ToList();
+                if (items.Count == 0)
+                {
+                    return;
+                }
+
+                detalle.AppendLine();
+                detalle.AppendLine($"{title} ({items.Count})");
+                foreach (var item in items)
+                {
+                    detalle.AppendLine($"- {item}");
+                }
+            }
+
+            AppendSection("Lotes", lotes.Select(lote =>
+                $"{lote.CodigoInterno} | código anterior: {lote.CodigoLote} | proveedor: #{lote.ProveedorId} | cantidad inicial: {lote.CantidadInicial:#,##0.##} | disponible: {lote.CantidadDisponible:#,##0.##} | vence: {lote.FechaVencimiento:dd/MM/yyyy} | bloqueado: {(lote.Bloqueado ? "Sí" : "No")}"));
+            AppendSection("Compras", compras.Select(compra =>
+                $"OC-{compra.Id:D4} | estado: {compra.Estado} | proveedor: #{compra.ProveedorId} | cantidad: {compra.Cantidad:#,##0.##} | precio unitario: {compra.PrecioUnitario:#,##0.##} | compra: {compra.FechaCompra:dd/MM/yyyy} | entrega estimada: {compra.FechaEntregaEstimada:dd/MM/yyyy} | observaciones: {compra.Observaciones}"));
+            AppendSection("Órdenes de producción", producciones.Select(produccion =>
+                $"{produccion.OrdenProduccion} | estado: {produccion.Estado} | inicio: {produccion.FechaInicio:dd/MM/yyyy} | fin: {produccion.FechaFin:dd/MM/yyyy} | programado: {produccion.CantidadProgramada:#,##0.##} | consumido: {produccion.CantidadConsumida:#,##0.##} | lote: {GetLotCode(produccion.LoteId, lotesPorId)}"));
+            AppendSection("Movimientos de inventario", movimientos.Select(movimiento =>
+                $"{movimiento.FechaMovimiento:dd/MM/yyyy} | {movimiento.Tipo} | cantidad: {movimiento.Cantidad:#,##0.##} | stock: {movimiento.StockAnterior:#,##0.##} → {movimiento.StockPosterior:#,##0.##} | usuario: #{movimiento.UsuarioId} | referencia: {movimiento.Referencia} | comentario: {movimiento.Comentario}"));
+            AppendSection("Registros sanitarios", registrosSanitarios.Select(registro =>
+                $"{registro.FechaRegistro:dd/MM/yyyy} | {(registro.Aprobado ? "Aprobado" : "En revisión")} | temperatura: {registro.Temperatura} | cloro: {registro.Cloro} | pH: {registro.PH} | madurez: {registro.Madurez} | observaciones: {registro.Observaciones}"));
+            AppendSection("Alertas relacionadas", alertas.Select(alerta =>
+                $"{alerta.Codigo} | tipo: {alerta.Tipo} | fecha: {alerta.FechaGeneracion:dd/MM/yyyy} | estado: {(alerta.Activa ? "Activa" : "Resuelta")} | {(alerta.Leida ? "Leída" : "No leída")} | {alerta.Mensaje}"));
+
+            var detalleAuditoria = detalle.ToString().TrimEnd();
 
             foreach (var lote in lotes)
             {

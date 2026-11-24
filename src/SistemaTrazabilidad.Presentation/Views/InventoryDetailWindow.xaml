@@ -68,11 +68,16 @@
                                  views:NumericTextBoxBehavior.UseThousandsSeparator="True"/>
                     </StackPanel>
 
-                    <CheckBox Content="Insumo Activo" 
-                              IsChecked="{Binding Activo}" 
-                              FontSize="12" 
-                              Foreground="#333"
-                              Margin="0,0,0,14"/>
+                    <StackPanel Margin="0,0,0,14">
+                        <TextBlock Text="Estado *" FontSize="12" Foreground="#333" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox Height="36"
+                                  Padding="8,4"
+                                  SelectedValuePath="Content"
+                                  SelectedValue="{Binding Estado, Mode=TwoWay}">
+                            <ComboBoxItem Content="Activo"/>
+                            <ComboBoxItem Content="Inactivo"/>
+                        </ComboBox>
+                    </StackPanel>
 
                     <Border Background="#FFE8D5" CornerRadius="4" Padding="10" Margin="0,0,0,10" Visibility="{Binding MensajeError, Converter={StaticResource StringToBoolVisibilityConverter}}">
                         <TextBlock Text="{Binding MensajeError}" FontSize="12" Foreground="#FF6B35" TextWrapping="Wrap"/>

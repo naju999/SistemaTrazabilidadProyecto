@@ -1,66 +1,153 @@
 <UserControl x:Class="SistemaTrazabilidad.Presentation.Views.Dashboard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <DataTemplate x:Key="DashboardChartRowTemplate">
+            <Grid Margin="0,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="112"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="42"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Label}"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Foreground="#475569"
+                           TextTrimming="CharacterEllipsis"
+                           ToolTip="{Binding Label}"/>
+                <ProgressBar Grid.Column="1"
+                             Height="12"
+                             Minimum="0"
+                             Maximum="100"
+                             Value="{Binding Percentage}"
+                             Background="#E8EDF2"
+                             Foreground="{Binding Color}"
+                             BorderThickness="0"
+                             VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Count}"
+                           VerticalAlignment="Center"
+                           TextAlignment="Right"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           Foreground="#1E293B"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid Background="#F4F7FA" Loaded="UserControl_Loaded">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="28">
-                <!-- Título -->
-                <TextBlock Text="DASHBOARD" 
-                           FontSize="26" 
-                           FontWeight="Bold" 
-                           Foreground="#1E293B" 
+                <TextBlock Text="DASHBOARD"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#1E293B"
                            Margin="0,0,0,22"/>
 
-                <!-- KPIs Row 1 -->
-                <Grid Margin="0,0,0,15">
+                <Border Background="#E8F4FD"
+                        CornerRadius="4"
+                        Padding="15"
+                        Margin="0,0,0,14"
+                        Visibility="{Binding Cargando, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="Actualizando indicadores..."
+                               FontSize="12"
+                               Foreground="#0066CC"/>
+                </Border>
+
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                    <!-- KPI: Stock Crítico -->
-                    <Border Grid.Column="0" Background="White" CornerRadius="8" BorderBrush="#FFE8D5" BorderThickness="1" Padding="20" Margin="0,0,8,0">
+                    <Border Grid.Row="0" Grid.Column="0"
+                            Background="White"
+                            CornerRadius="8"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            Padding="20"
+                            Margin="0,0,8,8">
                         <StackPanel>
-                            <TextBlock Text="🚨 Stock Crítico" FontSize="13" Foreground="#FF6B35" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding StockCriticoCount}" FontSize="36" FontWeight="Bold" Foreground="#FF6B35"/>
-                            <TextBlock Text="insumos bajo stock mínimo" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
+                            <TextBlock Text="Estado del inventario"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Foreground="#1E293B"/>
+                            <TextBlock Text="Insumos activos según su stock disponible"
+                                       FontSize="11"
+                                       Foreground="#64748B"
+                                       Margin="0,4,0,10"/>
+                            <ItemsControl ItemsSource="{Binding StockChart}"
+                                          ItemTemplate="{StaticResource DashboardChartRowTemplate}"/>
                         </StackPanel>
                     </Border>
 
-                    <!-- KPI: Alertas Activas -->
-                    <Border Grid.Column="1" Background="White" CornerRadius="8" BorderBrush="#FFD966" BorderThickness="1" Padding="20" Margin="8,0">
+                    <Border Grid.Row="0" Grid.Column="1"
+                            Background="White"
+                            CornerRadius="8"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            Padding="20"
+                            Margin="8,0,0,8">
                         <StackPanel>
-                            <TextBlock Text="⚠️ Alertas Activas" FontSize="13" Foreground="#F5A623" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding AlertasActivasCount}" FontSize="36" FontWeight="Bold" Foreground="#F5A623"/>
-                            <TextBlock Text="alertas sin resolver" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
+                            <TextBlock Text="Alertas activas por tipo"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Foreground="#1E293B"/>
+                            <TextBlock Text="Cantidad de alertas sin resolver"
+                                       FontSize="11"
+                                       Foreground="#64748B"
+                                       Margin="0,4,0,10"/>
+                            <ItemsControl ItemsSource="{Binding AlertsChart}"
+                                          ItemTemplate="{StaticResource DashboardChartRowTemplate}"/>
                         </StackPanel>
                     </Border>
 
-                    <!-- KPI: Vencimientos Próximos -->
-                    <Border Grid.Column="2" Background="White" CornerRadius="8" BorderBrush="#B6D7FF" BorderThickness="1" Padding="20" Margin="8,0">
+                    <Border Grid.Row="1" Grid.Column="0"
+                            Background="White"
+                            CornerRadius="8"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            Padding="20"
+                            Margin="0,8,8,0">
                         <StackPanel>
-                            <TextBlock Text="📅 Vencimientos" FontSize="13" Foreground="#0066CC" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding VencimientosProximosCount}" FontSize="36" FontWeight="Bold" Foreground="#0066CC"/>
-                            <TextBlock Text="en próximos 14 días" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
+                            <TextBlock Text="Órdenes iniciadas · últimos 7 días"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Foreground="#1E293B"/>
+                            <TextBlock Text="Órdenes por fecha de inicio"
+                                       FontSize="11"
+                                       Foreground="#64748B"
+                                       Margin="0,4,0,10"/>
+                            <ItemsControl ItemsSource="{Binding ProductionChart}"
+                                          ItemTemplate="{StaticResource DashboardChartRowTemplate}"/>
                         </StackPanel>
                     </Border>
 
-                    <!-- KPI: Producción Reciente -->
-                    <Border Grid.Column="3" Background="White" CornerRadius="8" BorderBrush="#E8D5FF" BorderThickness="1" Padding="20" Margin="8,0,0,0">
+                    <Border Grid.Row="1" Grid.Column="1"
+                            Background="White"
+                            CornerRadius="8"
+                            BorderBrush="#E2E8F0"
+                            BorderThickness="1"
+                            Padding="20"
+                            Margin="8,8,0,0">
                         <StackPanel>
-                            <TextBlock Text="🏭 Producción Reciente" FontSize="13" Foreground="#8B5CF6" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding ProduccionRecienteCount}" FontSize="36" FontWeight="Bold" Foreground="#8B5CF6"/>
-                            <TextBlock Text="últimos 7 días" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
+                            <TextBlock Text="Vencimiento de lotes disponibles"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Foreground="#1E293B"/>
+                            <TextBlock Text="Cantidad de lotes por tiempo hasta el vencimiento"
+                                       FontSize="11"
+                                       Foreground="#64748B"
+                                       Margin="0,4,0,10"/>
+                            <ItemsControl ItemsSource="{Binding ExpiryChart}"
+                                          ItemTemplate="{StaticResource DashboardChartRowTemplate}"/>
                         </StackPanel>
                     </Border>
                 </Grid>
-
-                <!-- Estado de carga -->
-                <Border Background="#E8F4FD" CornerRadius="4" Padding="15" Visibility="{Binding Cargando, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <TextBlock Text="Actualizando indicadores..." FontSize="12" Foreground="#0066CC"/>
-                </Border>
             </StackPanel>
         </ScrollViewer>
     </Grid>

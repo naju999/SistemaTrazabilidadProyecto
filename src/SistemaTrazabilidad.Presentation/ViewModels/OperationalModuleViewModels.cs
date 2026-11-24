@@ -247,57 +247,61 @@ public sealed class AlertModuleViewModel : OperationalModuleViewModel
     private readonly IUnitOfWork _unitOfWork;
 
     public ObservableCollection<AlertRow> Alerts { get; } = [];
-    public int ActiveCount => Alerts.Count(a => a.Entity.Activa);
-    public int UnreadCount => Alerts.Count(a => !a.Entity.Leida);
-    public int ResolvedCount => Alerts.Count(a => !a.Entity.Activa);
-    public int TotalCount => Alerts.Count;
+    public int ActiveCount { get; private set; }
+    public int UnreadCount { get; private set; }
+    public int ResolvedCount { get; private set; }
+    public int TotalCount { get; private set; }
 
     public AlertModuleViewModel(AlertService alertService, IUnitOfWork unitOfWork)
     {
         _alertService = alertService;
         _unitOfWork = unitOfWork;
-        Observe(Alerts, nameof(ActiveCount), nameof(UnreadCount),
-            nameof(ResolvedCount), nameof(TotalCount));
     }
 
-    public async Task LoadAsync(string? type = null, string? status = null, bool unreadOnly = false)
+    public async Task LoadAsync(
+        string? type = null,
+        string? status = "Activas")
     {
-        var alerts = await _unitOfWork.Repository<Alerta>().GetAllAsync();
-        var filtered = alerts.AsEnumerable();
+        var allAlerts = (await _unitOfWork.Repository<Alerta>().GetAllAsync()).ToList();
+        ActiveCount = allAlerts.Count(alert => alert.Activa);
+        UnreadCount = allAlerts.Count(alert => !alert.Leida);
+        ResolvedCount = allAlerts.Count(alert => !alert.Activa);
+        TotalCount = allAlerts.Count;
+        OnPropertyChanged(nameof(ActiveCount));
+        OnPropertyChanged(nameof(UnreadCount));
+        OnPropertyChanged(nameof(ResolvedCount));
+        OnPropertyChanged(nameof(TotalCount));
+
+        IEnumerable<Alerta> filtered = allAlerts;
         if (!string.IsNullOrWhiteSpace(type))
         {
-            filtered = filtered.Where(a => a.Tipo.ToString() == type);
+            filtered = filtered.Where(alert => alert.Tipo.ToString() == type);
         }
         if (string.Equals(status, "Activas", StringComparison.OrdinalIgnoreCase))
         {
-            filtered = filtered.Where(a => a.Activa);
+            filtered = filtered.Where(alert => alert.Activa);
         }
         else if (string.Equals(status, "Resueltas", StringComparison.OrdinalIgnoreCase))
         {
-            filtered = filtered.Where(a => !a.Activa);
+            filtered = filtered.Where(alert => !alert.Activa);
         }
-        if (unreadOnly)
-        {
-            filtered = filtered.Where(a => !a.Leida);
-        }
-
         Replace(Alerts, filtered.OrderByDescending(a => a.FechaGeneracion)
             .Select(a => new AlertRow(
                 a.Id,
                 a.FechaGeneracion.ToString("g"),
-                "—",
-                a.Tipo.ToString(),
+                GetAlertTypeName(a.Tipo),
                 a.Codigo,
                 a.Mensaje,
                 a.Activa ? "Activa" : "Resuelta",
                 a)));
     }
 
-    public async Task GenerateCurrentAlertsAsync()
+    public async Task RefreshCurrentAlertsAsync(
+        string? type = null,
+        string? status = "Activas")
     {
-        await _alertService.GenerateStockAlertsAsync();
-        await _alertService.GenerateExpiryAlertsAsync();
-        await LoadAsync();
+        await _alertService.RefreshCurrentAlertsAsync();
+        await LoadAsync(type, status);
     }
 
     public async Task ResolveAsync(Alerta alert)
@@ -313,6 +317,19 @@ public sealed class AlertModuleViewModel : OperationalModuleViewModel
         {
             target.Add(item);
         }
+    }
+
+    private static string GetAlertTypeName(AlertType type)
+    {
+        return type switch
+        {
+            AlertType.StockMinimo => "Stock mínimo",
+            AlertType.Vencimiento => "Vencimiento",
+            AlertType.Anomalia => "Anomalía",
+            AlertType.Sanidad => "Sanidad",
+            AlertType.Produccion => "Producción",
+            _ => type.ToString()
+        };
     }
 }
 
@@ -377,8 +394,18 @@ public sealed class AuditModuleViewModel : OperationalModuleViewModel
                 a.Entidad,
                 a.Entidad,
                 a.EntidadId.ToString(),
-                a.Accion,
+                GetAuditActionName(a.Accion),
                 a.Detalle)));
+    }
+
+    private static string GetAuditActionName(string action)
+    {
+        return action switch
+        {
+            "Delete" => "Eliminación",
+            "Bloqueo" => "Bloqueo de lote",
+            _ => action
+        };
     }
 
     private static void Replace<T>(ObservableCollection<T> target, IEnumerable<T> items)
@@ -432,12 +459,14 @@ public sealed record ProductionRow(
 public sealed record AlertRow(
     int Id,
     string Fecha,
-    string Prioridad,
     string Tipo,
     string Codigo,
     string Mensaje,
     string Estado,
-    Alerta Entity);
+    Alerta Entity)
+{
+    public bool CanResolve => Entity.Activa;
+}
 
 public sealed record AuditRow(
     string FechaHora,
@@ -446,4 +475,24 @@ public sealed record AuditRow(
     string Entidad,
     string Registro,
     string Accion,
-    string Detalle);
+    string Detalle)
+{
+    public string DetalleResumen
+    {
+        get
+        {
+            var firstLine = Detalle
+                .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries)
+                .FirstOrDefault()?.Trim();
+
+            if (string.IsNullOrEmpty(firstLine))
+            {
+                return string.Empty;
+            }
+
+            return firstLine.Length > 140
+                ? $"{firstLine[..137]}..."
+                : firstLine;
+        }
+    }
+}

@@ -76,7 +76,38 @@
                         <DataGridTextColumn Header="Registrado" Binding="{Binding StockActual}" Width="120"/>
                         <DataGridCheckBoxColumn Header="Diferencia" Binding="{Binding TieneDiferenciaStock, Mode=OneWay}" Width="85"/>
                         <DataGridTextColumn Header="Stock Mínimo" Binding="{Binding StockMinimo}" Width="120"/>
-                        <DataGridCheckBoxColumn Header="Activo" Binding="{Binding Activo}" Width="80"/>
+                        <DataGridTemplateColumn Header="Estado" Width="110">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="10" Padding="8,3">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#E8F7EF"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Activo}" Value="False">
+                                                        <Setter Property="Background" Value="#FEE2E2"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource BadgeTextStyle}">
+                                                    <Setter Property="Text" Value="Activo"/>
+                                                    <Setter Property="Foreground" Value="#169B62"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Activo}" Value="False">
+                                                            <Setter Property="Text" Value="Inactivo"/>
+                                                            <Setter Property="Foreground" Value="#DC2626"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         
                         <!-- Columna de acciones -->
                         <DataGridTemplateColumn Header="Acciones" Width="270">

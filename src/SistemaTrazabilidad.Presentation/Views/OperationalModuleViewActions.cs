@@ -1,5 +1,8 @@
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
+using PdfSharp;
 using SistemaTrazabilidad.Domain.Entities;
 using SistemaTrazabilidad.Presentation.ViewModels;
 
@@ -269,8 +272,11 @@ public partial class AlertsView
 {
     private async void ActualizarAlertas_Click(object sender, RoutedEventArgs e)
     {
+        var viewModel = (AlertModuleViewModel)DataContext;
         await ModuleViewActions.RunAsync(this, () =>
-            ((AlertModuleViewModel)DataContext).GenerateCurrentAlertsAsync());
+            viewModel.RefreshCurrentAlertsAsync(
+                GetSelectedAlertType(),
+                GetSelectedAlertStatus()));
     }
 
     private async void ResolverAlerta_Click(object sender, RoutedEventArgs e)
@@ -282,32 +288,95 @@ public partial class AlertsView
         }
     }
 
-    private async void SoloActualizarAlertas_Click(object sender, RoutedEventArgs e)
-    {
-        await ModuleViewActions.RunAsync(this, () =>
-            ((AlertModuleViewModel)DataContext).LoadAsync());
-    }
-
     private async void FiltrarAlertas_Click(object sender, RoutedEventArgs e)
     {
+        await ModuleViewActions.RunAsync(this, () =>
+            ((AlertModuleViewModel)DataContext).LoadAsync(
+                GetSelectedAlertType(),
+                GetSelectedAlertStatus()));
+    }
+
+    private string? GetSelectedAlertType()
+    {
         var selectedType = (TipoAlertaCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
-        var type = selectedType switch
+        return selectedType switch
         {
             "Stock mínimo" => AlertType.StockMinimo.ToString(),
             "Vencimiento" => AlertType.Vencimiento.ToString(),
-            "Producción" => AlertType.Produccion.ToString(),
             _ => null
         };
-        var status = (EstadoAlertaCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
+    }
 
-        await ModuleViewActions.RunAsync(this, () =>
-            ((AlertModuleViewModel)DataContext).LoadAsync(
-                type, status, SoloNoLeidasCheckBox.IsChecked == true));
+    private string? GetSelectedAlertStatus()
+    {
+        return (EstadoAlertaCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
     }
 }
 
 public partial class AuditView
 {
+    private void ExportarReporte_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not AuditModuleViewModel viewModel)
+        {
+            throw new InvalidOperationException("No se pudo acceder a los registros de auditoría.");
+        }
+
+        var records = viewModel.AuditEvents.ToList();
+        if (records.Count == 0)
+        {
+            MessageBox.Show(
+                ModuleViewActions.GetOwner(this),
+                "No hay registros para exportar con los filtros actuales.",
+                "Sin registros",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            return;
+        }
+
+        var dialog = new SaveFileDialog
+        {
+            Title = "Exportar auditoría a PDF",
+            Filter = "Documento PDF (*.pdf)|*.pdf",
+            DefaultExt = ".pdf",
+            AddExtension = true,
+            FileName = $"Auditoria_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
+            OverwritePrompt = true
+        };
+
+        if (dialog.ShowDialog(ModuleViewActions.GetOwner(this)) != true)
+        {
+            return;
+        }
+
+        try
+        {
+            AuditPdfExporter.Export(dialog.FileName, records);
+        }
+        catch (Exception ex) when (
+            ex is IOException or
+            UnauthorizedAccessException or
+            InvalidOperationException or
+            ArgumentException or
+            PdfSharpException)
+        {
+            MessageBox.Show(
+                ModuleViewActions.GetOwner(this),
+                $"No se pudo generar el PDF: {ex.Message}",
+                "Error al exportar",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            return;
+        }
+
+        MessageBox.Show(
+            ModuleViewActions.GetOwner(this),
+            $"Se exportaron {records.Count} registros a PDF.",
+            "Exportación completada",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+    }
+
     private async void BuscarAuditoria_Click(object sender, RoutedEventArgs e)
     {
         await ModuleViewActions.RunAsync(this, () =>
@@ -322,12 +391,11 @@ public partial class AuditView
     {
         if ((sender as Button)?.DataContext is AuditRow row)
         {
-            MessageBox.Show(
-                ModuleViewActions.GetOwner(this),
-                row.Detalle,
-                $"{row.Accion} — {row.Entidad} #{row.Registro}",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            var window = new AuditDetailWindow(row)
+            {
+                Owner = ModuleViewActions.GetOwner(this)
+            };
+            window.ShowDialog();
         }
     }
 }
