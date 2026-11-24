@@ -62,12 +62,14 @@ public class AppDbContext : DbContext
 
     private static void ConfigureLote(EntityTypeBuilder<Lote> entity)
     {
-        entity.HasIndex(e => e.CodigoLote).IsUnique();
+        entity.HasIndex(e => e.CodigoInterno).IsUnique();
+        entity.Property(e => e.CodigoInterno).IsRequired().HasMaxLength(64);
         entity.Property(e => e.CodigoLote).IsRequired().HasMaxLength(150);
         entity.Property(e => e.FechaIngreso).IsRequired();
         entity.Property(e => e.FechaVencimiento).IsRequired();
         entity.HasCheckConstraint("CHK_Lote_CantidadDisponible", "CantidadDisponible >= 0");
-        entity.HasOne(e => e.Insumo).WithMany(i => i.Lotes).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.Cascade);
+        entity.HasOne(e => e.Insumo).WithMany(i => i.Lotes).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.SetNull);
+        entity.HasOne(e => e.Proveedor).WithMany(p => p.Lotes).HasForeignKey(e => e.ProveedorId).OnDelete(DeleteBehavior.Restrict);
     }
 
     private static void ConfigureCompra(EntityTypeBuilder<Compra> entity)
@@ -78,7 +80,7 @@ public class AppDbContext : DbContext
         entity.HasCheckConstraint("CHK_Compra_Cantidad", "Cantidad > 0");
         entity.HasCheckConstraint("CHK_Compra_PrecioUnitario", "PrecioUnitario >= 0");
         entity.HasOne(e => e.Proveedor).WithMany(p => p.Compras).HasForeignKey(e => e.ProveedorId).OnDelete(DeleteBehavior.Restrict);
-        entity.HasOne(e => e.Insumo).WithMany(i => i.Compras).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.Restrict);
+        entity.HasOne(e => e.Insumo).WithMany(i => i.Compras).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.SetNull);
     }
 
     private static void ConfigureProduccion(EntityTypeBuilder<Produccion> entity)
@@ -86,8 +88,8 @@ public class AppDbContext : DbContext
         entity.Property(e => e.OrdenProduccion).IsRequired().HasMaxLength(120);
         entity.Property(e => e.FechaInicio).IsRequired();
         entity.HasCheckConstraint("CHK_Produccion_CantidadProgramada", "CantidadProgramada > 0");
-        entity.HasOne(e => e.Insumo).WithMany(i => i.Producciones).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.Restrict);
-        entity.HasOne(e => e.Lote).WithMany(l => l.Producciones).HasForeignKey(e => e.LoteId).OnDelete(DeleteBehavior.Restrict);
+        entity.HasOne(e => e.Insumo).WithMany(i => i.Producciones).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.SetNull);
+        entity.HasOne(e => e.Lote).WithMany(l => l.Producciones).HasForeignKey(e => e.LoteId).OnDelete(DeleteBehavior.SetNull);
     }
 
     private static void ConfigureMovimientoInventario(EntityTypeBuilder<MovimientoInventario> entity)
@@ -97,8 +99,9 @@ public class AppDbContext : DbContext
         entity.Property(e => e.StockAnterior).IsRequired();
         entity.Property(e => e.StockPosterior).IsRequired();
         entity.HasCheckConstraint("CHK_Movimiento_Cantidad", "Cantidad > 0");
-        entity.HasOne(e => e.Insumo).WithMany(i => i.Movimientos).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.Cascade);
+        entity.HasOne(e => e.Insumo).WithMany(i => i.Movimientos).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.SetNull);
         entity.HasOne(e => e.Lote).WithMany(l => l.Movimientos).HasForeignKey(e => e.LoteId).OnDelete(DeleteBehavior.SetNull);
+        entity.HasOne(e => e.Produccion).WithMany(p => p.Movimientos).HasForeignKey(e => e.ProduccionId).OnDelete(DeleteBehavior.SetNull);
     }
 
     private static void ConfigureRegistroSanitario(EntityTypeBuilder<RegistroSanitario> entity)
@@ -108,7 +111,7 @@ public class AppDbContext : DbContext
         entity.Property(e => e.Cloro).IsRequired();
         entity.Property(e => e.PH).IsRequired();
         entity.Property(e => e.Madurez).IsRequired();
-        entity.HasOne(e => e.Insumo).WithMany(i => i.RegistrosSanitarios).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.Cascade);
+        entity.HasOne(e => e.Insumo).WithMany(i => i.RegistrosSanitarios).HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.SetNull);
     }
 
     private static void ConfigureAlerta(EntityTypeBuilder<Alerta> entity)
@@ -116,5 +119,7 @@ public class AppDbContext : DbContext
         entity.Property(e => e.Codigo).IsRequired().HasMaxLength(120);
         entity.Property(e => e.Mensaje).IsRequired().HasMaxLength(400);
         entity.Property(e => e.FechaGeneracion).IsRequired();
+        entity.HasOne(e => e.Insumo).WithMany().HasForeignKey(e => e.InsumoId).OnDelete(DeleteBehavior.SetNull);
+        entity.HasOne(e => e.Lote).WithMany().HasForeignKey(e => e.LoteId).OnDelete(DeleteBehavior.SetNull);
     }
 }

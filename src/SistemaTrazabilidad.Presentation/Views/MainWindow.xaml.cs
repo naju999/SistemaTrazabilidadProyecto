@@ -49,9 +49,6 @@ public partial class MainWindow : Window
                 case "Suppliers":
                     MainContent.Content = new SuppliersView();
                     break;
-                case "Purchases":
-                    MainContent.Content = new PurchasesView();
-                    break;
                 case "Production":
                     MainContent.Content = new ProductionView();
                     break;
@@ -60,9 +57,6 @@ public partial class MainWindow : Window
                     break;
                 case "Audit":
                     MainContent.Content = new AuditView();
-                    break;
-                case "Sanitary":
-                    MainContent.Content = new SanitaryView();
                     break;
             }
         }

@@ -19,6 +19,7 @@ public class SeedDataInitializer
     public async Task InitializeAsync()
     {
         await _context.Database.EnsureCreatedAsync();
+        await SqliteSchemaMigrator.ApplyAsync(_context);
 
         if (await _context.Roles.FindAsync(1) != null)
             return; // Ya existe seed data
@@ -41,8 +42,6 @@ public class SeedDataInitializer
                 new Permiso { Codigo = "ADMIN_FULL", Descripcion = "Acceso total al sistema" },
                 new Permiso { Codigo = "INVENTORY_READ", Descripcion = "Consultar insumos y stock" },
                 new Permiso { Codigo = "INVENTORY_WRITE", Descripcion = "Crear y actualizar insumos" },
-                new Permiso { Codigo = "PURCHASE_READ", Descripcion = "Consultar órdenes de compra" },
-                new Permiso { Codigo = "PURCHASE_WRITE", Descripcion = "Crear y recibir compras" },
                 new Permiso { Codigo = "PRODUCTION_READ", Descripcion = "Consultar órdenes de producción" },
                 new Permiso { Codigo = "PRODUCTION_WRITE", Descripcion = "Crear y ejecutar órdenes" },
                 new Permiso { Codigo = "ALERTS_VIEW", Descripcion = "Consultar alertas activas" },
@@ -74,7 +73,6 @@ public class SeedDataInitializer
                     Nombre = "Proveedora de Embutidos S.A.",
                     Telefono = "555-0001",
                     Email = "contacto@embutidos.com",
-                    TiempoEntregaDias = 2,
                     Activo = true
                 },
                 new Proveedor
@@ -83,7 +81,6 @@ public class SeedDataInitializer
                     Nombre = "Distribuidora de Ingredientes La Costena",
                     Telefono = "555-0002",
                     Email = "ventas@lacostena.com",
-                    TiempoEntregaDias = 3,
                     Activo = true
                 },
                 new Proveedor
@@ -92,7 +89,6 @@ public class SeedDataInitializer
                     Nombre = "Especias y Condimentos Premium",
                     Telefono = "555-0003",
                     Email = "info@especiaspremium.com",
-                    TiempoEntregaDias = 5,
                     Activo = true
                 }
             };
@@ -155,11 +151,16 @@ public class SeedDataInitializer
 
             // 6. Crear Lotes de ejemplo
             var lotes = new List<Lote>();
-            foreach (var insumo in insumos)
+            for (var index = 0; index < insumos.Count; index++)
             {
+                var insumo = insumos[index];
+                var codigoInterno = Guid.NewGuid().ToString("N")[..16].ToUpperInvariant();
+                var codigoLote = $"LOT-{DateTime.Today:yyyyMMdd}-{codigoInterno}";
                 lotes.Add(new Lote
                 {
-                    CodigoLote = $"LOTE-{insumo.Codigo}-{DateTime.Now:yyyyMMdd}-001",
+                    CodigoInterno = codigoLote,
+                    CodigoLote = codigoLote,
+                    ProveedorId = proveedores[index % proveedores.Count].Id,
                     InsumoId = insumo.Id,
                     FechaIngreso = DateTime.Now.AddDays(-5),
                     FechaVencimiento = DateTime.Now.AddDays(30),

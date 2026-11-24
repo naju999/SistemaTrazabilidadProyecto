@@ -17,10 +17,8 @@ public class DashboardViewModel : INotifyPropertyChanged
 
     private int _stockCriticoCount;
     private int _alertasActivasCount;
-    private int _comprasRecientesCount;
     private int _produccionRecienteCount;
     private int _vencimientosProximosCount;
-    private int _registrosSanitariosCount;
     private bool _cargando;
 
     public int StockCriticoCount
@@ -35,12 +33,6 @@ public class DashboardViewModel : INotifyPropertyChanged
         set { if (_alertasActivasCount != value) { _alertasActivasCount = value; OnPropertyChanged(); } }
     }
 
-    public int ComprasRecientesCount
-    {
-        get => _comprasRecientesCount;
-        set { if (_comprasRecientesCount != value) { _comprasRecientesCount = value; OnPropertyChanged(); } }
-    }
-
     public int ProduccionRecienteCount
     {
         get => _produccionRecienteCount;
@@ -51,12 +43,6 @@ public class DashboardViewModel : INotifyPropertyChanged
     {
         get => _vencimientosProximosCount;
         set { if (_vencimientosProximosCount != value) { _vencimientosProximosCount = value; OnPropertyChanged(); } }
-    }
-
-    public int RegistrosSanitariosCount
-    {
-        get => _registrosSanitariosCount;
-        set { if (_registrosSanitariosCount != value) { _registrosSanitariosCount = value; OnPropertyChanged(); } }
     }
 
     public bool Cargando
@@ -78,16 +64,12 @@ public class DashboardViewModel : INotifyPropertyChanged
         try
         {
             // Stock crítico
-            var insumos = await _unitOfWork.Repository<Insumo>().FindAsync(i => i.Activo && i.StockActual <= i.StockMinimo);
-            StockCriticoCount = ((System.Collections.Generic.IEnumerable<Insumo>)insumos).Count();
+            var insumos = await _inventoryService.GetStockActualAsync();
+            StockCriticoCount = insumos.Count(i => i.Activo && i.StockDisponible <= i.StockMinimo);
 
             // Alertas activas
             var alertas = await _alertService.GetActiveAlertsAsync();
             AlertasActivasCount = ((System.Collections.Generic.IEnumerable<Alerta>)alertas).Count();
-
-            // Compras recientes (últimos 7 días)
-            var compras = await _unitOfWork.Repository<Compra>().FindAsync(c => c.FechaCompra >= DateTime.Now.AddDays(-7));
-            ComprasRecientesCount = ((System.Collections.Generic.IEnumerable<Compra>)compras).Count();
 
             // Producción reciente (últimos 7 días)
             var producciones = await _unitOfWork.Repository<Produccion>().FindAsync(p => p.FechaInicio >= DateTime.Now.AddDays(-7));
@@ -100,10 +82,6 @@ public class DashboardViewModel : INotifyPropertyChanged
                 l.CantidadDisponible > 0);
             VencimientosProximosCount = ((System.Collections.Generic.IEnumerable<Lote>)lotes).Count();
 
-            // Registros sanitarios recientes (últimos 7 días)
-            var registros = await _unitOfWork.Repository<RegistroSanitario>().FindAsync(r => 
-                r.FechaRegistro >= DateTime.Now.AddDays(-7));
-            RegistrosSanitariosCount = ((System.Collections.Generic.IEnumerable<RegistroSanitario>)registros).Count();
         }
         catch (Exception ex)
         {

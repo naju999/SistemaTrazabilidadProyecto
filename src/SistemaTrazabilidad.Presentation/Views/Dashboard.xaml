@@ -17,6 +17,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- KPI: Stock Crítico -->
@@ -38,46 +39,19 @@
                     </Border>
 
                     <!-- KPI: Vencimientos Próximos -->
-                    <Border Grid.Column="2" Background="White" CornerRadius="8" BorderBrush="#B6D7FF" BorderThickness="1" Padding="20" Margin="8,0,0,0">
+                    <Border Grid.Column="2" Background="White" CornerRadius="8" BorderBrush="#B6D7FF" BorderThickness="1" Padding="20" Margin="8,0">
                         <StackPanel>
                             <TextBlock Text="📅 Vencimientos" FontSize="13" Foreground="#0066CC" FontWeight="Bold" Margin="0,0,0,10"/>
                             <TextBlock Text="{Binding VencimientosProximosCount}" FontSize="36" FontWeight="Bold" Foreground="#0066CC"/>
                             <TextBlock Text="en próximos 14 días" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
                         </StackPanel>
                     </Border>
-                </Grid>
-
-                <!-- KPIs Row 2 -->
-                <Grid Margin="0,0,0,15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- KPI: Compras Recientes -->
-                    <Border Grid.Column="0" Background="White" CornerRadius="8" BorderBrush="#D4F4D4" BorderThickness="1" Padding="20" Margin="0,0,8,0">
-                        <StackPanel>
-                            <TextBlock Text="🛒 Compras Recientes" FontSize="13" Foreground="#27AE60" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding ComprasRecientesCount}" FontSize="36" FontWeight="Bold" Foreground="#27AE60"/>
-                            <TextBlock Text="últimos 7 días" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </Border>
 
                     <!-- KPI: Producción Reciente -->
-                    <Border Grid.Column="1" Background="White" CornerRadius="8" BorderBrush="#E8D5FF" BorderThickness="1" Padding="20" Margin="8,0">
+                    <Border Grid.Column="3" Background="White" CornerRadius="8" BorderBrush="#E8D5FF" BorderThickness="1" Padding="20" Margin="8,0,0,0">
                         <StackPanel>
                             <TextBlock Text="🏭 Producción Reciente" FontSize="13" Foreground="#8B5CF6" FontWeight="Bold" Margin="0,0,0,10"/>
                             <TextBlock Text="{Binding ProduccionRecienteCount}" FontSize="36" FontWeight="Bold" Foreground="#8B5CF6"/>
-                            <TextBlock Text="últimos 7 días" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </Border>
-
-                    <!-- KPI: Registros Sanitarios -->
-                    <Border Grid.Column="2" Background="White" CornerRadius="8" BorderBrush="#FFE4E1" BorderThickness="1" Padding="20" Margin="8,0,0,0">
-                        <StackPanel>
-                            <TextBlock Text="🧪 Registros Sanitarios" FontSize="13" Foreground="#C41E3A" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding RegistrosSanitariosCount}" FontSize="36" FontWeight="Bold" Foreground="#C41E3A"/>
                             <TextBlock Text="últimos 7 días" FontSize="11" Foreground="#999" Margin="0,5,0,0"/>
                         </StackPanel>
                     </Border>

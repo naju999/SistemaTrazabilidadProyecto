@@ -57,6 +57,7 @@
                             <ComboBoxItem Content="Programada"/>
                             <ComboBoxItem Content="En proceso"/>
                             <ComboBoxItem Content="Finalizada"/>
+                            <ComboBoxItem Content="Cancelada"/>
                         </ComboBox>
                     </StackPanel>
                     <Button Content="🔍 Aplicar" Style="{StaticResource PrimaryButtonStyle}" VerticalAlignment="Bottom" Click="BuscarProduccion_Click"/>
@@ -74,7 +75,7 @@
                         <DataGridTextColumn Header="Programado" Binding="{Binding Programado}" Width="120"/>
                         <DataGridTextColumn Header="Consumido" Binding="{Binding Consumido}" Width="120"/>
                         <DataGridTemplateColumn Header="Estado" Width="120"><DataGridTemplateColumn.CellTemplate><DataTemplate><Border Background="#E8F4FD" CornerRadius="10" Padding="8,3"><TextBlock Text="{Binding Estado}" Foreground="#086BC1" Style="{StaticResource BadgeTextStyle}"/></Border></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Acciones" Width="170"><DataGridTemplateColumn.CellTemplate><DataTemplate><StackPanel Orientation="Horizontal"><Button Content="Iniciar" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3,6,3" Click="IniciarProduccion_Click"/><Button Content="Finalizar" Style="{StaticResource SuccessButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="FinalizarProduccion_Click"/></StackPanel></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Acciones" Width="250"><DataGridTemplateColumn.CellTemplate><DataTemplate><StackPanel Orientation="Horizontal"><Button Content="Iniciar" IsEnabled="{Binding CanStart}" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3,6,3" Click="IniciarProduccion_Click"/><Button Content="Finalizar" IsEnabled="{Binding CanFinish}" Style="{StaticResource SuccessButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3,6,3" Click="FinalizarProduccion_Click"/><Button Content="Cancelar" IsEnabled="{Binding CanCancel}" Style="{StaticResource DangerButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="CancelarProduccion_Click"/></StackPanel></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">

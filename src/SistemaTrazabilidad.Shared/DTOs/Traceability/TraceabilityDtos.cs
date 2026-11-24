@@ -8,7 +8,6 @@ public class ProveedorCreateDto
     public string Nombre { get; set; } = string.Empty;
     public string Telefono { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int TiempoEntregaDias { get; set; }
 }
 
 public class ProveedorUpdateDto
@@ -17,7 +16,6 @@ public class ProveedorUpdateDto
     public string Nombre { get; set; } = string.Empty;
     public string Telefono { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int TiempoEntregaDias { get; set; }
     public bool Activo { get; set; }
 }
 
@@ -28,7 +26,6 @@ public class ProveedorResponseDto
     public string Nombre { get; set; } = string.Empty;
     public string Telefono { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int TiempoEntregaDias { get; set; }
     public bool Activo { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
@@ -38,7 +35,6 @@ public class ProveedorFilterDto
 {
     public string? Nombre { get; set; }
     public bool? Activo { get; set; }
-    public int? MaxTiempoEntregaDias { get; set; }
 }
 
 public class InsumoCreateDto

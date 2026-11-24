@@ -52,7 +52,6 @@
                             <ComboBoxItem Content="Todos"/>
                             <ComboBoxItem Content="Stock mínimo"/>
                             <ComboBoxItem Content="Vencimiento"/>
-                            <ComboBoxItem Content="Sanidad"/>
                             <ComboBoxItem Content="Producción"/>
                         </ComboBox>
                     </StackPanel>

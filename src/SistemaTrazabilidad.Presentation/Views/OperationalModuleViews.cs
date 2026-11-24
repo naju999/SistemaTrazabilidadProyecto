@@ -18,22 +18,6 @@ public partial class SuppliersView : UserControl
         Unloaded += (_, _) => _scope.Dispose();
     }
 }
-
-public partial class PurchasesView : UserControl
-{
-    private readonly IServiceScope _scope;
-
-    public PurchasesView()
-    {
-        InitializeComponent();
-        _scope = App.Services.CreateScope();
-        DataContext = _scope.ServiceProvider.GetRequiredService<PurchaseModuleViewModel>();
-        Loaded += async (_, _) => await ModuleViewActions.RunAsync(this,
-            () => ((PurchaseModuleViewModel)DataContext).LoadAsync());
-        Unloaded += (_, _) => _scope.Dispose();
-    }
-}
-
 public partial class ProductionView : UserControl
 {
     private readonly IServiceScope _scope;
@@ -75,21 +59,6 @@ public partial class AuditView : UserControl
         DataContext = _scope.ServiceProvider.GetRequiredService<AuditModuleViewModel>();
         Loaded += async (_, _) => await ModuleViewActions.RunAsync(this,
             () => ((AuditModuleViewModel)DataContext).LoadAsync());
-        Unloaded += (_, _) => _scope.Dispose();
-    }
-}
-
-public partial class SanitaryView : UserControl
-{
-    private readonly IServiceScope _scope;
-
-    public SanitaryView()
-    {
-        InitializeComponent();
-        _scope = App.Services.CreateScope();
-        DataContext = _scope.ServiceProvider.GetRequiredService<SanitaryModuleViewModel>();
-        Loaded += async (_, _) => await ModuleViewActions.RunAsync(this,
-            () => ((SanitaryModuleViewModel)DataContext).LoadAsync());
         Unloaded += (_, _) => _scope.Dispose();
     }
 }

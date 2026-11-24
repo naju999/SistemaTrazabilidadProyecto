@@ -19,16 +19,11 @@ public class SupplierService
         _auditService = auditService;
     }
 
-    public async Task<Proveedor> CreateProveedorAsync(string codigo, string nombre, string telefono, string email, int tiempoEntregaDias)
+    public async Task<Proveedor> CreateProveedorAsync(string codigo, string nombre, string telefono, string email)
     {
         if (string.IsNullOrWhiteSpace(codigo) || string.IsNullOrWhiteSpace(nombre))
         {
             throw new BusinessRuleException("El código y nombre del proveedor son obligatorios.");
-        }
-
-        if (tiempoEntregaDias < 0)
-        {
-            throw new BusinessRuleException("El tiempo de entrega debe ser un número positivo.");
         }
 
         var existing = (await _unitOfWork.Repository<Proveedor>().FindAsync(p => p.Codigo == codigo)).FirstOrDefault();
@@ -43,7 +38,6 @@ public class SupplierService
             Nombre = nombre,
             Telefono = telefono,
             Email = email,
-            TiempoEntregaDias = tiempoEntregaDias,
             Activo = true
         };
 
@@ -54,7 +48,7 @@ public class SupplierService
         return proveedor;
     }
 
-    public async Task<Proveedor> UpdateProveedorAsync(int proveedorId, string nombre, string telefono, string email, int tiempoEntregaDias, bool activo)
+    public async Task<Proveedor> UpdateProveedorAsync(int proveedorId, string nombre, string telefono, string email, bool activo)
     {
         var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
             ?? throw new BusinessRuleException("Proveedor no encontrado.");
@@ -62,7 +56,6 @@ public class SupplierService
         proveedor.Nombre = string.IsNullOrWhiteSpace(nombre) ? proveedor.Nombre : nombre;
         proveedor.Telefono = telefono;
         proveedor.Email = email;
-        proveedor.TiempoEntregaDias = tiempoEntregaDias;
         proveedor.Activo = activo;
 
         _unitOfWork.Repository<Proveedor>().Update(proveedor);
@@ -82,16 +75,4 @@ public class SupplierService
         return await _unitOfWork.Repository<Proveedor>().GetAllAsync();
     }
 
-    public async Task<IEnumerable<Proveedor>> GetSugerenciasDeCompraAsync(int top = 5)
-    {
-        var insumosEnRiesgo = await _unitOfWork.Repository<Insumo>().FindAsync(i => i.Activo && i.StockActual <= i.StockMinimo);
-        var proveedoresActivos = await _unitOfWork.Repository<Proveedor>().FindAsync(p => p.Activo);
-
-        if (!insumosEnRiesgo.Any())
-        {
-            return proveedoresActivos.OrderBy(p => p.TiempoEntregaDias).Take(top);
-        }
-
-        return proveedoresActivos.OrderBy(p => p.TiempoEntregaDias).Take(top);
-    }
 }

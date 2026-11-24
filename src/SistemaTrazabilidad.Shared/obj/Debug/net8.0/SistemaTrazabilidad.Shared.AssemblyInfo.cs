@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaTrazabilidad.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+707759be5587f9df0bbd972bab6acbc3fad2223a")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaTrazabilidad.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaTrazabilidad.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -22,3 +22,7 @@ D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Pers
 C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Persistence.deps.json
 C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Persistence.dll
 C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Persistence.pdb
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Persistence\obj\Debug\net8.0\SistemaTrazabilidad.Persistence.sourcelink.json
+C:\Users\juanp\AppData\Local\Temp\SistemaTrazabilidadBuild\SistemaTrazabilidad.Persistence.deps.json
+C:\Users\juanp\AppData\Local\Temp\SistemaTrazabilidadBuild\SistemaTrazabilidad.Persistence.dll
+C:\Users\juanp\AppData\Local\Temp\SistemaTrazabilidadBuild\SistemaTrazabilidad.Persistence.pdb

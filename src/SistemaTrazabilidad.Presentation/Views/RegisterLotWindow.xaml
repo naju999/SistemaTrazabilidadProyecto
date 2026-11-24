@@ -1,0 +1,92 @@
+<Window x:Class="SistemaTrazabilidad.Presentation.Views.RegisterLotWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:SistemaTrazabilidad.Presentation.Views"
+        Title="Registrar entrada de lote"
+        Width="520"
+        Height="500"
+        MinWidth="480"
+        MinHeight="460"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="#F4F7FA">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#086BC1" Padding="24,18">
+            <StackPanel>
+                <TextBlock Text="Registrar entrada de lote"
+                           FontSize="19"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+                <TextBlock Text="{Binding ProductoDescripcion}"
+                           Margin="0,5,0,0"
+                           FontSize="13"
+                           Foreground="#EAF4FF"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="24,22">
+            <TextBlock Text="Proveedor *" FontWeight="SemiBold" Foreground="#334155"/>
+            <ComboBox ItemsSource="{Binding Proveedores}"
+                      SelectedItem="{Binding ProveedorSeleccionado, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Nombre"
+                      Style="{StaticResource FilterComboBoxStyle}"
+                      Margin="0,6,0,16"/>
+
+            <TextBlock Text="Cantidad de entrada *" FontWeight="SemiBold" Foreground="#334155"/>
+            <TextBox Text="{Binding CantidadTexto, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource InputTextBoxStyle}"
+                     Margin="0,6,0,16"
+                     views:NumericTextBoxBehavior.UseThousandsSeparator="True"/>
+
+            <TextBlock Text="Fecha de vencimiento *" FontWeight="SemiBold" Foreground="#334155"/>
+            <DatePicker SelectedDate="{Binding FechaVencimiento, UpdateSourceTrigger=PropertyChanged}"
+                        Height="36"
+                        Margin="0,6,0,12"
+                        Padding="8,5"
+                        FontSize="13"/>
+
+            <Border Background="#FEF2F2"
+                    BorderBrush="#FECACA"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="10"
+                    Margin="0,4,0,0"
+                    Visibility="{Binding MensajeError, Converter={StaticResource StringToBoolVisibilityConverter}}">
+                <TextBlock Text="{Binding MensajeError}"
+                           Foreground="#B91C1C"
+                           FontSize="12"
+                           TextWrapping="Wrap"/>
+            </Border>
+        </StackPanel>
+
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#E2E8F0"
+                BorderThickness="0,1,0,0"
+                Padding="18">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancelar"
+                        Width="100"
+                        Height="36"
+                        Margin="0,0,10,0"
+                        Background="#E2E8F0"
+                        Foreground="#333"
+                        BorderThickness="0"
+                        Click="Cancelar_Click"/>
+                <Button Content="Guardar entrada"
+                        Width="140"
+                        IsEnabled="{Binding PuedeGuardar}"
+                        Command="{Binding GuardarCommand}"
+                        Style="{StaticResource SuccessButtonStyle}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

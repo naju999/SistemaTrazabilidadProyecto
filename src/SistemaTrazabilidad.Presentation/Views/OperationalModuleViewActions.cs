@@ -23,7 +23,6 @@ internal static class ModuleViewActions
                 MessageBoxImage.Error);
         }
     }
-
     public static Window GetOwner(FrameworkElement view)
     {
         return Window.GetWindow(view)
@@ -79,20 +78,6 @@ internal static class ModuleViewActions
 
 public partial class SuppliersView
 {
-    private async void BuscarProveedor_Click(object sender, RoutedEventArgs e)
-    {
-        var state = (EstadoProveedorCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
-        bool? active = state switch
-        {
-            "Activos" => true,
-            "Inactivos" => false,
-            _ => null
-        };
-
-        await ModuleViewActions.RunAsync(this, () =>
-            ((SupplierModuleViewModel)DataContext).LoadAsync(BusquedaProveedor.Text, active));
-    }
-
     private async void NuevoProveedor_Click(object sender, RoutedEventArgs e)
     {
         var fields = new[]
@@ -100,8 +85,7 @@ public partial class SuppliersView
             new ModuleInputField("codigo", "Código", ModuleInputKind.Text),
             new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text),
             new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Text, Required: false),
-            new ModuleInputField("email", "Correo", ModuleInputKind.Text, Required: false),
-            new ModuleInputField("entrega", "Tiempo de entrega (días)", ModuleInputKind.Integer, 1)
+            new ModuleInputField("email", "Correo", ModuleInputKind.Text, Required: false)
         };
 
         if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Nuevo proveedor", fields, out var values))
@@ -116,7 +100,6 @@ public partial class SuppliersView
                 ModuleViewActions.GetText(values, "nombre"),
                 ModuleViewActions.GetText(values, "telefono"),
                 ModuleViewActions.GetText(values, "email"),
-                ModuleViewActions.GetInt(values, "entrega"),
                 true));
     }
 
@@ -132,7 +115,6 @@ public partial class SuppliersView
             new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text, row.Entity.Nombre),
             new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Text, row.Entity.Telefono, Required: false),
             new ModuleInputField("email", "Correo", ModuleInputKind.Text, row.Entity.Email, Required: false),
-            new ModuleInputField("entrega", "Tiempo de entrega (días)", ModuleInputKind.Integer, row.Entity.TiempoEntregaDias),
             new ModuleInputField(
                 "activo",
                 "Estado",
@@ -156,86 +138,7 @@ public partial class SuppliersView
                 ModuleViewActions.GetText(values, "nombre"),
                 ModuleViewActions.GetText(values, "telefono"),
                 ModuleViewActions.GetText(values, "email"),
-                ModuleViewActions.GetInt(values, "entrega"),
                 ModuleViewActions.GetChoice<bool>(values, "activo")));
-    }
-}
-
-public partial class PurchasesView
-{
-    private async void BuscarCompras_Click(object sender, RoutedEventArgs e)
-    {
-        PurchaseStatus? status = null;
-        var selectedState = (EstadoCompraCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
-        if (!string.IsNullOrWhiteSpace(selectedState) &&
-            !string.Equals(selectedState, "Todos", StringComparison.OrdinalIgnoreCase) &&
-            Enum.TryParse<PurchaseStatus>(selectedState, out var parsedStatus))
-        {
-            status = parsedStatus;
-        }
-
-        await ModuleViewActions.RunAsync(this, () =>
-            ((PurchaseModuleViewModel)DataContext).LoadAsync(
-                BusquedaCompra.Text,
-                status,
-                DesdeCompraPicker.SelectedDate,
-                HastaCompraPicker.SelectedDate));
-    }
-
-    private async void NuevaCompra_Click(object sender, RoutedEventArgs e)
-    {
-        var vm = (PurchaseModuleViewModel)DataContext;
-        var fields = new[]
-        {
-            new ModuleInputField(
-                "proveedor",
-                "Proveedor",
-                ModuleInputKind.Selection,
-                Choices: ModuleViewActions.ToChoices(vm.Suppliers, s => s.Nombre, s => s)),
-            new ModuleInputField(
-                "insumo",
-                "Insumo",
-                ModuleInputKind.Selection,
-                Choices: ModuleViewActions.ToChoices(vm.Inputs, i => $"{i.Codigo} — {i.Nombre}", i => i)),
-            new ModuleInputField("fecha", "Fecha de compra", ModuleInputKind.Date, DateTime.Today),
-            new ModuleInputField("cantidad", "Cantidad", ModuleInputKind.Decimal, 1m),
-            new ModuleInputField("precio", "Precio unitario", ModuleInputKind.Decimal, 0m),
-            new ModuleInputField("entrega", "Entrega estimada", ModuleInputKind.Date, DateTime.Today),
-            new ModuleInputField("observaciones", "Observaciones", ModuleInputKind.Text, Required: false)
-        };
-
-        if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Nueva orden de compra", fields, out var values))
-        {
-            return;
-        }
-
-        await ModuleViewActions.RunAsync(this, () =>
-            vm.CreateAsync(
-                ModuleViewActions.GetChoice<Proveedor>(values, "proveedor"),
-                ModuleViewActions.GetChoice<Insumo>(values, "insumo"),
-                ModuleViewActions.GetDate(values, "fecha"),
-                ModuleViewActions.GetDecimal(values, "cantidad"),
-                ModuleViewActions.GetDecimal(values, "precio"),
-                ModuleViewActions.GetDate(values, "entrega"),
-                ModuleViewActions.GetText(values, "observaciones")));
-    }
-
-    private async void RecibirCompra_Click(object sender, RoutedEventArgs e)
-    {
-        if ((sender as Button)?.DataContext is PurchaseRow row)
-        {
-            await ModuleViewActions.RunAsync(this, () =>
-                ((PurchaseModuleViewModel)DataContext).ReceiveAsync(row.Entity));
-        }
-    }
-
-    private async void CancelarCompra_Click(object sender, RoutedEventArgs e)
-    {
-        if ((sender as Button)?.DataContext is PurchaseRow row)
-        {
-            await ModuleViewActions.RunAsync(this, () =>
-                ((PurchaseModuleViewModel)DataContext).CancelAsync(row.Entity));
-        }
     }
 }
 
@@ -257,6 +160,10 @@ public partial class ProductionView
         {
             status = ProductionStatus.Finalizada;
         }
+        else if (string.Equals(selectedState, "Cancelada", StringComparison.OrdinalIgnoreCase))
+        {
+            status = ProductionStatus.Cancelada;
+        }
 
         await ModuleViewActions.RunAsync(this, () =>
             ((ProductionModuleViewModel)DataContext).LoadAsync(BusquedaProduccion.Text, status));
@@ -276,11 +183,11 @@ public partial class ProductionView
                 ModuleInputKind.Selection,
                 Choices: ModuleViewActions.ToChoices(
                     eligibleLots,
-                    l => $"{l.CodigoLote} — {vm.Inputs.First(i => i.Id == l.InsumoId).Nombre} ({l.CantidadDisponible} disponibles)",
+                    l => $"{l.CodigoInterno} — {vm.Inputs.First(i => i.Id == l.InsumoId).Nombre} ({l.CantidadDisponible} disponibles)",
                     l => l)),
             new ModuleInputField("orden", "Número de orden", ModuleInputKind.Text),
             new ModuleInputField("fecha", "Fecha de inicio", ModuleInputKind.Date, DateTime.Today),
-            new ModuleInputField("cantidad", "Cantidad programada", ModuleInputKind.Decimal, 1m)
+            new ModuleInputField("cantidad", "Cantidad programada", ModuleInputKind.Decimal)
         };
 
         if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Nueva orden de producción", fields, out var values))
@@ -339,7 +246,7 @@ public partial class ProductionView
                 "Insumo",
                 ModuleInputKind.Selection,
                 Choices: ModuleViewActions.ToChoices(vm.Inputs, i => $"{i.Codigo} — {i.Nombre}", i => i)),
-            new ModuleInputField("cantidad", "Cantidad requerida", ModuleInputKind.Decimal, 1m)
+            new ModuleInputField("cantidad", "Cantidad requerida", ModuleInputKind.Decimal)
         };
         if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Consultar selección PEPS", fields, out var values))
         {
@@ -353,11 +260,20 @@ public partial class ProductionView
                 input.Id, ModuleViewActions.GetDecimal(values, "cantidad"));
             MessageBox.Show(
                 ModuleViewActions.GetOwner(this),
-                $"Lote seleccionado: {lot.CodigoLote}\nDisponible: {lot.CantidadDisponible}",
+                $"Lote seleccionado: {lot.CodigoInterno}\nDisponible: {lot.CantidadDisponible}",
                 "Selección PEPS",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         });
+    }
+
+    private async void CancelarProduccion_Click(object sender, RoutedEventArgs e)
+    {
+        if ((sender as Button)?.DataContext is ProductionRow row)
+        {
+            await ModuleViewActions.RunAsync(this, () =>
+                ((ProductionModuleViewModel)DataContext).CancelAsync(row.Entity));
+        }
     }
 }
 
@@ -391,7 +307,6 @@ public partial class AlertsView
         {
             "Stock mínimo" => AlertType.StockMinimo.ToString(),
             "Vencimiento" => AlertType.Vencimiento.ToString(),
-            "Sanidad" => AlertType.Sanidad.ToString(),
             "Producción" => AlertType.Produccion.ToString(),
             _ => null
         };
@@ -423,69 +338,6 @@ public partial class AuditView
                 ModuleViewActions.GetOwner(this),
                 row.Detalle,
                 $"{row.Accion} — {row.Entidad} #{row.Registro}",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
-    }
-}
-
-public partial class SanitaryView
-{
-    private async void FiltrarSanitario_Click(object sender, RoutedEventArgs e)
-    {
-        var status = (ResultadoSanitarioCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
-        if (string.Equals(status, "Todos", StringComparison.OrdinalIgnoreCase))
-        {
-            status = null;
-        }
-
-        await ModuleViewActions.RunAsync(this, () =>
-            ((SanitaryModuleViewModel)DataContext).LoadAsync(
-                BusquedaSanitaria.Text, status, FechaSanitariaPicker.SelectedDate));
-    }
-
-    private async void NuevoRegistroSanitario_Click(object sender, RoutedEventArgs e)
-    {
-        var vm = (SanitaryModuleViewModel)DataContext;
-        var fields = new[]
-        {
-            new ModuleInputField(
-                "insumo",
-                "Insumo",
-                ModuleInputKind.Selection,
-                Choices: ModuleViewActions.ToChoices(vm.Inputs, i => $"{i.Codigo} — {i.Nombre}", i => i)),
-            new ModuleInputField("fecha", "Fecha del control", ModuleInputKind.Date, DateTime.Today),
-            new ModuleInputField("temperatura", "Temperatura (°C)", ModuleInputKind.Decimal, 20m),
-            new ModuleInputField("cloro", "Cloro (mg/L)", ModuleInputKind.Decimal, 0m),
-            new ModuleInputField("ph", "pH", ModuleInputKind.Decimal, 7m),
-            new ModuleInputField("madurez", "Madurez", ModuleInputKind.Decimal, 0m),
-            new ModuleInputField("observaciones", "Observaciones", ModuleInputKind.Text, Required: false)
-        };
-
-        if (!ModuleInputDialog.Show(ModuleViewActions.GetOwner(this), "Nuevo control sanitario", fields, out var values))
-        {
-            return;
-        }
-
-        await ModuleViewActions.RunAsync(this, () =>
-            vm.CreateAsync(
-                ModuleViewActions.GetChoice<Insumo>(values, "insumo"),
-                ModuleViewActions.GetDate(values, "fecha"),
-                ModuleViewActions.GetDecimal(values, "temperatura"),
-                ModuleViewActions.GetDecimal(values, "cloro"),
-                ModuleViewActions.GetDecimal(values, "ph"),
-                ModuleViewActions.GetDecimal(values, "madurez"),
-                ModuleViewActions.GetText(values, "observaciones")));
-    }
-
-    private void VerDetalleSanitario_Click(object sender, RoutedEventArgs e)
-    {
-        if ((sender as Button)?.DataContext is SanitaryRow row)
-        {
-            MessageBox.Show(
-                ModuleViewActions.GetOwner(this),
-                string.IsNullOrWhiteSpace(row.Observaciones) ? "Sin observaciones." : row.Observaciones,
-                $"Detalle del registro #{row.Id}",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }

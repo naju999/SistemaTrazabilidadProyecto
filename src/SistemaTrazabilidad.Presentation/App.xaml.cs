@@ -83,11 +83,9 @@ public partial class App : System.Windows.Application
         services.AddSingleton<ViewModels.DashboardViewModel>();
         services.AddSingleton<ViewModels.InventoryListViewModel>();
         services.AddTransient<ViewModels.SupplierModuleViewModel>();
-        services.AddTransient<ViewModels.PurchaseModuleViewModel>();
         services.AddTransient<ViewModels.ProductionModuleViewModel>();
         services.AddTransient<ViewModels.AlertModuleViewModel>();
         services.AddTransient<ViewModels.AuditModuleViewModel>();
-        services.AddTransient<ViewModels.SanitaryModuleViewModel>();
     }
 
     private static void InitializeDatabase()

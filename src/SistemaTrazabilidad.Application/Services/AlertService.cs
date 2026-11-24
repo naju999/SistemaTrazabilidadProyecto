@@ -11,10 +11,12 @@ namespace SistemaTrazabilidad.Application.Services;
 public class AlertService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly InventoryService _inventoryService;
 
-    public AlertService(IUnitOfWork unitOfWork)
+    public AlertService(IUnitOfWork unitOfWork, InventoryService inventoryService)
     {
         _unitOfWork = unitOfWork;
+        _inventoryService = inventoryService;
     }
 
     public async Task<Alerta> CreateAlertAsync(string codigo, string mensaje, AlertType tipo, int? insumoId = null, int? loteId = null, string entidadRelacionada = "")
@@ -55,13 +57,14 @@ public class AlertService
 
     public async Task<IEnumerable<Alerta>> GenerateStockAlertsAsync()
     {
-        var insumos = await _unitOfWork.Repository<Insumo>().FindAsync(i => i.StockActual <= i.StockMinimo && i.Activo);
+        var insumos = (await _inventoryService.GetStockActualAsync())
+            .Where(i => i.StockDisponible <= i.StockMinimo && i.Activo);
         var alerts = new List<Alerta>();
 
         foreach (var insumo in insumos)
         {
             var codigo = $"STOCK_MINIMO_{insumo.Id}";
-            var mensaje = $"Stock mínimo alcanzado para el insumo {insumo.Nombre}. Stock actual: {insumo.StockActual}.";
+            var mensaje = $"Stock mínimo alcanzado para el insumo {insumo.Nombre}. Stock disponible: {insumo.StockDisponible}.";
             var alerta = await CreateAlertAsync(codigo, mensaje, AlertType.StockMinimo, insumo.Id, null, nameof(Insumo));
             alerts.Add(alerta);
         }
@@ -72,14 +75,15 @@ public class AlertService
     public async Task<IEnumerable<Alerta>> GenerateExpiryAlertsAsync(int diasAntesVencimiento = 7)
     {
         var fechaUmbral = DateTime.Today.AddDays(diasAntesVencimiento);
-        var lotes = await _unitOfWork.Repository<Lote>().FindAsync(l => !l.Bloqueado && l.FechaVencimiento <= fechaUmbral && l.CantidadDisponible > 0);
+        var lotes = await _unitOfWork.Repository<Lote>().FindAsync(l =>
+            l.InsumoId.HasValue && !l.Bloqueado && l.FechaVencimiento <= fechaUmbral && l.CantidadDisponible > 0);
         var alerts = new List<Alerta>();
 
         foreach (var lote in lotes)
         {
             var mensaje = lote.FechaVencimiento.Date < DateTime.Today
-                ? $"Lote {lote.CodigoLote} está vencido."
-                : $"Lote {lote.CodigoLote} vence el {lote.FechaVencimiento:yyyy-MM-dd}.";
+                ? $"Lote {lote.CodigoInterno} está vencido."
+                : $"Lote {lote.CodigoInterno} vence el {lote.FechaVencimiento:yyyy-MM-dd}.";
             var codigo = $"VENCIMIENTO_LOTE_{lote.Id}";
             var alerta = await CreateAlertAsync(codigo, mensaje, AlertType.Vencimiento, lote.InsumoId, lote.Id, nameof(Lote));
             alerts.Add(alerta);

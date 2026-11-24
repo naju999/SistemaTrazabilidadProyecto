@@ -1,0 +1,1312 @@
+2026-11-22 18:41:19.477 -05:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 18:41:19.660 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 18:41:28.932 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 18:41:28.988 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:41:28.993 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:41:28.999 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 18:41:29.012 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:41:29.017 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:41:29.027 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 18:41:29.031 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:41:30.337 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:41:30.338 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:41:35.701 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:41:35.702 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:44:29.571 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:44:29.653 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:44:29.694 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 25), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:44:29.706 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Trim_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."CodigoLote" = @__Trim_0
+2026-11-22 18:46:47.825 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:46:47.825 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:47:13.098 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 10), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:47:13.105 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 34), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:47:13.109 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Trim_0='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."CodigoLote" = @__Trim_0
+2026-11-22 18:47:20.761 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:47:20.762 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:51:59.810 -05:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 18:51:59.975 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 18:52:07.910 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 18:52:07.962 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:52:07.967 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:52:07.974 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 18:52:07.987 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:52:07.992 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:52:07.997 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 18:52:08.001 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:52:09.477 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:52:09.478 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:52:34.498 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:52:34.591 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:52:34.633 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 25), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:52:34.645 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Trim_0='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."CodigoLote" = @__Trim_0
+2026-11-22 18:52:34.648 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 18:52:34.708 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:52:34.711 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 3), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Lotes" ("Bloqueado", "CantidadDisponible", "CantidadInicial", "CodigoLote", "CreatedAt", "FechaIngreso", "FechaVencimiento", "InsumoId", "IsActive", "PEPS", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-22 18:52:34.716 -05:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (Size = 38), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (DbType = Int32), @p5='?' (DbType = Boolean), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 21), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime), @p13='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+2026-11-22 18:52:34.729 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:52:38.058 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:52:38.061 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:52:38.061 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:52:38.062 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 3), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Lotes" ("Bloqueado", "CantidadDisponible", "CantidadInicial", "CodigoLote", "CreatedAt", "FechaIngreso", "FechaVencimiento", "InsumoId", "IsActive", "PEPS", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-22 18:52:38.062 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (Size = 38), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (DbType = Int32), @p5='?' (DbType = Boolean), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 21), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime), @p13='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+2026-11-22 18:52:38.063 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:52:45.961 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:52:45.962 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:53:20.429 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 10), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:53:20.430 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:53:20.430 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 6), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:53:20.430 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 3), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Lotes" ("Bloqueado", "CantidadDisponible", "CantidadInicial", "CodigoLote", "CreatedAt", "FechaIngreso", "FechaVencimiento", "InsumoId", "IsActive", "PEPS", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-22 18:53:20.431 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (Size = 38), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (DbType = Int32), @p5='?' (DbType = Boolean), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 21), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime), @p13='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+2026-11-22 18:53:20.431 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:53:42.026 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:53:42.026 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:56:07.205 -05:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 18:56:07.398 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 18:56:13.502 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 18:56:16.375 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 18:56:16.427 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:56:16.432 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:56:16.440 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 18:56:16.453 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:56:16.459 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:56:16.466 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 18:56:16.472 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 18:56:17.515 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:56:17.515 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:56:21.825 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Insumos"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-11-22 18:56:21.895 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 28), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:56:23.441 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Insumos"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-11-22 18:56:23.448 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 28), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:56:28.785 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:56:28.786 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 18:56:30.266 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Insumos"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-11-22 18:56:30.272 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 29), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:56:54.991 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:56:54.995 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:56:55.003 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 25), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:56:55.012 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Trim_0='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."CodigoLote" = @__Trim_0
+2026-11-22 18:56:55.017 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 18:56:55.078 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:56:55.079 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 3), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Lotes" ("Bloqueado", "CantidadDisponible", "CantidadInicial", "CodigoLote", "CreatedAt", "FechaIngreso", "FechaVencimiento", "InsumoId", "IsActive", "PEPS", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-22 18:56:55.084 -05:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (Size = 38), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (DbType = Int32), @p5='?' (DbType = Boolean), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 21), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime), @p13='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+2026-11-22 18:56:55.095 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:08.732 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:57:08.734 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:57:08.734 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:08.735 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 3), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Lotes" ("Bloqueado", "CantidadDisponible", "CantidadInicial", "CodigoLote", "CreatedAt", "FechaIngreso", "FechaVencimiento", "InsumoId", "IsActive", "PEPS", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-22 18:57:08.735 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (Size = 38), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (DbType = Int32), @p5='?' (DbType = Boolean), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (Size = 21), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int32), @p12='?' (DbType = DateTime), @p13='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13)
+RETURNING "Id";
+2026-11-22 18:57:08.736 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:09.096 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:09.097 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:09.262 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:09.263 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:09.434 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:09.434 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:09.830 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:57:09.832 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:57:09.832 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:09.832 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:09.833 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:11.250 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:57:11.252 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 18:57:11.252 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:11.252 -05:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 18:57:11.254 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'SistemaTrazabilidad.Persistence.Context.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Insumos.Codigo'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-11-22 18:57:34.021 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 18:57:34.021 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:01:11.742 -05:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 19:01:11.958 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 19:01:19.426 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 19:01:19.479 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:01:19.484 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:01:19.492 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 19:01:19.507 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:01:19.512 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:01:19.518 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 19:01:19.523 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:01:20.669 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:01:20.669 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:01:24.429 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "Insumos"
+WHERE "Id" = @p0
+RETURNING 1;
+2026-11-22 19:01:24.487 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 28), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 19:01:45.606 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:01:45.613 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Insumos" ("Activo", "Codigo", "CreatedAt", "IsActive", "Nombre", "StockActual", "StockMinimo", "UnidadMedida", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 19:01:45.621 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (Size = 6), @p1='?' (DbType = DateTime), @p2='?' (Size = 25), @p3='?' (Size = 6), @p4='?' (DbType = Int32), @p5='?' (DbType = DateTime), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Auditorias" ("Accion", "CreatedAt", "Detalle", "Entidad", "EntidadId", "FechaHora", "IsActive", "UpdatedAt", "UsuarioId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8)
+RETURNING "Id";
+2026-11-22 19:01:45.631 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__Trim_0='?' (Size = 3)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."CodigoLote" = @__Trim_0
+2026-11-22 19:01:45.635 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 19:01:45.696 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 6), @p2='?' (DbType = DateTime), @p3='?' (DbType = Boolean), @p4='?' (Size = 6), @p5='?' (DbType = Decimal), @p6='?' (DbType = Decimal), @p7='?' (Size = 2), @p8='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "Insumos" SET "Activo" = @p0, "Codigo" = @p1, "CreatedAt" = @p2, "IsActive" = @p3, "Nombre" = @p4, "StockActual" = @p5, "StockMinimo" = @p6, "UnidadMedida" = @p7, "UpdatedAt" = @p8
+WHERE "Id" = @p9
+RETURNING 1;
+2026-11-22 19:01:45.696 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Boolean), @p1='?' (DbType = Decimal), @p2='?' (DbType = Decimal), @p3='?' (Size = 3), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = DateTime), @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Lotes" ("Bloqueado", "CantidadDisponible", "CantidadInicial", "CodigoLote", "CreatedAt", "FechaIngreso", "FechaVencimiento", "InsumoId", "IsActive", "PEPS", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING "Id";
+2026-11-22 19:01:45.701 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[@p11='?' (DbType = Decimal), @p12='?' (Size = 38), @p13='?' (DbType = DateTime), @p14='?' (DbType = DateTime), @p15='?' (DbType = Int32), @p16='?' (DbType = Boolean), @p17='?' (DbType = Int32), @p18='?' (DbType = Int32), @p19='?' (Size = 21), @p20='?' (DbType = Decimal), @p21='?' (DbType = Decimal), @p22='?' (DbType = Int32), @p23='?' (DbType = DateTime), @p24='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "MovimientosInventario" ("Cantidad", "Comentario", "CreatedAt", "FechaMovimiento", "InsumoId", "IsActive", "LoteId", "ProduccionId", "Referencia", "StockAnterior", "StockPosterior", "Tipo", "UpdatedAt", "UsuarioId")
+VALUES (@p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24)
+RETURNING "Id";
+2026-11-22 19:01:45.717 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__insumoId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."InsumoId" = @__insumoId_0 AND NOT ("l"."Bloqueado") AND rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', "l"."FechaVencimiento", 'start of day'), '0'), '.') >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', 'start of day'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 19:01:47.879 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:01:47.880 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:02:06.606 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:02:06.606 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:04:59.074 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:04:59.074 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:05:03.171 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:05:03.171 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:05:11.855 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:05:11.856 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:05:14.562 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:05:14.562 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:05:22.304 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:05:22.305 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:05:36.758 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:05:36.759 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:06:13.836 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:06:13.837 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:09:40.173 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:09:40.173 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:14:16.803 -05:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 19:14:17.003 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 19:14:27.422 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 19:14:27.473 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:14:27.478 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:14:27.485 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 19:14:27.499 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:14:27.504 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:14:27.510 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 19:14:27.515 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:14:28.557 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:14:28.557 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:14:37.643 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:14:37.644 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:15:38.151 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:15:38.152 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:15:47.715 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:15:47.716 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:15:54.900 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:15:54.901 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:20:39.386 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:20:39.387 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:59:15.821 -05:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 19:59:16.269 -05:00 [INF] Executed DbCommand (6ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 19:59:29.231 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 19:59:29.339 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:59:29.349 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:59:29.387 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 19:59:29.422 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:59:29.439 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:59:29.455 -05:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 19:59:29.476 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 19:59:33.437 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:59:33.438 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 19:59:56.177 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 19:59:56.178 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 19:59:56.186 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+2026-11-22 20:00:03.295 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:00:03.297 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:01:28.049 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-22 20:01:29.629 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:01:29.630 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:01:30.453 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-22 20:01:40.295 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:01:40.296 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:01:44.040 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Accion", "a"."CreatedAt", "a"."Detalle", "a"."Entidad", "a"."EntidadId", "a"."FechaHora", "a"."IsActive", "a"."UpdatedAt", "a"."UsuarioId"
+FROM "Auditorias" AS "a"
+2026-11-22 20:02:02.345 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:02.346 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:02.810 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:02.810 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:02.813 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 20:02:02.814 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:02.815 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:02.816 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 20:02:02.817 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:04.046 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:04.047 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:04.452 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:04.453 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:04.454 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 20:02:04.455 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:04.456 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:04.457 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 20:02:04.458 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:06.397 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:06.397 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:11.597 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:11.597 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:11.598 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 20:02:11.598 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:11.598 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:11.599 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 20:02:11.600 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 20:02:12.170 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:12.171 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:13.649 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 20:02:14.417 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 20:02:14.418 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:14.418 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+2026-11-22 20:02:14.915 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:14.915 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:14.916 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:14.922 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-22 20:02:15.965 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 20:02:15.966 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:15.966 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+2026-11-22 20:02:16.819 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 20:02:30.742 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:30.742 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:31.154 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 20:02:32.263 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."Activo", "p"."Codigo", "p"."CreatedAt", "p"."Email", "p"."IsActive", "p"."Nombre", "p"."Telefono", "p"."TiempoEntregaDias", "p"."UpdatedAt"
+FROM "Proveedores" AS "p"
+2026-11-22 20:02:32.264 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:32.264 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+2026-11-22 20:02:35.988 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:35.988 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:35.988 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:35.989 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-22 20:02:36.945 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+2026-11-22 20:02:37.400 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:37.401 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:37.401 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:02:37.401 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+2026-11-22 20:02:41.175 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:02:41.175 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 20:03:08.858 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 20:03:08.858 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 21:34:08.087 -05:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-11-22 21:34:08.301 -05:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."CreatedAt", "r"."IsActive", "r"."Nombre", "r"."UpdatedAt"
+FROM "Roles" AS "r"
+WHERE "r"."Id" = @__p_0
+LIMIT 1
+2026-11-22 21:34:22.621 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Username_0='?' (Size = 5)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."Id", "u"."Bloqueado", "u"."CreatedAt", "u"."IsActive", "u"."NombreCompleto", "u"."PasswordHash", "u"."RolId", "u"."UpdatedAt", "u"."Username"
+FROM "Usuarios" AS "u"
+WHERE "u"."Username" = @__Username_0 AND NOT ("u"."Bloqueado")
+2026-11-22 21:34:22.676 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 21:34:22.682 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 21:34:22.689 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "a"."Id", "a"."Activa", "a"."Codigo", "a"."CreatedAt", "a"."EntidadRelacionada", "a"."FechaGeneracion", "a"."InsumoId", "a"."IsActive", "a"."Leida", "a"."LoteId", "a"."Mensaje", "a"."Tipo", "a"."UpdatedAt"
+FROM "Alertas" AS "a"
+WHERE "a"."Activa" AND NOT ("a"."Leida")
+2026-11-22 21:34:22.702 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "c"."Id", "c"."Cantidad", "c"."CreatedAt", "c"."Estado", "c"."FechaCompra", "c"."FechaEntregaEstimada", "c"."InsumoId", "c"."IsActive", "c"."Observaciones", "c"."PrecioUnitario", "c"."ProveedorId", "c"."UpdatedAt"
+FROM "Compras" AS "c"
+WHERE "c"."FechaCompra" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 21:34:22.708 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "p"."Id", "p"."CantidadConsumida", "p"."CantidadProgramada", "p"."CreatedAt", "p"."Estado", "p"."FechaFin", "p"."FechaInicio", "p"."InsumoId", "p"."IsActive", "p"."LoteId", "p"."OrdenProduccion", "p"."UpdatedAt"
+FROM "Producciones" AS "p"
+WHERE "p"."FechaInicio" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 21:34:22.715 -05:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+WHERE "l"."FechaVencimiento" <= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(14.0 AS TEXT) || ' days'), '0'), '.') AND "l"."FechaVencimiento" > rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0'), '.') AND ef_compare("l"."CantidadDisponible", '0.0') > 0
+2026-11-22 21:34:22.722 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."Id", "r"."Aprobado", "r"."Cloro", "r"."CreatedAt", "r"."FechaRegistro", "r"."InsumoId", "r"."IsActive", "r"."Madurez", "r"."Observaciones", "r"."PH", "r"."Temperatura", "r"."UpdatedAt"
+FROM "RegistrosSanitarios" AS "r"
+WHERE "r"."FechaRegistro" >= rtrim(rtrim(strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime', CAST(-7.0 AS TEXT) || ' days'), '0'), '.')
+2026-11-22 21:34:24.009 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 21:34:24.010 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 21:39:02.147 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 21:39:02.147 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 21:48:25.051 -05:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 21:48:25.053 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"
+2026-11-22 21:49:03.624 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "i"."Id", "i"."Activo", "i"."Codigo", "i"."CreatedAt", "i"."IsActive", "i"."Nombre", "i"."StockActual", "i"."StockMinimo", "i"."UnidadMedida", "i"."UpdatedAt"
+FROM "Insumos" AS "i"
+2026-11-22 21:49:03.625 -05:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "l"."Id", "l"."Bloqueado", "l"."CantidadDisponible", "l"."CantidadInicial", "l"."CodigoLote", "l"."CreatedAt", "l"."FechaIngreso", "l"."FechaVencimiento", "l"."InsumoId", "l"."IsActive", "l"."PEPS", "l"."UpdatedAt"
+FROM "Lotes" AS "l"

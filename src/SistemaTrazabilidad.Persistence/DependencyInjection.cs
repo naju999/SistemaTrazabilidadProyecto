@@ -16,9 +16,7 @@ public static class PersistenceServiceCollectionExtensions
         services.AddScoped<Repositories.IProveedorRepository, Repositories.ProveedorRepository>();
         services.AddScoped<Repositories.IInsumoRepository, Repositories.InsumoRepository>();
         services.AddScoped<Repositories.ILoteRepository, Repositories.LoteRepository>();
-        services.AddScoped<Repositories.ICompraRepository, Repositories.CompraRepository>();
         services.AddScoped<Repositories.IProduccionRepository, Repositories.ProduccionRepository>();
-        services.AddScoped<Repositories.IRegistroSanitarioRepository, Repositories.RegistroSanitarioRepository>();
         services.AddScoped<Repositories.IAlertaRepository, Repositories.AlertaRepository>();
         services.AddScoped<Repositories.IAuditoriaRepository, Repositories.AuditoriaRepository>();
 

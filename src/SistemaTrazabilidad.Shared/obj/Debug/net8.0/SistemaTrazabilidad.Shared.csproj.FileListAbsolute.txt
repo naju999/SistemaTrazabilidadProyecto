@@ -12,3 +12,7 @@ D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shar
 C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Shared.deps.json
 C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Shared.dll
 C:\tmp\SistemaTrazabilidadBuildCheck\SistemaTrazabilidad.Shared.pdb
+D:\Universidad\Software\SistemaTrazabilidadProyecto\src\SistemaTrazabilidad.Shared\obj\Debug\net8.0\SistemaTrazabilidad.Shared.sourcelink.json
+C:\Users\juanp\AppData\Local\Temp\SistemaTrazabilidadBuild\SistemaTrazabilidad.Shared.deps.json
+C:\Users\juanp\AppData\Local\Temp\SistemaTrazabilidadBuild\SistemaTrazabilidad.Shared.dll
+C:\Users\juanp\AppData\Local\Temp\SistemaTrazabilidadBuild\SistemaTrazabilidad.Shared.pdb

@@ -36,40 +36,22 @@ public sealed class SupplierModuleViewModel : OperationalModuleViewModel
     public ObservableCollection<SupplierRow> Suppliers { get; } = [];
     public int ActiveCount => Suppliers.Count(s => s.Entity.Activo);
     public int InactiveCount => Suppliers.Count(s => !s.Entity.Activo);
-    public string AverageDeliveryDays => Suppliers.Count == 0
-        ? "—"
-        : $"{Suppliers.Average(s => s.Entity.TiempoEntregaDias):0.#} días";
 
     public SupplierModuleViewModel(SupplierService supplierService)
     {
         _supplierService = supplierService;
-        Observe(Suppliers, nameof(ActiveCount), nameof(InactiveCount), nameof(AverageDeliveryDays));
+        Observe(Suppliers, nameof(ActiveCount), nameof(InactiveCount));
     }
 
-    public async Task LoadAsync(string? search = null, bool? active = null)
+    public async Task LoadAsync()
     {
         var suppliers = await _supplierService.GetAllProveedoresAsync();
-        IEnumerable<Proveedor> filtered = suppliers;
-        if (active.HasValue)
-        {
-            filtered = filtered.Where(s => s.Activo == active.Value);
-        }
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            filtered = filtered.Where(s =>
-                s.Codigo.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                s.Nombre.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                s.Telefono.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                s.Email.Contains(search, StringComparison.OrdinalIgnoreCase));
-        }
-
-        Replace(Suppliers, filtered.Select(s => new SupplierRow(
+        Replace(Suppliers, suppliers.Select(s => new SupplierRow(
             s.Id,
             s.Codigo,
             s.Nombre,
             s.Telefono,
             s.Email,
-            $"{s.TiempoEntregaDias} días",
             s.Activo ? "Activo" : "Inactivo",
             s)));
     }
@@ -80,142 +62,18 @@ public sealed class SupplierModuleViewModel : OperationalModuleViewModel
         string nombre,
         string telefono,
         string email,
-        int tiempoEntregaDias,
         bool activo)
     {
         if (existing is null)
         {
-            await _supplierService.CreateProveedorAsync(codigo, nombre, telefono, email, tiempoEntregaDias);
+            await _supplierService.CreateProveedorAsync(codigo, nombre, telefono, email);
         }
         else
         {
             await _supplierService.UpdateProveedorAsync(
-                existing.Id, nombre, telefono, email, tiempoEntregaDias, activo);
+                existing.Id, nombre, telefono, email, activo);
         }
 
-        await LoadAsync();
-    }
-
-    private static void Replace<T>(ObservableCollection<T> target, IEnumerable<T> items)
-    {
-        target.Clear();
-        foreach (var item in items)
-        {
-            target.Add(item);
-        }
-    }
-}
-
-public sealed class PurchaseModuleViewModel : OperationalModuleViewModel
-{
-    private readonly PurchaseService _purchaseService;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ISessionService _sessionService;
-
-    public ObservableCollection<PurchaseRow> Purchases { get; } = [];
-    public IReadOnlyList<Proveedor> Suppliers { get; private set; } = [];
-    public IReadOnlyList<Insumo> Inputs { get; private set; } = [];
-    public int OrdersCount => Purchases.Count;
-    public int PendingCount => Purchases.Count(p => p.Entity.Estado == PurchaseStatus.Pendiente);
-    public int ReceivedCount => Purchases.Count(p => p.Entity.Estado == PurchaseStatus.Recibida);
-    public int PurchasesWithLotsCount => Purchases.Count(p => p.LotePeps != "—");
-
-    public PurchaseModuleViewModel(
-        PurchaseService purchaseService,
-        IUnitOfWork unitOfWork,
-        ISessionService sessionService)
-    {
-        _purchaseService = purchaseService;
-        _unitOfWork = unitOfWork;
-        _sessionService = sessionService;
-        Observe(Purchases, nameof(OrdersCount), nameof(PendingCount),
-            nameof(ReceivedCount), nameof(PurchasesWithLotsCount));
-    }
-
-    public async Task LoadAsync(
-        string? search = null,
-        PurchaseStatus? status = null,
-        DateTime? from = null,
-        DateTime? to = null)
-    {
-        Suppliers = (await _unitOfWork.Repository<Proveedor>().GetAllAsync())
-            .Where(s => s.Activo).ToList();
-        Inputs = (await _unitOfWork.Repository<Insumo>().GetAllAsync())
-            .Where(i => i.Activo).ToList();
-
-        var supplierNames = Suppliers.ToDictionary(s => s.Id, s => s.Nombre);
-        var inputNames = Inputs.ToDictionary(i => i.Id, i => i.Nombre);
-        var purchases = await _unitOfWork.Repository<Compra>().GetAllAsync();
-
-        IEnumerable<PurchaseRow> rows = purchases
-            .OrderByDescending(p => p.FechaCompra)
-            .Select(p => new PurchaseRow(
-                p.Id,
-                $"OC-{p.Id:D4}",
-                p.FechaCompra.ToString("d"),
-                supplierNames.GetValueOrDefault(p.ProveedorId, $"Proveedor #{p.ProveedorId}"),
-                inputNames.GetValueOrDefault(p.InsumoId, $"Insumo #{p.InsumoId}"),
-                "—",
-                $"{p.Cantidad} {Inputs.FirstOrDefault(i => i.Id == p.InsumoId)?.UnidadMedida}",
-                p.Total.ToString("C"),
-                p.Estado.ToString(),
-                p));
-        if (status.HasValue)
-        {
-            rows = rows.Where(p => p.Entity.Estado == status.Value);
-        }
-        if (from.HasValue)
-        {
-            rows = rows.Where(p => p.Entity.FechaCompra.Date >= from.Value.Date);
-        }
-        if (to.HasValue)
-        {
-            rows = rows.Where(p => p.Entity.FechaCompra.Date <= to.Value.Date);
-        }
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            rows = rows.Where(p =>
-                p.Orden.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                p.Proveedor.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                p.Insumo.Contains(search, StringComparison.OrdinalIgnoreCase));
-        }
-
-        Replace(Purchases, rows);
-    }
-
-    public async Task CreateAsync(
-        Proveedor supplier,
-        Insumo input,
-        DateTime purchaseDate,
-        decimal quantity,
-        decimal unitPrice,
-        DateTime estimatedDelivery,
-        string notes)
-    {
-        var userId = _sessionService.UsuarioActual?.Id
-            ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
-
-        await _purchaseService.CreateOrdenCompraAsync(
-            supplier.Id, input.Id, purchaseDate, quantity, unitPrice,
-            estimatedDelivery, notes, userId);
-        await LoadAsync();
-    }
-
-    public async Task ReceiveAsync(Compra purchase)
-    {
-        var userId = _sessionService.UsuarioActual?.Id
-            ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
-
-        await _purchaseService.RecibirOrdenCompraAsync(purchase.Id, userId);
-        await LoadAsync();
-    }
-
-    public async Task CancelAsync(Compra purchase)
-    {
-        var userId = _sessionService.UsuarioActual?.Id
-            ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
-
-        await _purchaseService.CancelarOrdenCompraAsync(purchase.Id, userId);
         await LoadAsync();
     }
 
@@ -233,6 +91,7 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
 {
     private readonly ProductionService _productionService;
     private readonly LotService _lotService;
+    private readonly InventoryService _inventoryService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ISessionService _sessionService;
 
@@ -242,16 +101,18 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
     public int ProgrammedCount => ProductionOrders.Count(p => p.Entity.Estado == ProductionStatus.Programada);
     public int InProcessCount => ProductionOrders.Count(p => p.Entity.Estado == ProductionStatus.EnProceso);
     public int FinishedCount => ProductionOrders.Count(p => p.Entity.Estado == ProductionStatus.Finalizada);
-    public int CriticalInputsCount => Inputs.Count(i => i.StockActual <= i.StockMinimo);
+    public int CriticalInputsCount => Inputs.Count(i => i.StockDisponible <= i.StockMinimo);
 
     public ProductionModuleViewModel(
         ProductionService productionService,
         LotService lotService,
+        InventoryService inventoryService,
         IUnitOfWork unitOfWork,
         ISessionService sessionService)
     {
         _productionService = productionService;
         _lotService = lotService;
+        _inventoryService = inventoryService;
         _unitOfWork = unitOfWork;
         _sessionService = sessionService;
         Observe(ProductionOrders, nameof(ProgrammedCount), nameof(InProcessCount),
@@ -260,7 +121,7 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
 
     public async Task LoadAsync(string? search = null, ProductionStatus? status = null)
     {
-        Inputs = (await _unitOfWork.Repository<Insumo>().GetAllAsync())
+        Inputs = (await _inventoryService.GetStockActualAsync())
             .Where(i => i.Activo).ToList();
         var allLots = await _unitOfWork.Repository<Lote>().GetAllAsync();
         Lots = allLots
@@ -268,7 +129,7 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
             .OrderBy(l => l.FechaIngreso).ToList();
 
         var inputNames = Inputs.ToDictionary(i => i.Id, i => i.Nombre);
-        var lotCodes = allLots.ToDictionary(l => l.Id, l => l.CodigoLote);
+        var lotCodes = allLots.ToDictionary(l => l.Id, l => l.CodigoInterno);
         var productions = await _unitOfWork.Repository<Produccion>().GetAllAsync();
 
         IEnumerable<ProductionRow> rows = productions
@@ -277,8 +138,12 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
                 p.Id,
                 p.OrdenProduccion,
                 p.FechaInicio.ToString("d"),
-                inputNames.GetValueOrDefault(p.InsumoId, $"Insumo #{p.InsumoId}"),
-                lotCodes.GetValueOrDefault(p.LoteId, $"Lote #{p.LoteId}"),
+                p.InsumoId is int productionInsumoId && inputNames.TryGetValue(productionInsumoId, out var productionInputName)
+                    ? productionInputName
+                    : "Insumo eliminado",
+                p.LoteId is int productionLotId && lotCodes.TryGetValue(productionLotId, out var productionLotCode)
+                    ? productionLotCode
+                    : "Lote eliminado",
                 p.CantidadProgramada,
                 p.CantidadConsumida,
                 p.Estado.ToString(),
@@ -330,6 +195,15 @@ public sealed class ProductionModuleViewModel : OperationalModuleViewModel
 
         await _productionService.FinalizarProduccionAsync(
             production.Id, consumedQuantity, userId);
+        await LoadAsync();
+    }
+
+    public async Task CancelAsync(Produccion production)
+    {
+        var userId = _sessionService.UsuarioActual?.Id
+            ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
+
+        await _productionService.CancelarProduccionAsync(production.Id, userId);
         await LoadAsync();
     }
 
@@ -498,121 +372,14 @@ public sealed class AuditModuleViewModel : OperationalModuleViewModel
     }
 }
 
-public sealed class SanitaryModuleViewModel : OperationalModuleViewModel
-{
-    private readonly SanitaryService _sanitaryService;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ISessionService _sessionService;
-
-    public ObservableCollection<SanitaryRow> SanitaryRecords { get; } = [];
-    public IReadOnlyList<Insumo> Inputs { get; private set; } = [];
-    public int ApprovedCount => SanitaryRecords.Count(r => r.Resultado == "Aprobado");
-    public int ReviewCount => SanitaryRecords.Count(r => r.Resultado != "Aprobado");
-    public int RecentCount => SanitaryRecords.Count(r =>
-        r.RecordedAt.Date >= DateTime.Today.AddDays(-7));
-
-    public SanitaryModuleViewModel(
-        SanitaryService sanitaryService,
-        IUnitOfWork unitOfWork,
-        ISessionService sessionService)
-    {
-        _sanitaryService = sanitaryService;
-        _unitOfWork = unitOfWork;
-        _sessionService = sessionService;
-        Observe(SanitaryRecords, nameof(ApprovedCount), nameof(ReviewCount),
-            nameof(RecentCount));
-    }
-
-    public async Task LoadAsync(string? search = null, string? status = null, DateTime? date = null)
-    {
-        Inputs = (await _unitOfWork.Repository<Insumo>().GetAllAsync())
-            .Where(i => i.Activo).ToList();
-        var inputNames = Inputs.ToDictionary(i => i.Id, i => i.Nombre);
-        var records = await _unitOfWork.Repository<RegistroSanitario>().GetAllAsync();
-
-        var filtered = records.AsEnumerable();
-        if (!string.IsNullOrWhiteSpace(search))
-        {
-            filtered = filtered.Where(r =>
-                inputNames.GetValueOrDefault(r.InsumoId, string.Empty)
-                    .Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                r.Observaciones.Contains(search, StringComparison.OrdinalIgnoreCase));
-        }
-        if (string.Equals(status, "Aprobado", StringComparison.OrdinalIgnoreCase))
-        {
-            filtered = filtered.Where(r => r.Aprobado);
-        }
-        else if (string.Equals(status, "Revisión", StringComparison.OrdinalIgnoreCase))
-        {
-            filtered = filtered.Where(r => !r.Aprobado);
-        }
-        if (date.HasValue)
-        {
-            filtered = filtered.Where(r => r.FechaRegistro.Date == date.Value.Date);
-        }
-
-        Replace(SanitaryRecords, filtered.OrderByDescending(r => r.FechaRegistro)
-            .Select(r => new SanitaryRow(
-                r.Id,
-                r.FechaRegistro,
-                r.FechaRegistro.ToString("d"),
-                inputNames.GetValueOrDefault(r.InsumoId, $"Insumo #{r.InsumoId}"),
-                r.Temperatura.ToString("0.##"),
-                r.Cloro.ToString("0.##"),
-                r.PH.ToString("0.##"),
-                r.Madurez.ToString("0.##"),
-                r.Aprobado ? "Aprobado" : "Revisión",
-                r.Observaciones)));
-    }
-
-    public async Task CreateAsync(
-        Insumo input,
-        DateTime date,
-        decimal temperature,
-        decimal chlorine,
-        decimal ph,
-        decimal maturity,
-        string notes)
-    {
-        var userId = _sessionService.UsuarioActual?.Id
-            ?? throw new InvalidOperationException("No hay una sesión de usuario activa.");
-
-        await _sanitaryService.RegistrarRegistroSanitarioAsync(
-            input.Id, date, temperature, chlorine, ph, maturity, notes, userId);
-        await LoadAsync();
-    }
-
-    private static void Replace<T>(ObservableCollection<T> target, IEnumerable<T> items)
-    {
-        target.Clear();
-        foreach (var item in items)
-        {
-            target.Add(item);
-        }
-    }
-}
-
 public sealed record SupplierRow(
     int Id,
     string Codigo,
     string Proveedor,
     string Telefono,
     string Correo,
-    string EntregaEstimada,
     string Estado,
     Proveedor Entity);
-
-public sealed record PurchaseRow(
-    int Id,
-    string Orden,
-    string Fecha,
-    string Proveedor,
-    string Insumo,
-    string LotePeps,
-    string Cantidad,
-    string Total,
-    string Estado,
-    Compra Entity);
 
 public sealed record ProductionRow(
     int Id,
@@ -623,7 +390,17 @@ public sealed record ProductionRow(
     decimal Programado,
     decimal Consumido,
     string Estado,
-    Produccion Entity);
+    Produccion Entity)
+{
+    public bool CanStart => Entity.Estado == ProductionStatus.Programada
+        && Entity.InsumoId.HasValue && Entity.LoteId.HasValue;
+
+    public bool CanFinish => Entity.Estado == ProductionStatus.EnProceso
+        && Entity.InsumoId.HasValue && Entity.LoteId.HasValue;
+
+    public bool CanCancel => (Entity.Estado is ProductionStatus.Programada or ProductionStatus.EnProceso)
+        && Entity.InsumoId.HasValue && Entity.LoteId.HasValue;
+}
 
 public sealed record AlertRow(
     int Id,
@@ -643,15 +420,3 @@ public sealed record AuditRow(
     string Registro,
     string Accion,
     string Detalle);
-
-public sealed record SanitaryRow(
-    int Id,
-    DateTime RecordedAt,
-    string Fecha,
-    string InsumoLote,
-    string Temperatura,
-    string Cloro,
-    string Ph,
-    string Madurez,
-    string Resultado,
-    string Observaciones);

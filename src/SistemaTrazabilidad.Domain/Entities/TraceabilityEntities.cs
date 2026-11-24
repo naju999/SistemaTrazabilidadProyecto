@@ -10,9 +10,9 @@ public class Proveedor : BaseEntity
     public string Nombre { get; set; } = string.Empty;
     public string Telefono { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int TiempoEntregaDias { get; set; }
     public bool Activo { get; set; } = true;
     public ICollection<Compra> Compras { get; set; } = new List<Compra>();
+    public ICollection<Lote> Lotes { get; set; } = new List<Lote>();
 }
 
 public class Insumo : BaseEntity
@@ -22,6 +22,10 @@ public class Insumo : BaseEntity
     public string UnidadMedida { get; set; } = string.Empty;
     public decimal StockMinimo { get; set; }
     public decimal StockActual { get; set; }
+    [NotMapped]
+    public decimal StockDisponible { get; set; }
+    [NotMapped]
+    public bool TieneDiferenciaStock => StockActual != StockDisponible;
     public bool Activo { get; set; } = true;
     public ICollection<Lote> Lotes { get; set; } = new List<Lote>();
     public ICollection<MovimientoInventario> Movimientos { get; set; } = new List<MovimientoInventario>();
@@ -32,9 +36,12 @@ public class Insumo : BaseEntity
 
 public class Lote : BaseEntity
 {
+    public string CodigoInterno { get; set; } = string.Empty;
     public string CodigoLote { get; set; } = string.Empty;
-    public int InsumoId { get; set; }
-    public Insumo Insumo { get; set; } = null!;
+    public int? ProveedorId { get; set; }
+    public Proveedor? Proveedor { get; set; }
+    public int? InsumoId { get; set; }
+    public Insumo? Insumo { get; set; }
     public DateTime FechaIngreso { get; set; }
     public DateTime FechaVencimiento { get; set; }
     public decimal CantidadInicial { get; set; }
@@ -50,8 +57,8 @@ public class Compra : BaseEntity
 {
     public int ProveedorId { get; set; }
     public Proveedor Proveedor { get; set; } = null!;
-    public int InsumoId { get; set; }
-    public Insumo Insumo { get; set; } = null!;
+    public int? InsumoId { get; set; }
+    public Insumo? Insumo { get; set; }
     public DateTime FechaCompra { get; set; }
     public decimal Cantidad { get; set; }
     public decimal PrecioUnitario { get; set; }
@@ -66,10 +73,10 @@ public class Compra : BaseEntity
 public class Produccion : BaseEntity
 {
     public string OrdenProduccion { get; set; } = string.Empty;
-    public int InsumoId { get; set; }
-    public Insumo Insumo { get; set; } = null!;
-    public int LoteId { get; set; }
-    public Lote Lote { get; set; } = null!;
+    public int? InsumoId { get; set; }
+    public Insumo? Insumo { get; set; }
+    public int? LoteId { get; set; }
+    public Lote? Lote { get; set; }
     public DateTime FechaInicio { get; set; }
     public DateTime? FechaFin { get; set; }
     public decimal CantidadProgramada { get; set; }
@@ -80,10 +87,12 @@ public class Produccion : BaseEntity
 
 public class MovimientoInventario : BaseEntity
 {
-    public int InsumoId { get; set; }
-    public Insumo Insumo { get; set; } = null!;
+    public int? InsumoId { get; set; }
+    public Insumo? Insumo { get; set; }
     public int? LoteId { get; set; }
     public Lote? Lote { get; set; }
+    public int? ProduccionId { get; set; }
+    public Produccion? Produccion { get; set; }
     public InventoryMovementType Tipo { get; set; }
     public decimal Cantidad { get; set; }
     public decimal StockAnterior { get; set; }
@@ -97,8 +106,8 @@ public class MovimientoInventario : BaseEntity
 
 public class RegistroSanitario : BaseEntity
 {
-    public int InsumoId { get; set; }
-    public Insumo Insumo { get; set; } = null!;
+    public int? InsumoId { get; set; }
+    public Insumo? Insumo { get; set; }
     public DateTime FechaRegistro { get; set; }
     public decimal Temperatura { get; set; }
     public decimal Cloro { get; set; }

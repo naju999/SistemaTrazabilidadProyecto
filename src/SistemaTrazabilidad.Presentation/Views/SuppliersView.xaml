@@ -20,55 +20,54 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Style="{StaticResource CardBorderStyle}" Padding="16" BorderBrush="#CDEEDB" Margin="0,0,8,0">
                 <StackPanel><TextBlock Text="Proveedores activos" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding ActiveCount}" Style="{StaticResource KpiValueStyle}" Foreground="#169B62"/></StackPanel>
             </Border>
-            <Border Grid.Column="1" Style="{StaticResource CardBorderStyle}" Padding="16" BorderBrush="#D8C7A2" Margin="8,0">
-                <StackPanel><TextBlock Text="Entrega promedio" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding AverageDeliveryDays}" Style="{StaticResource KpiValueStyle}" Foreground="#8A6A3F"/></StackPanel>
-            </Border>
-            <Border Grid.Column="2" Style="{StaticResource CardBorderStyle}" Padding="16" BorderBrush="#F7D1CC" Margin="8,0,0,0">
+            <Border Grid.Column="1" Style="{StaticResource CardBorderStyle}" Padding="16" BorderBrush="#F7D1CC" Margin="8,0,0,0">
                 <StackPanel><TextBlock Text="Proveedores inactivos" Style="{StaticResource KpiLabelStyle}"/><TextBlock Text="{Binding InactiveCount}" Style="{StaticResource KpiValueStyle}" Foreground="#E45B48"/></StackPanel>
             </Border>
         </Grid>
         <Border Grid.Row="2" Style="{StaticResource CardBorderStyle}" Margin="24,16,24,24">
-            <DockPanel>
-                <Border DockPanel.Dock="Top" Background="#FAFBF6" BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" Padding="16">
-                    <WrapPanel>
-                        <StackPanel Width="330" Margin="0,0,12,0">
-                            <TextBlock Text="Buscar proveedor" Style="{StaticResource KpiLabelStyle}" Margin="0,0,0,5"/>
-                            <TextBox x:Name="BusquedaProveedor" Style="{StaticResource InputTextBoxStyle}" ToolTip="Código, nombre, correo o teléfono"/>
-                        </StackPanel>
-                        <StackPanel Width="180" Margin="0,0,12,0">
-                            <TextBlock Text="Estado" Style="{StaticResource KpiLabelStyle}" Margin="0,0,0,5"/>
-                            <ComboBox x:Name="EstadoProveedorCombo" Style="{StaticResource FilterComboBoxStyle}" SelectedIndex="0">
-                                <ComboBoxItem Content="Todos"/>
-                                <ComboBoxItem Content="Activos"/>
-                                <ComboBoxItem Content="Inactivos"/>
-                            </ComboBox>
-                        </StackPanel>
-                        <Button Content="🔍 Buscar" Style="{StaticResource PrimaryButtonStyle}" VerticalAlignment="Bottom" Click="BuscarProveedor_Click"/>
-                    </WrapPanel>
-                </Border>
-                <Grid>
-                    <DataGrid Style="{StaticResource ModuleDataGridStyle}" ItemsSource="{Binding Suppliers}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="110"/>
-                            <DataGridTextColumn Header="Proveedor" Binding="{Binding Proveedor}" Width="*"/>
-                            <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="140"/>
-                            <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="220"/>
-                            <DataGridTextColumn Header="Entrega estimada" Binding="{Binding EntregaEstimada}" Width="140"/>
-                            <DataGridTemplateColumn Header="Estado" Width="110"><DataGridTemplateColumn.CellTemplate><DataTemplate><Border Background="#E8F7EF" CornerRadius="10" Padding="8,3"><TextBlock Text="{Binding Estado}" Foreground="#169B62" Style="{StaticResource BadgeTextStyle}"/></Border></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Acciones" Width="100"><DataGridTemplateColumn.CellTemplate><DataTemplate><Button Content="Editar" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="EditarProveedor_Click"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                        <TextBlock Text="No hay proveedores para mostrar" FontWeight="SemiBold" Foreground="#64748B" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Registra contactos para compras de guayaba, azúcar, empaques e insumos sanitarios." FontSize="12" Foreground="#94A3B8" Margin="0,6,0,0"/>
-                    </StackPanel>
-                </Grid>
-            </DockPanel>
+            <DataGrid Style="{StaticResource ModuleDataGridStyle}" ItemsSource="{Binding Suppliers}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="110"/>
+                    <DataGridTextColumn Header="Proveedor" Binding="{Binding Proveedor}" Width="*"/>
+                    <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="140"/>
+                    <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="220"/>
+                    <DataGridTemplateColumn Header="Estado" Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="10" Padding="8,3">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#E8F7EF"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Entity.Activo}" Value="False">
+                                                    <Setter Property="Background" Value="#FEE2E2"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Text="{Binding Estado}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource BadgeTextStyle}">
+                                                <Setter Property="Foreground" Value="#169B62"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Entity.Activo}" Value="False">
+                                                        <Setter Property="Foreground" Value="#DC2626"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Acciones" Width="100"><DataGridTemplateColumn.CellTemplate><DataTemplate><Button Content="Editar" Style="{StaticResource PrimaryButtonStyle}" MinHeight="28" Padding="10,4" FontSize="11" Margin="0,3" Click="EditarProveedor_Click"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </Border>
     </Grid>
 </UserControl>

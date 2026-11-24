@@ -69,13 +69,6 @@
                         HorizontalAlignment="Stretch"
                         Margin="0,2,0,0"/>
                 
-                <Button Content="🛒 Compras" 
-                        Style="{StaticResource MenuButtonStyle}" 
-                        Click="NavMenu_Click"
-                        Tag="Purchases"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,2,0,0"/>
-                
                 <Button Content="🏭 Producción" 
                         Style="{StaticResource MenuButtonStyle}" 
                         Click="NavMenu_Click"
@@ -97,12 +90,6 @@
                         HorizontalAlignment="Stretch"
                         Margin="0,2,0,0"/>
                 
-                <Button Content="🧪 Sanitario" 
-                        Style="{StaticResource MenuButtonStyle}" 
-                        Click="NavMenu_Click"
-                        Tag="Sanitary"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,2,0,0"/>
             </StackPanel>
         </Border>
 

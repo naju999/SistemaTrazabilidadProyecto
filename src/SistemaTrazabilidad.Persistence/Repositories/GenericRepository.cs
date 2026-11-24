@@ -26,6 +26,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
     }
 
+    public async Task<IEnumerable<T>> FindTrackedAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbSet.Where(predicate).ToListAsync();
+    }
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _dbSet.AsNoTracking().ToListAsync();
@@ -38,7 +43,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public void Remove(T entity)
     {
-        _dbSet.Remove(entity);
+        var trackedEntity = _dbSet.Local.FirstOrDefault(e => e.Id == entity.Id);
+        _dbSet.Remove(trackedEntity ?? entity);
     }
 
     public void Update(T entity)

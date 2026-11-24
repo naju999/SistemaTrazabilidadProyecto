@@ -16,11 +16,10 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
     private readonly ISessionService _sessionService;
 
     private Insumo? _insumo;
-    private string _codigo = "";
+    private string _codigo = "Se asigna automáticamente al guardar";
     private string _nombre = "";
     private string _unidadMedida = "kg";
-    private decimal _stockActual = 0;
-    private decimal _stockMinimo = 0;
+    private decimal? _stockMinimo;
     private bool _activo = true;
     private string _mensajeError = "";
     private bool _cargando = false;
@@ -29,7 +28,7 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
     public string Codigo
     {
         get => _codigo;
-        set { if (_codigo != value) { _codigo = value; OnPropertyChanged(); } }
+        private set { if (_codigo != value) { _codigo = value; OnPropertyChanged(); } }
     }
 
     public string Nombre
@@ -44,13 +43,7 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
         set { if (_unidadMedida != value) { _unidadMedida = value; OnPropertyChanged(); } }
     }
 
-    public decimal StockActual
-    {
-        get => _stockActual;
-        set { if (_stockActual != value) { _stockActual = value; OnPropertyChanged(); } }
-    }
-
-    public decimal StockMinimo
+    public decimal? StockMinimo
     {
         get => _stockMinimo;
         set { if (_stockMinimo != value) { _stockMinimo = value; OnPropertyChanged(); } }
@@ -74,16 +67,16 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
         set { if (_cargando != value) { _cargando = value; OnPropertyChanged(); } }
     }
 
-    public bool EsNuevo => _esNuevo;
-
     public string TituloVentana => _esNuevo ? "Nuevo Insumo" : $"Editar Insumo: {Nombre}";
-
     public ICommand GuardarCommand { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public event EventHandler? GuardoExitoso;
 
-    public InventoryDetailViewModel(IUnitOfWork unitOfWork, AuditService auditService, ISessionService sessionService)
+    public InventoryDetailViewModel(
+        IUnitOfWork unitOfWork,
+        AuditService auditService,
+        ISessionService sessionService)
     {
         _unitOfWork = unitOfWork;
         _auditService = auditService;
@@ -98,24 +91,17 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
 
         Codigo = insumo.Codigo;
         Nombre = insumo.Nombre;
-        UnidadMedida = insumo.UnidadMedida;
-        StockActual = insumo.StockActual;
+        UnidadMedida = NormalizarUnidadMedida(insumo.UnidadMedida);
         StockMinimo = insumo.StockMinimo;
         Activo = insumo.Activo;
 
         OnPropertyChanged(nameof(TituloVentana));
-        OnPropertyChanged(nameof(EsNuevo));
     }
 
-    private bool ValidarCampos()
+    private bool ValidarCampos(out decimal stockMinimo)
     {
         MensajeError = "";
-
-        if (string.IsNullOrWhiteSpace(Codigo))
-        {
-            MensajeError = "El código es obligatorio";
-            return false;
-        }
+        stockMinimo = 0;
 
         if (string.IsNullOrWhiteSpace(Nombre))
         {
@@ -123,24 +109,31 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
             return false;
         }
 
-        if (StockActual < 0)
+        if (string.IsNullOrWhiteSpace(UnidadMedida))
         {
-            MensajeError = "El stock actual no puede ser negativo";
+            MensajeError = "La unidad de medida es obligatoria";
             return false;
         }
 
-        if (StockMinimo < 0)
+        if (StockMinimo is not decimal valorStockMinimo)
+        {
+            MensajeError = "El stock mínimo es obligatorio";
+            return false;
+        }
+
+        if (valorStockMinimo < 0)
         {
             MensajeError = "El stock mínimo no puede ser negativo";
             return false;
         }
 
+        stockMinimo = valorStockMinimo;
         return true;
     }
 
     private async Task GuardarAsync()
     {
-        if (!ValidarCampos())
+        if (!ValidarCampos(out var stockMinimo))
             return;
 
         Cargando = true;
@@ -148,19 +141,24 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
         {
             if (_esNuevo)
             {
+                var codigoGenerado = await GenerarCodigoAsync();
                 var nuevoInsumo = new Insumo
                 {
-                    Codigo = Codigo,
+                    Codigo = codigoGenerado,
                     Nombre = Nombre,
                     UnidadMedida = UnidadMedida,
-                    StockActual = StockActual,
-                    StockMinimo = StockMinimo,
+                    StockActual = 0,
+                    StockMinimo = stockMinimo,
                     Activo = Activo
                 };
 
                 await _unitOfWork.Repository<Insumo>().AddAsync(nuevoInsumo);
                 await _unitOfWork.CommitAsync();
-                
+
+                _insumo = nuevoInsumo;
+                _esNuevo = false;
+                OnPropertyChanged(nameof(TituloVentana));
+
                 await _auditService.LogAsync("Insumo", nuevoInsumo.Id, "Create",
                     $"Se creó el insumo {nuevoInsumo.Nombre}.", _sessionService.UsuarioActual?.Id);
 
@@ -171,8 +169,7 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
                 _insumo!.Codigo = Codigo;
                 _insumo.Nombre = Nombre;
                 _insumo.UnidadMedida = UnidadMedida;
-                _insumo.StockActual = StockActual;
-                _insumo.StockMinimo = StockMinimo;
+                _insumo.StockMinimo = stockMinimo;
                 _insumo.Activo = Activo;
 
                 _unitOfWork.Repository<Insumo>().Update(_insumo);
@@ -186,12 +183,46 @@ public class InventoryDetailViewModel : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            MensajeError = $"Error al guardar: {ex.Message}";
+            MensajeError = $"Error al guardar: {ex.GetBaseException().Message}";
         }
         finally
         {
             Cargando = false;
         }
+    }
+
+    private async Task<string> GenerarCodigoAsync()
+    {
+        var insumos = (await _unitOfWork.Repository<Insumo>().GetAllAsync()).ToList();
+        var ultimoNumero = insumos
+            .Select(i => i.Codigo)
+            .Where(c => c.StartsWith("INS", StringComparison.OrdinalIgnoreCase))
+            .Select(c => int.TryParse(c.AsSpan(3), out var numero) ? numero : 0)
+            .DefaultIfEmpty(0)
+            .Max();
+
+        var siguienteNumero = ultimoNumero + 1;
+        string codigo;
+        do
+        {
+            codigo = $"INS{siguienteNumero++:D3}";
+        }
+        while (insumos.Any(i => string.Equals(i.Codigo, codigo, StringComparison.OrdinalIgnoreCase)));
+
+        Codigo = codigo;
+        return codigo;
+    }
+
+    internal static string NormalizarUnidadMedida(string unidadMedida)
+    {
+        const string itemPrefix = "System.Windows.Controls.ComboBoxItem: ";
+        var unidad = unidadMedida.StartsWith(itemPrefix, StringComparison.Ordinal)
+            ? unidadMedida[itemPrefix.Length..]
+            : unidadMedida;
+
+        return string.Equals(unidad, "unidades", StringComparison.OrdinalIgnoreCase)
+            ? "unidad"
+            : unidad;
     }
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

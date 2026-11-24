@@ -158,13 +158,20 @@ public static class ModuleInputDialog
             _ => field.InitialValue.ToString() ?? string.Empty
         };
 
-        return new TextBox
+        var textBox = new TextBox
         {
             Text = initialText,
             Height = 36,
             Padding = new Thickness(10, 7, 10, 7),
             Style = System.Windows.Application.Current.TryFindResource("InputTextBoxStyle") as Style
         };
+
+        if (field.Kind is ModuleInputKind.Integer or ModuleInputKind.Decimal)
+        {
+            NumericTextBoxBehavior.SetUseThousandsSeparator(textBox, true);
+        }
+
+        return textBox;
     }
 
     private static bool TryReadValues(
@@ -192,7 +199,11 @@ public static class ModuleInputDialog
 
                 case ModuleInputKind.Integer:
                     var integerText = (control as TextBox)?.Text.Trim() ?? string.Empty;
-                    if (!int.TryParse(integerText, NumberStyles.Integer, CultureInfo.CurrentCulture, out var integer))
+                    if (!int.TryParse(
+                            integerText,
+                            NumberStyles.Integer | NumberStyles.AllowThousands,
+                            CultureInfo.CurrentCulture,
+                            out var integer))
                     {
                         ShowValidationError(owner, field, "debe ser un número entero.");
                         return false;

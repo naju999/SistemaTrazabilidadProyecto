@@ -18,13 +18,14 @@ public class LotService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Lote> CreateLoteAsync(int insumoId, string codigoLote, decimal cantidad, DateTime fechaIngreso, DateTime fechaVencimiento)
+    public async Task<Lote> CreateLoteAsync(
+        int insumoId,
+        int proveedorId,
+        decimal cantidad,
+        DateTime fechaIngreso,
+        DateTime fechaVencimiento,
+        int? usuarioId = null)
     {
-        if (string.IsNullOrWhiteSpace(codigoLote))
-        {
-            throw new BusinessRuleException("El código de lote es obligatorio.");
-        }
-
         if (cantidad <= 0)
         {
             throw new BusinessRuleException("La cantidad del lote debe ser mayor que cero.");
@@ -43,15 +44,15 @@ public class LotService
             throw new BusinessRuleException("No se puede generar un lote para un insumo inactivo.");
         }
 
-        var existingLot = await _unitOfWork.Repository<Lote>().FindAsync(l => l.CodigoLote == codigoLote);
-        if (existingLot.Any())
-        {
-            throw new BusinessRuleException("Ya existe un lote con el mismo código.");
-        }
+        var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
+            ?? throw new BusinessRuleException("Proveedor no encontrado.");
 
+        var codigoLote = LotCodeGenerator.Generate(fechaIngreso);
         var lote = new Lote
         {
+            CodigoInterno = codigoLote,
             InsumoId = insumoId,
+            ProveedorId = proveedor.Id,
             CodigoLote = codigoLote,
             FechaIngreso = fechaIngreso,
             FechaVencimiento = fechaVencimiento,
@@ -61,7 +62,28 @@ public class LotService
             PEPS = true
         };
 
+        var lotesActuales = await _unitOfWork.Repository<Lote>().FindAsync(l =>
+            l.InsumoId == insumoId &&
+            !l.Bloqueado &&
+            l.FechaVencimiento.Date >= DateTime.Today);
+        var stockAnterior = lotesActuales.Sum(l => l.CantidadDisponible);
         await _unitOfWork.Repository<Lote>().AddAsync(lote);
+        insumo.StockActual = stockAnterior + cantidad;
+        insumo.StockDisponible = insumo.StockActual;
+        _unitOfWork.Repository<Insumo>().Update(insumo);
+        await _unitOfWork.Repository<MovimientoInventario>().AddAsync(new MovimientoInventario
+        {
+            InsumoId = insumo.Id,
+            Lote = lote,
+            Tipo = InventoryMovementType.Entrada,
+            Cantidad = cantidad,
+            StockAnterior = stockAnterior,
+            StockPosterior = insumo.StockActual,
+            FechaMovimiento = DateTime.UtcNow,
+            UsuarioId = usuarioId,
+            Referencia = codigoLote,
+            Comentario = "Entrada registrada como un nuevo lote."
+        });
         await _unitOfWork.CommitAsync();
 
         return lote;
@@ -77,7 +99,7 @@ public class LotService
         var lotes = await _unitOfWork.Repository<Lote>().FindAsync(l =>
             l.InsumoId == insumoId &&
             !l.Bloqueado &&
-            !l.EstaVencido &&
+            l.FechaVencimiento.Date >= DateTime.Today &&
             l.CantidadDisponible > 0);
 
         var loteSeleccionado = lotes
@@ -118,10 +140,17 @@ public class LotService
             throw new BusinessRuleException("La cantidad de consumo excede la cantidad disponible del lote.");
         }
 
-        var insumo = await _unitOfWork.Repository<Insumo>().GetByIdAsync(lote.InsumoId)
+        var insumoId = lote.InsumoId
+            ?? throw new BusinessRuleException("El lote está desvinculado de un insumo eliminado.");
+        var insumo = await _unitOfWork.Repository<Insumo>().GetByIdAsync(insumoId)
             ?? throw new BusinessRuleException("El insumo asociado al lote no existe.");
 
-        if (insumo.StockActual - cantidad < 0)
+        var lotesDisponibles = await _unitOfWork.Repository<Lote>().FindAsync(l =>
+            l.InsumoId == insumo.Id &&
+            !l.Bloqueado &&
+            l.FechaVencimiento.Date >= DateTime.Today);
+        var stockAnterior = lotesDisponibles.Sum(l => l.CantidadDisponible);
+        if (stockAnterior - cantidad < 0)
         {
             throw new BusinessRuleException("No hay suficiente stock general para consumir de este lote.");
         }
@@ -129,7 +158,8 @@ public class LotService
         lote.CantidadDisponible -= cantidad;
         _unitOfWork.Repository<Lote>().Update(lote);
 
-        insumo.StockActual -= cantidad;
+        insumo.StockActual = stockAnterior - cantidad;
+        insumo.StockDisponible = insumo.StockActual;
         _unitOfWork.Repository<Insumo>().Update(insumo);
 
         var movimiento = new MovimientoInventario
@@ -138,12 +168,12 @@ public class LotService
             LoteId = lote.Id,
             Tipo = InventoryMovementType.Produccion,
             Cantidad = cantidad,
-            StockAnterior = insumo.StockActual + cantidad,
+            StockAnterior = stockAnterior,
             StockPosterior = insumo.StockActual,
             FechaMovimiento = DateTime.UtcNow,
             UsuarioId = usuarioId,
             Referencia = "Consumo de lote PEPS para producción",
-            Comentario = $"Consumo automático del lote {lote.CodigoLote}"
+            Comentario = $"Consumo automático del lote {lote.CodigoInterno}"
         };
 
         await _unitOfWork.Repository<MovimientoInventario>().AddAsync(movimiento);
@@ -154,7 +184,9 @@ public class LotService
 
     public async Task<IEnumerable<Lote>> GetLotesVencidosAsync(int insumoId)
     {
-        return await _unitOfWork.Repository<Lote>().FindAsync(l => l.InsumoId == insumoId && l.EstaVencido);
+        return await _unitOfWork.Repository<Lote>().FindAsync(l =>
+            l.InsumoId == insumoId &&
+            l.FechaVencimiento.Date < DateTime.Today);
     }
 
     public async Task<IEnumerable<Lote>> GetTrazaHistoricaAsync(int insumoId)
@@ -164,11 +196,49 @@ public class LotService
 
     public async Task<Lote> BlockInvalidLotAsync(int loteId, string razon)
     {
+        if (string.IsNullOrWhiteSpace(razon))
+        {
+            throw new BusinessRuleException("La razón del bloqueo es obligatoria.");
+        }
+
         var lote = await _unitOfWork.Repository<Lote>().GetByIdAsync(loteId)
             ?? throw new BusinessRuleException($"Lote {loteId} no encontrado.");
 
+        var eraDisponible = !lote.Bloqueado && !lote.EstaVencido;
+        var insumoId = lote.InsumoId
+            ?? throw new BusinessRuleException("El lote está desvinculado de un insumo eliminado.");
+        var insumo = await _unitOfWork.Repository<Insumo>().GetByIdAsync(insumoId)
+            ?? throw new BusinessRuleException("El insumo asociado al lote no existe.");
+        var lotesDisponibles = await _unitOfWork.Repository<Lote>().FindAsync(l =>
+            l.InsumoId == lote.InsumoId &&
+            !l.Bloqueado &&
+            l.FechaVencimiento.Date >= DateTime.Today);
+        var stockAnterior = lotesDisponibles.Sum(l => l.CantidadDisponible);
+
         lote.Bloqueado = true;
         _unitOfWork.Repository<Lote>().Update(lote);
+        var stockPosterior = eraDisponible
+            ? stockAnterior - lote.CantidadDisponible
+            : stockAnterior;
+        insumo.StockActual = stockPosterior;
+        insumo.StockDisponible = stockPosterior;
+        _unitOfWork.Repository<Insumo>().Update(insumo);
+
+        if (eraDisponible && lote.CantidadDisponible > 0)
+        {
+            await _unitOfWork.Repository<MovimientoInventario>().AddAsync(new MovimientoInventario
+            {
+                InsumoId = insumo.Id,
+                LoteId = lote.Id,
+                Tipo = InventoryMovementType.BloqueoLote,
+                Cantidad = lote.CantidadDisponible,
+                StockAnterior = stockAnterior,
+                StockPosterior = stockPosterior,
+                FechaMovimiento = DateTime.UtcNow,
+                Referencia = lote.CodigoInterno,
+                Comentario = $"Stock excluido por bloqueo del lote: {razon}"
+            });
+        }
 
         var auditoria = new Auditoria
         {

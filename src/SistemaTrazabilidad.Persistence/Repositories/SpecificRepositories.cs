@@ -14,7 +14,6 @@ public interface IProveedorRepository : IGenericRepository<Proveedor>
 {
     Task<IEnumerable<Proveedor>> GetActivosAsync();
     Task<Proveedor?> GetByCodigoAsync(string codigo);
-    Task<IEnumerable<Proveedor>> GetSugerenciasDeCompraAsync(int top = 5);
 }
 
 public interface IInsumoRepository : IGenericRepository<Insumo>
@@ -32,24 +31,11 @@ public interface ILoteRepository : IGenericRepository<Lote>
     Task<IEnumerable<Lote>> GetLotesPEPSAsync(int insumoId);
 }
 
-public interface ICompraRepository : IGenericRepository<Compra>
-{
-    Task<IEnumerable<Compra>> GetComprasPorProveedorAsync(int proveedorId);
-    Task<IEnumerable<Compra>> GetHistoricoPreciosAsync(int insumoId);
-    Task<IEnumerable<Compra>> GetPendientesAsync();
-}
-
 public interface IProduccionRepository : IGenericRepository<Produccion>
 {
     Task<IEnumerable<Produccion>> GetPorInsumoAsync(int insumoId);
     Task<IEnumerable<Produccion>> GetEnProcesoAsync();
     Task<Produccion?> GetByOrdenAsync(string ordenProduccion);
-}
-
-public interface IRegistroSanitarioRepository : IGenericRepository<RegistroSanitario>
-{
-    Task<IEnumerable<RegistroSanitario>> GetPorInsumoAsync(int insumoId);
-    Task<IEnumerable<RegistroSanitario>> GetDefectuososAsync();
 }
 
 public interface IAlertaRepository : IGenericRepository<Alerta>
@@ -79,15 +65,6 @@ public class ProveedorRepository : GenericRepository<Proveedor>, IProveedorRepos
         return await _context.Set<Proveedor>().AsNoTracking().FirstOrDefaultAsync(p => p.Codigo == codigo);
     }
 
-    public async Task<IEnumerable<Proveedor>> GetSugerenciasDeCompraAsync(int top = 5)
-    {
-        return await _context.Set<Proveedor>()
-            .AsNoTracking()
-            .Where(p => p.Activo)
-            .OrderBy(p => p.TiempoEntregaDias)
-            .Take(top)
-            .ToListAsync().ConfigureAwait(false);
-    }
 }
 
 public class InsumoRepository : GenericRepository<Insumo>, IInsumoRepository
@@ -101,9 +78,23 @@ public class InsumoRepository : GenericRepository<Insumo>, IInsumoRepository
         return FindAsync(i => i.Activo);
     }
 
-    public Task<IEnumerable<Insumo>> GetBajoStockAsync()
+    public async Task<IEnumerable<Insumo>> GetBajoStockAsync()
     {
-        return FindAsync(i => i.Activo && i.StockActual <= i.StockMinimo);
+        var insumos = await _context.Set<Insumo>()
+            .Where(i => i.Activo)
+            .ToListAsync();
+        var lotes = await _context.Set<Lote>()
+            .Where(l => !l.Bloqueado && l.CantidadDisponible > 0)
+            .ToListAsync();
+
+        foreach (var insumo in insumos)
+        {
+            insumo.StockDisponible = lotes
+                .Where(l => l.InsumoId == insumo.Id && l.FechaVencimiento.Date >= DateTime.Today)
+                .Sum(l => l.CantidadDisponible);
+        }
+
+        return insumos.Where(i => i.StockDisponible <= i.StockMinimo).ToList();
     }
 
     public async Task<Insumo?> GetByCodigoAsync(string codigo)
@@ -143,28 +134,6 @@ public class LoteRepository : GenericRepository<Lote>, ILoteRepository
     }
 }
 
-public class CompraRepository : GenericRepository<Compra>, ICompraRepository
-{
-    public CompraRepository(AppDbContext context) : base(context)
-    {
-    }
-
-    public Task<IEnumerable<Compra>> GetComprasPorProveedorAsync(int proveedorId)
-    {
-        return FindAsync(c => c.ProveedorId == proveedorId);
-    }
-
-    public Task<IEnumerable<Compra>> GetHistoricoPreciosAsync(int insumoId)
-    {
-        return FindAsync(c => c.InsumoId == insumoId);
-    }
-
-    public Task<IEnumerable<Compra>> GetPendientesAsync()
-    {
-        return FindAsync(c => c.Estado == PurchaseStatus.Pendiente);
-    }
-}
-
 public class ProduccionRepository : GenericRepository<Produccion>, IProduccionRepository
 {
     public ProduccionRepository(AppDbContext context) : base(context)
@@ -184,23 +153,6 @@ public class ProduccionRepository : GenericRepository<Produccion>, IProduccionRe
     public async Task<Produccion?> GetByOrdenAsync(string ordenProduccion)
     {
         return await _context.Set<Produccion>().AsNoTracking().FirstOrDefaultAsync(p => p.OrdenProduccion == ordenProduccion);
-    }
-}
-
-public class RegistroSanitarioRepository : GenericRepository<RegistroSanitario>, IRegistroSanitarioRepository
-{
-    public RegistroSanitarioRepository(AppDbContext context) : base(context)
-    {
-    }
-
-    public Task<IEnumerable<RegistroSanitario>> GetPorInsumoAsync(int insumoId)
-    {
-        return FindAsync(r => r.InsumoId == insumoId);
-    }
-
-    public Task<IEnumerable<RegistroSanitario>> GetDefectuososAsync()
-    {
-        return FindAsync(r => !r.Aprobado);
     }
 }
 

@@ -43,4 +43,21 @@ public partial class InventoryListView : UserControl
             }
         }
     }
+
+    private async void Lotes_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        if ((sender as System.Windows.Controls.Button)?.DataContext is Insumo insumo)
+        {
+            var window = new LotManagementWindow(insumo)
+            {
+                Owner = System.Windows.Window.GetWindow(this)
+            };
+            window.ShowDialog();
+
+            if (DataContext is InventoryListViewModel vm)
+            {
+                await vm.CargarInsumosAsync();
+            }
+        }
+    }
 }
