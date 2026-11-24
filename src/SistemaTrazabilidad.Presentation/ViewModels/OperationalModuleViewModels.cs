@@ -58,7 +58,6 @@ public sealed class SupplierModuleViewModel : OperationalModuleViewModel
 
     public async Task SaveAsync(
         Proveedor? existing,
-        string codigo,
         string nombre,
         string telefono,
         string email,
@@ -66,7 +65,7 @@ public sealed class SupplierModuleViewModel : OperationalModuleViewModel
     {
         if (existing is null)
         {
-            await _supplierService.CreateProveedorAsync(codigo, nombre, telefono, email);
+            await _supplierService.CreateProveedorAsync(nombre, telefono, email);
         }
         else
         {

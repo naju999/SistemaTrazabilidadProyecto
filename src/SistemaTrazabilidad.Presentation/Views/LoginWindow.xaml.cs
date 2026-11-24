@@ -30,4 +30,9 @@ public partial class LoginWindow : Window
             }
         };
     }
+
+    private void CerrarPrograma_Click(object sender, RoutedEventArgs e)
+    {
+        System.Windows.Application.Current.Shutdown();
+    }
 }

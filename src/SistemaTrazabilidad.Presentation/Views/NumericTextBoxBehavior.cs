@@ -8,6 +8,13 @@ namespace SistemaTrazabilidad.Presentation.Views;
 
 public static class NumericTextBoxBehavior
 {
+    public static readonly DependencyProperty DigitsOnlyProperty =
+        DependencyProperty.RegisterAttached(
+            "DigitsOnly",
+            typeof(bool),
+            typeof(NumericTextBoxBehavior),
+            new PropertyMetadata(false, OnDigitsOnlyChanged));
+
     public static readonly DependencyProperty UseThousandsSeparatorProperty =
         DependencyProperty.RegisterAttached(
             "UseThousandsSeparator",
@@ -15,11 +22,40 @@ public static class NumericTextBoxBehavior
             typeof(NumericTextBoxBehavior),
             new PropertyMetadata(false, OnUseThousandsSeparatorChanged));
 
+    public static bool GetDigitsOnly(DependencyObject element) =>
+        (bool)element.GetValue(DigitsOnlyProperty);
+
+    public static void SetDigitsOnly(DependencyObject element, bool value) =>
+        element.SetValue(DigitsOnlyProperty, value);
+
     public static bool GetUseThousandsSeparator(DependencyObject element) =>
         (bool)element.GetValue(UseThousandsSeparatorProperty);
 
     public static void SetUseThousandsSeparator(DependencyObject element, bool value) =>
         element.SetValue(UseThousandsSeparatorProperty, value);
+
+    private static void OnDigitsOnlyChanged(
+        DependencyObject dependencyObject,
+        DependencyPropertyChangedEventArgs eventArgs)
+    {
+        if (dependencyObject is not TextBox textBox)
+        {
+            return;
+        }
+
+        if (eventArgs.NewValue is true)
+        {
+            textBox.PreviewTextInput += TextBox_PreviewDigitsOnlyTextInput;
+            textBox.PreviewDrop += TextBox_PreviewDigitsOnlyDrop;
+            DataObject.AddPastingHandler(textBox, TextBox_DigitsOnlyPasting);
+        }
+        else
+        {
+            textBox.PreviewTextInput -= TextBox_PreviewDigitsOnlyTextInput;
+            textBox.PreviewDrop -= TextBox_PreviewDigitsOnlyDrop;
+            DataObject.RemovePastingHandler(textBox, TextBox_DigitsOnlyPasting);
+        }
+    }
 
     private static void OnUseThousandsSeparatorChanged(
         DependencyObject dependencyObject,
@@ -44,6 +80,45 @@ public static class NumericTextBoxBehavior
             textBox.PreviewDrop -= TextBox_PreviewDrop;
             DataObject.RemovePastingHandler(textBox, TextBox_Pasting);
             textBox.TextChanged -= TextBox_TextChanged;
+        }
+    }
+
+    private static void TextBox_PreviewDigitsOnlyTextInput(object sender, TextCompositionEventArgs eventArgs)
+    {
+        if (sender is TextBox textBox &&
+            !IsValidDigitsInsertion(textBox, eventArgs.Text))
+        {
+            eventArgs.Handled = true;
+        }
+    }
+
+    private static void TextBox_DigitsOnlyPasting(object sender, DataObjectPastingEventArgs eventArgs)
+    {
+        if (sender is not TextBox textBox)
+        {
+            return;
+        }
+
+        var pastedText = eventArgs.DataObject.GetData(DataFormats.UnicodeText) as string
+            ?? eventArgs.DataObject.GetData(DataFormats.Text) as string;
+        if (pastedText is null || !IsValidDigitsInsertion(textBox, pastedText))
+        {
+            eventArgs.CancelCommand();
+        }
+    }
+
+    private static void TextBox_PreviewDigitsOnlyDrop(object sender, DragEventArgs eventArgs)
+    {
+        if (sender is not TextBox textBox)
+        {
+            return;
+        }
+
+        var droppedText = eventArgs.Data.GetData(DataFormats.UnicodeText) as string
+            ?? eventArgs.Data.GetData(DataFormats.Text) as string;
+        if (droppedText is null || !IsValidDigitsInsertion(textBox, droppedText))
+        {
+            eventArgs.Handled = true;
         }
     }
 
@@ -138,6 +213,17 @@ public static class NumericTextBoxBehavior
             candidate,
             SanitizeNumberText(candidate, numberFormat),
             StringComparison.Ordinal);
+    }
+
+    private static bool IsValidDigitsInsertion(TextBox textBox, string insertedText)
+    {
+        var selectionStart = Math.Clamp(textBox.SelectionStart, 0, textBox.Text.Length);
+        var selectionLength = Math.Clamp(textBox.SelectionLength, 0, textBox.Text.Length - selectionStart);
+        var candidate = textBox.Text
+            .Remove(selectionStart, selectionLength)
+            .Insert(selectionStart, insertedText);
+
+        return ContainsOnlyDigits(candidate);
     }
 
     private static string SanitizeNumberText(string text, NumberFormatInfo numberFormat)

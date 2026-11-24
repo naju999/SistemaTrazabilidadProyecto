@@ -8,6 +8,7 @@ namespace SistemaTrazabilidad.Presentation.Views;
 public enum ModuleInputKind
 {
     Text,
+    Digits,
     Integer,
     Decimal,
     Date,
@@ -157,6 +158,10 @@ public static class ModuleInputDialog
             IFormattable formattable => formattable.ToString(null, CultureInfo.CurrentCulture),
             _ => field.InitialValue.ToString() ?? string.Empty
         };
+        if (field.Kind == ModuleInputKind.Digits)
+        {
+            initialText = new string(initialText.Where(character => character is >= '0' and <= '9').ToArray());
+        }
 
         var textBox = new TextBox
         {
@@ -166,7 +171,11 @@ public static class ModuleInputDialog
             Style = System.Windows.Application.Current.TryFindResource("InputTextBoxStyle") as Style
         };
 
-        if (field.Kind is ModuleInputKind.Integer or ModuleInputKind.Decimal)
+        if (field.Kind == ModuleInputKind.Digits)
+        {
+            NumericTextBoxBehavior.SetDigitsOnly(textBox, true);
+        }
+        else if (field.Kind is ModuleInputKind.Integer or ModuleInputKind.Decimal)
         {
             NumericTextBoxBehavior.SetUseThousandsSeparator(textBox, true);
         }
@@ -195,6 +204,17 @@ public static class ModuleInputDialog
                         ShowValidationError(owner, field, "es obligatorio.");
                         return false;
                     }
+                    break;
+
+                case ModuleInputKind.Digits:
+                    var digitsText = (control as TextBox)?.Text.Trim() ?? string.Empty;
+                    if ((field.Required && string.IsNullOrWhiteSpace(digitsText)) ||
+                        digitsText.Any(character => character is < '0' or > '9'))
+                    {
+                        ShowValidationError(owner, field, "debe contener solo números.");
+                        return false;
+                    }
+                    value = digitsText;
                     break;
 
                 case ModuleInputKind.Integer:

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Threading.Tasks;
 using SistemaTrazabilidad.Application.Exceptions;
 using SistemaTrazabilidad.Domain.Entities;
@@ -10,6 +10,7 @@ namespace SistemaTrazabilidad.Application.Services;
 
 public class SupplierService
 {
+    private const string SupplierCodePrefix = "PROV";
     private readonly IUnitOfWork _unitOfWork;
     private readonly AuditService _auditService;
 
@@ -19,18 +20,15 @@ public class SupplierService
         _auditService = auditService;
     }
 
-    public async Task<Proveedor> CreateProveedorAsync(string codigo, string nombre, string telefono, string email)
+    public async Task<Proveedor> CreateProveedorAsync(string nombre, string telefono, string email)
     {
-        if (string.IsNullOrWhiteSpace(codigo) || string.IsNullOrWhiteSpace(nombre))
+        if (string.IsNullOrWhiteSpace(nombre))
         {
-            throw new BusinessRuleException("El código y nombre del proveedor son obligatorios.");
+            throw new BusinessRuleException("El nombre del proveedor es obligatorio.");
         }
 
-        var existing = (await _unitOfWork.Repository<Proveedor>().FindAsync(p => p.Codigo == codigo)).FirstOrDefault();
-        if (existing != null)
-        {
-            throw new BusinessRuleException("Ya existe un proveedor con el mismo código.");
-        }
+        ValidatePhoneNumber(telefono);
+        var codigo = await GenerateNextSupplierCodeAsync();
 
         var proveedor = new Proveedor
         {
@@ -48,8 +46,30 @@ public class SupplierService
         return proveedor;
     }
 
+    private async Task<string> GenerateNextSupplierCodeAsync()
+    {
+        var suppliers = await _unitOfWork.Repository<Proveedor>().GetAllAsync();
+        var highestSequence = 0;
+
+        foreach (var supplier in suppliers)
+        {
+            if (supplier.Codigo.StartsWith(SupplierCodePrefix, StringComparison.OrdinalIgnoreCase) &&
+                int.TryParse(
+                    supplier.Codigo.AsSpan(SupplierCodePrefix.Length),
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var sequence))
+            {
+                highestSequence = Math.Max(highestSequence, sequence);
+            }
+        }
+
+        return $"{SupplierCodePrefix}{checked(highestSequence + 1):D3}";
+    }
+
     public async Task<Proveedor> UpdateProveedorAsync(int proveedorId, string nombre, string telefono, string email, bool activo)
     {
+        ValidatePhoneNumber(telefono);
         var proveedor = await _unitOfWork.Repository<Proveedor>().GetByIdAsync(proveedorId)
             ?? throw new BusinessRuleException("Proveedor no encontrado.");
 
@@ -63,6 +83,14 @@ public class SupplierService
         await _auditService.LogAsync(nameof(Proveedor), proveedor.Id, "Actualizar proveedor", $"Proveedor {proveedor.Nombre} actualizado.");
 
         return proveedor;
+    }
+
+    private static void ValidatePhoneNumber(string telefono)
+    {
+        if (telefono.Any(character => character is < '0' or > '9'))
+        {
+            throw new BusinessRuleException("El teléfono solo debe contener números.");
+        }
     }
 
     public async Task<Proveedor?> GetProveedorByIdAsync(int proveedorId)

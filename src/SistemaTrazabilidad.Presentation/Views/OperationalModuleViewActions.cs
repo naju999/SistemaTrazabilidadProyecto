@@ -82,9 +82,8 @@ public partial class SuppliersView
     {
         var fields = new[]
         {
-            new ModuleInputField("codigo", "Código", ModuleInputKind.Text),
             new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text),
-            new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Text, Required: false),
+            new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Digits, Required: false),
             new ModuleInputField("email", "Correo", ModuleInputKind.Text, Required: false)
         };
 
@@ -96,7 +95,6 @@ public partial class SuppliersView
         await ModuleViewActions.RunAsync(this, () =>
             ((SupplierModuleViewModel)DataContext).SaveAsync(
                 null,
-                ModuleViewActions.GetText(values, "codigo"),
                 ModuleViewActions.GetText(values, "nombre"),
                 ModuleViewActions.GetText(values, "telefono"),
                 ModuleViewActions.GetText(values, "email"),
@@ -113,7 +111,7 @@ public partial class SuppliersView
         var fields = new[]
         {
             new ModuleInputField("nombre", "Nombre", ModuleInputKind.Text, row.Entity.Nombre),
-            new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Text, row.Entity.Telefono, Required: false),
+            new ModuleInputField("telefono", "Teléfono", ModuleInputKind.Digits, row.Entity.Telefono, Required: false),
             new ModuleInputField("email", "Correo", ModuleInputKind.Text, row.Entity.Email, Required: false),
             new ModuleInputField(
                 "activo",
@@ -134,7 +132,6 @@ public partial class SuppliersView
         await ModuleViewActions.RunAsync(this, () =>
             ((SupplierModuleViewModel)DataContext).SaveAsync(
                 row.Entity,
-                row.Entity.Codigo,
                 ModuleViewActions.GetText(values, "nombre"),
                 ModuleViewActions.GetText(values, "telefono"),
                 ModuleViewActions.GetText(values, "email"),
