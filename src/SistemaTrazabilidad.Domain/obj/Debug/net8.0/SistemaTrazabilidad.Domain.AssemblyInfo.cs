@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaTrazabilidad.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06bae8f93241dddaee9f7bcf304c00d603222988")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8d1e08bff6091550ef812a90c9f51c9740bc7b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaTrazabilidad.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaTrazabilidad.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
